@@ -3,7 +3,6 @@ import React from "react";
 import { Col, Container, Row } from "reactstrap";
 
 import Main from "../components/Main";
-import Settings from "../components/Settings";
 
 const Auth = ({ children }) => (
   <React.Fragment>
@@ -16,7 +15,6 @@ const Auth = ({ children }) => (
         </Row>
       </Container>
     </Main>
-    <Settings />
   </React.Fragment>
 );
 

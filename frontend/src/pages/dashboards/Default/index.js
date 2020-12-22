@@ -3,7 +3,6 @@ import { Container, Row, Col } from "reactstrap";
 
 import Appointments from "./Appointments";
 import BarChart from "./BarChart";
-import Calendar from "./Calendar";
 import Feed from "./Feed";
 import Header from "./Header";
 import LineChart from "./LineChart";
@@ -24,9 +23,6 @@ const Default = () => (
       </Col>
     </Row>
     <Row>
-      <Col lg="6" xl="4" className="d-flex">
-        <Calendar />
-      </Col>
       <Col lg="6" xl="4" className="d-flex">
         <PieChart />
       </Col>

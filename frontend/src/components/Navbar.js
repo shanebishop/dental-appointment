@@ -30,11 +30,6 @@ import {
   UserPlus
 } from "react-feather";
 
-import usFlag from "../assets/img/flags/us.png";
-import esFlag from "../assets/img/flags/es.png";
-import deFlag from "../assets/img/flags/de.png";
-import nlFlag from "../assets/img/flags/nl.png";
-
 import avatar1 from "../assets/img/avatars/avatar.jpg";
 import avatar3 from "../assets/img/avatars/avatar-3.jpg";
 import avatar4 from "../assets/img/avatars/avatar-4.jpg";
@@ -216,50 +211,6 @@ const NavbarComponent = ({ dispatch }) => {
               );
             })}
           </NavbarDropdown>
-
-          <UncontrolledDropdown nav inNavbar className="mr-2">
-            <DropdownToggle nav caret className="nav-flag">
-              <img src={usFlag} alt="English" />
-            </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem>
-                <img
-                  src={usFlag}
-                  alt="English"
-                  width="20"
-                  className="align-middle mr-1"
-                />
-                <span className="align-middle">English</span>
-              </DropdownItem>
-              <DropdownItem>
-                <img
-                  src={esFlag}
-                  alt="Spanish"
-                  width="20"
-                  className="align-middle mr-1"
-                />
-                <span className="align-middle">Spanish</span>
-              </DropdownItem>
-              <DropdownItem>
-                <img
-                  src={deFlag}
-                  alt="German"
-                  width="20"
-                  className="align-middle mr-1"
-                />
-                <span className="align-middle">German</span>
-              </DropdownItem>
-              <DropdownItem>
-                <img
-                  src={nlFlag}
-                  alt="Dutch"
-                  width="20"
-                  className="align-middle mr-1"
-                />
-                <span className="align-middle">Dutch</span>
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
 
           <UncontrolledDropdown nav inNavbar>
             <span className="d-inline-block d-sm-none">
