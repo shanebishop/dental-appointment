@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import { enableCorporateTheme } from "../../redux/actions/themeActions";
 
 import {
-  Badge,
   Button,
-  Card,
-  CardBody,
-  CardHeader,
   Col,
-  Collapse,
   Container,
-  Media,
   Nav,
   NavItem,
   NavLink,
@@ -23,16 +16,7 @@ import {
 
 import {
   Box,
-  Chrome,
-  Code,
-  DownloadCloud,
-  Mail,
-  Sliders,
-  Smartphone
 } from "react-feather";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const Navigation = () => (
   <Navbar dark expand="md" className="navbar-landing">

@@ -26,9 +26,6 @@ import ThemeClassic from "../pages/layouts/ThemeClassic";
 import ThemeCorporate from "../pages/layouts/ThemeCorporate";
 import ThemeModern from "../pages/layouts/ThemeModern";
 
-// Misc
-import Blank from "../pages/misc/Blank";
-
 // Pages
 import Profile from "../pages/pages/Profile";
 
@@ -99,11 +96,6 @@ const pageRoutes = {
       name: "Profile",
       component: Profile
     },
-    {
-      path: "/pages/blank",
-      name: "Blank Page",
-      component: Blank
-    }
   ]
 };
 
@@ -196,13 +188,7 @@ const calendarRoutes = {
 const privateRoutes = {
   path: "/private",
   name: "Private",
-  children: [
-    {
-      path: "/private/blank",
-      name: "Blank Page",
-      component: Blank
-    }
-  ]
+  children: []
 };
 
 // Dashboard specific routes
