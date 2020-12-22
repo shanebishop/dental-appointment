@@ -21,3 +21,5 @@ yarn-error.log*
 
 */node_modules/*
 !*/node_modules/.gitkeep
+
+*/db.sqlite3

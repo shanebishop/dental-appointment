@@ -1,0 +1,78 @@
+version: '3.7'
+
+services:
+  db:
+    container_name: db
+    image: postgres:13.1
+    environment:
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - main
+
+  backend:
+    container_name: backend
+    build: ./backend
+    command: /start.sh
+    environment:
+      - SECRET_KEY=secret-key-for-development
+      - DEBUG=True
+      - STATIC_ROOT=static
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_SERVICE_HOST=db
+      - ADMIN_USER=admin
+      - ADMIN_PASSWORD=admin
+    volumes:
+      - '.:/code'
+      - 'django-static:/code/backend/static'
+    ports:
+      - 8000:8000
+    networks:
+      - main
+    depends_on:
+      - db
+
+  # TODO Ucomment this so frontend is brought up as well
+  #      (see notes.txt from Dec 22, 2020)
+  #      Also uncomment line 66 below
+  # frontend:
+  #   container_name: frontend
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   stdin_open: true
+  #   tty: true
+  #   volumes:
+  #     - ./frontend:/app
+  #     - /app/node_modules
+  #     - django-static:/usr/src/app/static
+  #   ports:
+  #     - 3000:3000
+  #   networks:
+  #     - main
+  #   environment:
+  #     - CHOKIDIR_USEPOLLING=true
+
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+      #- frontend # TODO Uncomment me later (see TODO above)
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - django-static:/usr/src/app/static
+    networks:
+      - main
+
+networks:
+  main:
+    driver: bridge
+
+volumes:
+  django-static:
