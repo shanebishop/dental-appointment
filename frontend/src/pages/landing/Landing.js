@@ -1,101 +1,70 @@
-import React, { useEffect } from "react";
-import { connect, useDispatch } from "react-redux";
+import React from "react";
+import { connect } from "react-redux";
 import { enableCorporateTheme } from "../../redux/actions/themeActions";
 
 import {
   Button,
   Col,
   Container,
-  Nav,
-  NavItem,
-  NavLink,
   Navbar,
   NavbarBrand,
   Row
 } from "reactstrap";
 
-import {
-  Box,
-} from "react-feather";
+import { Home } from "react-feather";
 
 const Navigation = () => (
-  <Navbar dark expand="md" className="navbar-landing">
-    <Container>
+    <Navbar dark expand className="navbar-landing">
       <NavbarBrand href="/">
-        <Box title="AppStack" />
-        AppStack
+        <Home title="Dr. Phil Ing Dental Clinic" />
+        Dr. Phil Ing Dental Clinic
       </NavbarBrand>
-      <Nav className="ml-auto" navbar>
-        <NavItem className="d-none d-md-inline-block">
-          <NavLink href="/dashboard/default" target="_blank" active>
-            Preview
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/docs/introduction" target="_blank" active>
-            Documentation
-          </NavLink>
-        </NavItem>
-        <NavItem className="d-none d-md-inline-block">
-          <NavLink href="mailto:support@bootlab.io" active>
-            Support
-          </NavLink>
-        </NavItem>
-      </Nav>
       <Button
-        href="https://themes.getbootstrap.com/product/appstack-react-admin-dashboard-template/"
-        target="_blank"
-        rel="noopener noreferrer"
-        color="primary"
-        className="ml-2"
-        size="lg"
+          href='/auth/sign-in'
+          color="primary"
+          className="ml-auto ml-2"
       >
-        Get AppStack
+        Login
       </Button>
-    </Container>
-  </Navbar>
+    </Navbar>
 );
 
-const Footer = () => (
-  <section className="landing-footer pb-6">
-    <svg className="landing-footer-shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 100 1440 220">
-      <path fill="#F7F9FC" fill-opacity="1" d="M0,128L1440,256L1440,0L0,0Z"></path>
-    </svg>
-    <Container className="text-center landing-footer-container">
-      <Row>
-        <Col md="9" lg="8" xl="6" className="mx-auto">
-          <h2 className="h1 text-white mb-3">
-            Join over 3,000 developers who are already working with our products
-          </h2>
-          <Button
-            color="light"
-            size="lg"
-            href="https://themes.getbootstrap.com/product/appstack-react-admin-dashboard-template/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-n1"
-          >
-            Purchase Now
-          </Button>
-        </Col>
-      </Row>
-    </Container>
-  </section>
+const Body = () => (
+    <section className="py-6 bg-white">
+      <Container>
+        <Row>
+          <Col md="12" lg="9" xl="12" className="mx-auto">
+            <Row>
+              <Col xl="5">
+                <h1 className="my-4 font-weight-normal">
+                  Welcome to the Dr. Phil Ing Dental Clinic website!
+                </h1>
+
+                <p className="text-muted lead">
+                  We hope you enjoy your stay.
+                </p>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+    </section>
 );
 
-const Landing = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
+class Landing extends React.Component {
+  UNSAFE_componentWillMount() {
+    const { dispatch } = this.props;
     dispatch(enableCorporateTheme());
-  }, [dispatch]);
+  }
 
-  return (
-    <React.Fragment>
-      <Navigation />
-      <Footer />
-    </React.Fragment>
-  )
+  render() {
+    return (
+        <React.Fragment>
+          <Navigation />
+          <Body />
+        </React.Fragment>
+    );
+  }
 }
 
 export default connect()(Landing);
