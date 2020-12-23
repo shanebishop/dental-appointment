@@ -1,0 +1,8 @@
+**/app/public
+node_modules
+logs
+run
+build
+coverage
+**/app/assets
+src/vendor

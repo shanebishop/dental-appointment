@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import React from "react";
 import { connect } from "react-redux";
 
@@ -132,32 +134,34 @@ class World extends React.Component {
   componentDidMount() {
     this.drawMap(this.props.theme);
   }
-  render = () => (
-    <Card className="flex-fill w-100">
-      <CardHeader>
-        <div className="card-actions float-right">
-          <UncontrolledDropdown>
-            <DropdownToggle tag="a">
-              <MoreHorizontal />
-            </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem>Action</DropdownItem>
-              <DropdownItem>Another Action</DropdownItem>
-              <DropdownItem>Something else here</DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-        </div>
-        <CardTitle tag="h5" className="mb-0">
-          Real-Time
-        </CardTitle>
-      </CardHeader>
-      <CardBody className="p-2">
-        <div className="map-container">
-          <div id="world_map" style={{ height: 304 }} />
-        </div>
-      </CardBody>
-    </Card>
-  );
+  render() {
+    return (
+      <Card className="flex-fill w-100">
+        <CardHeader>
+          <div className="card-actions float-right">
+            <UncontrolledDropdown>
+              <DropdownToggle tag="a">
+                <MoreHorizontal/>
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>Action</DropdownItem>
+                <DropdownItem>Another Action</DropdownItem>
+                <DropdownItem>Something else here</DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </div>
+          <CardTitle tag="h5" className="mb-0">
+            Real-Time
+          </CardTitle>
+        </CardHeader>
+        <CardBody className="p-2">
+          <div className="map-container">
+            <div id="world_map" style={{height: 304}}/>
+          </div>
+        </CardBody>
+      </Card>
+    );
+  }
 }
 
 export default connect(store => ({

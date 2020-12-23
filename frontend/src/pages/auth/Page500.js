@@ -8,7 +8,7 @@ const Page500 = () => (
     <h1 className="display-1 font-weight-bold">500</h1>
     <p className="h1">Internal server error.</p>
     <p className="h2 font-weight-normal mt-3 mb-4">
-      The server encountered something unexpected that didn't allow it to
+      The server encountered something unexpected that did not allow it to
       complete the request.
     </p>
     <Link to="/dashboard/default">

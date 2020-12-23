@@ -206,7 +206,7 @@ const Activities = () => (
         <Media body>
           <small className="float-right text-navy">30m ago</small>
           <strong>Chris Wood</strong> posted something on{" "}
-          <strong>Stacie Hall</strong>'s timeline
+          <strong>Stacie Hall</strong>&apos;s timeline
           <br />
           <small className="text-muted">Today 7:21 pm</small>
           <div className="border text-sm text-muted p-2 mt-1">
@@ -251,7 +251,7 @@ const Activities = () => (
         <Media body>
           <small className="float-right text-navy">3h ago</small>
           <strong>Carl Jenkins</strong> posted two photos on{" "}
-          <strong>Stacie Hall</strong>'s timeline
+          <strong>Stacie Hall</strong>&apos;s timeline
           <br />
           <small className="text-muted">Today 5:12 pm</small>
           <div className="row no-gutters mt-1">

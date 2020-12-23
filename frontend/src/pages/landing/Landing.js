@@ -1,4 +1,5 @@
-import React from "react";
+import React from "react"
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 // import { Redirect } from 'react-router-dom';
 import { enableCorporateTheme } from "../../redux/actions/themeActions";
@@ -79,5 +80,9 @@ class Landing extends React.Component {
     );
   }
 }
+
+Landing.propTypes = {
+  dispatch: PropTypes.func.isRequired
+};
 
 export default connect()(Landing);

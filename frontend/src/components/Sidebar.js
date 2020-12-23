@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";

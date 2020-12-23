@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import Wrapper from "../components/Wrapper";
 import Sidebar from "../components/Sidebar";
@@ -19,5 +20,10 @@ const Dashboard = ({ children }) => (
     </Wrapper>
   </React.Fragment>
 );
+
+// TODO All these 'children' props are of type object, not array
+Dashboard.propTypes = {
+  children: PropTypes.object.isRequired
+};
 
 export default Dashboard;

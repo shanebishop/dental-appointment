@@ -55,7 +55,7 @@ const Feed = () => (
         <Media body>
           <small className="float-right text-navy">30m ago</small>
           <strong>Chris Wood</strong> posted something on{" "}
-          <strong>Stacie Hall</strong>'s timeline
+          <strong>Stacie Hall</strong>&apos;s timeline
           <br />
           <small className="text-muted">Today 7:21 pm</small>
           <div className="border text-sm text-muted p-2 mt-1">
