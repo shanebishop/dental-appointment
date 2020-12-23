@@ -1,8 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import { enableCorporateTheme } from "../../redux/actions/themeActions";
-import store from '../../redux/store';
+// import store from '../../redux/store';
+import Sidebar from '../../components/Sidebar';
+import Wrapper from '../../components/Wrapper';
+import Main from '../../components/Main';
 
 import {
   Button,
@@ -60,15 +63,19 @@ class Landing extends React.Component {
   }
 
   render() {
-    if (!store.getState().auth.loggedIn) {
-      return <Redirect to={{ pathname: '/auth/sign-in', state: { from: '/' } }} />
-    }
+    // TODO Fix me once docker-compose works with frontend
+    // if (!store.getState().auth.loggedIn) {
+    //   return <Redirect to={{ pathname: '/auth/sign-in', state: { from: '/' } }} />
+    // }
 
     return (
-        <React.Fragment>
-          <Navigation />
-          <Body />
-        </React.Fragment>
+        <Wrapper>
+          <Sidebar />
+          <Main>
+            <Navigation />
+            <Body />
+          </Main>
+        </Wrapper>
     );
   }
 }

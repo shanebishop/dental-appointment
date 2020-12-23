@@ -5,7 +5,7 @@ import { NavLink, withRouter } from "react-router-dom";
 import { Badge, Collapse } from "reactstrap";
 import PerfectScrollbar from "react-perfect-scrollbar";
 
-import { Box } from "react-feather";
+import { Home } from "react-feather";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -21,7 +21,7 @@ const initOpenRoutes = (location) => {
   routes.forEach((route, index) => {
     const isActive = pathName.indexOf(route.path) === 0;
     const isOpen = route.open;
-    const isHome = route.containsHome && pathName === "/" ? true : false;
+    const isHome = Boolean(route.containsHome && pathName === '/');
 
     _routes = Object.assign({}, _routes, {[index]: isActive || isOpen || isHome})
   });
@@ -104,11 +104,13 @@ const Sidebar = ({ location, sidebar, layout }) => {
     Object.keys(openRoutes).forEach(
       item => openRoutes[index] || setOpenRoutes(openRoutes => Object.assign({}, openRoutes, {[item]: false}))
     )
-    
+
     // Toggle selected element
     setOpenRoutes(openRoutes => Object.assign({}, openRoutes, {[index]: !openRoutes[index]}));
   }
-  
+
+  const routesToDisplay = routes.filter(route => route.displayInSidebar);
+
   return (
     <nav
       className={
@@ -120,12 +122,12 @@ const Sidebar = ({ location, sidebar, layout }) => {
       <div className="sidebar-content">
         <PerfectScrollbar>
           <a className="sidebar-brand" href="/">
-            <Box className="align-middle text-primary" size={24} />{" "}
-            <span className="align-middle">AppStack</span>
+            <Home className="align-middle text-primary" size={24} />{" "}
+            <span className="align-middle">Dr. Ing Dental Clinic</span>
           </a>
 
           <ul className="sidebar-nav">
-            {routes.map((category, index) => {
+            {routesToDisplay.map((category, index) => {
               return (
                 <React.Fragment key={index}>
                   {category.header ? (

@@ -32,9 +32,6 @@ import Profile from "../pages/pages/Profile";
 // Dashboards
 const Default = async(() => import("../pages/dashboards/Default"));
 const Analytics = async(() => import("../pages/dashboards/Analytics"));
-const Ecommerce = async(() => import("../pages/dashboards/Ecommerce"));
-const Crypto = async(() => import("../pages/dashboards/Crypto"));
-const Social = async(() => import("../pages/dashboards/Social"));
 
 // Calendar
 const Calendar = async(() => import("../pages/calendar/Calendar"));
@@ -44,6 +41,8 @@ const landingRoutes = {
   path: "/",
   name: "Landing Page",
   component: Landing,
+  displayInSidebar: false,
+  requiresLoggedIn: true,
   children: null
 };
 
@@ -51,10 +50,10 @@ const dashboardRoutes = {
   path: "/dashboard",
   name: "Dashboards",
   header: "Pages",
-  badgeColor: "primary",
-  badgeText: "5",
   icon: SlidersIcon,
   containsHome: true,
+  displayInSidebar: true,
+  requiresLoggedIn: true,
   children: [
     {
       path: "/dashboard/default",
@@ -66,23 +65,6 @@ const dashboardRoutes = {
       name: "Analytics",
       component: Analytics
     },
-    {
-      path: "/dashboard/e-commerce",
-      name: "E-commerce",
-      component: Ecommerce
-    },
-    {
-      path: "/dashboard/social",
-      name: "Social",
-      component: Social
-    },
-    {
-      path: "/dashboard/crypto",
-      name: "Crypto",
-      component: Crypto,
-      badgeColor: "primary",
-      badgeText: "New"
-    }
   ]
 };
 
@@ -90,6 +72,8 @@ const pageRoutes = {
   path: "/pages",
   name: "Pages",
   icon: LayoutIcon,
+  displayInSidebar: false,
+  requiresLoggedIn: true,
   children: [
     {
       path: "/pages/profile",
@@ -103,8 +87,8 @@ const authRoutes = {
   path: "/auth",
   name: "Auth",
   icon: UsersIcon,
-  badgeColor: "secondary",
-  badgeText: "Special",
+  displayInSidebar: false,
+  requiresLoggedIn: true,
   children: [
     {
       path: "/auth/sign-in",
@@ -138,6 +122,8 @@ const layoutRoutes = {
   path: "/layouts",
   name: "Layouts",
   icon: MonitorIcon,
+  displayInSidebar: false,
+  requiresLoggedIn: true,
   children: [
     {
       path: "/layouts/sidebar-sticky",
@@ -163,15 +149,11 @@ const layoutRoutes = {
       path: "/layouts/theme-corporate",
       name: "Corporate Theme",
       component: ThemeCorporate,
-      badgeColor: "primary",
-      badgeText: "New"
     },
     {
       path: "/layouts/theme-modern",
       name: "Modern Theme",
       component: ThemeModern,
-      badgeColor: "primary",
-      badgeText: "New"
     }
   ]
 };
@@ -181,14 +163,9 @@ const calendarRoutes = {
   name: "Calendar",
   icon: CalendarIcon,
   component: Calendar,
+  displayInSidebar: true,
+  requiresLoggedIn: true,
   children: null
-};
-
-// This route is not visible in the sidebar
-const privateRoutes = {
-  path: "/private",
-  name: "Private",
-  children: []
 };
 
 // Dashboard specific routes
@@ -197,7 +174,6 @@ export const dashboard = [
   pageRoutes,
   layoutRoutes,
   calendarRoutes,
-  privateRoutes
 ];
 
 // Landing specific routes

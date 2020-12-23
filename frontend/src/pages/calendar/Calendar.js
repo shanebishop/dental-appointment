@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody, CardHeader, CardTitle, Container } from "reactstrap";
+import { Card, CardBody, CardHeader, Container } from "reactstrap";
 
 import FullCalendar from '@fullcalendar/react'
 import bootstrapPlugin from '@fullcalendar/bootstrap'
@@ -61,13 +61,7 @@ const Calendar = () => {
       <h1 className="h3 mb-3">Calendar</h1>
 
       <Card>
-        <CardHeader>
-          <CardTitle tag="h5">FullCalendar</CardTitle>
-          <h6 className="card-subtitle text-muted">
-            Open source JavaScript jQuery plugin for a full-sized, drag & drop
-            event calendar.
-          </h6>
-        </CardHeader>
+        <CardHeader />
         <CardBody>
         <FullCalendar
           plugins={[ bootstrapPlugin, dayGridPlugin, timeGridPlugin ]}
