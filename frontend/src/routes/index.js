@@ -145,8 +145,18 @@ const appointmentsRoutes = {
   children: null
 }
 
-// Dashboard specific routes
-export const dashboard = [dashboardRoutes];
+// All pages that display the sidebar (as opposed to something like an auth page,
+// which does not display the sidebar).
+//
+// For some reason, everything we want to see in the sidebar should go here.
+// When they go here, they are automatically wrapped, and the button to toggle the
+// sidebar is displayed properly.
+export const dashboard = [
+  dashboardRoutes,
+  calendarRoutes,
+  staffRoutes,
+  appointmentsRoutes,
+];
 
 // Landing specific routes
 export const landing = [landingRoutes];

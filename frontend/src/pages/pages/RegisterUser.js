@@ -14,12 +14,7 @@ import {
   Button,
 } from 'reactstrap';
 
-import Wrapper from "../../components/Wrapper";
-import Sidebar from "../../components/Sidebar";
-import Main from "../../components/Main";
-import Footer from "../../components/Footer";
-
-class Body extends React.Component {
+class RegisterUser extends React.Component {
   render() {
     return (
       <Card>
@@ -97,22 +92,6 @@ class Body extends React.Component {
           </Form>
         </CardBody>
       </Card>
-    );
-  }
-}
-
-class RegisterUser extends React.Component {
-  render() {
-    return (
-      <React.Fragment>
-        <Wrapper>
-          <Sidebar />
-          <Main>
-            <Body {...this.props} />
-            <Footer />
-          </Main>
-        </Wrapper>
-      </React.Fragment>
     );
   }
 }
