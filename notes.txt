@@ -45,3 +45,9 @@ npm ERR! network If you are behind a proxy, please make sure that the
 npm ERR! network 'proxy' config is set properly.  See: 'npm help config'
 
 My plan is to try again when I'm back in the soo.
+
+December 23, 2020
+
+Next step is to create an Administration page group in the sidebar, where
+one of the pages in the group is Register Client so a new client can be
+registered by a staff member.

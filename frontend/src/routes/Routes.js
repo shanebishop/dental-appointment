@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
   landing as landingRoutes,
   dashboard as dashboardRoutes,
-  page as pageRoutes
+  page as pageRoutes,
+  staff as staffRoutes,
 } from "./index";
 
 import DashboardLayout from "../layouts/Dashboard";
-import LandingLayout from "../layouts/Landing";
+import MainLayout from "../layouts/MainLayout";
 import AuthLayout from "../layouts/Auth";
 import Page404 from "../pages/auth/Page404";
 
@@ -48,9 +49,10 @@ const Routes = () => (
   <Router>
     <ScrollToTop>
       <Switch>
-        {childRoutes(LandingLayout, landingRoutes)}
+        {childRoutes(MainLayout, landingRoutes)}
         {childRoutes(DashboardLayout, dashboardRoutes)}
         {childRoutes(AuthLayout, pageRoutes)}
+        {childRoutes(MainLayout, staffRoutes)}
         <Route
           render={() => (
             <AuthLayout>

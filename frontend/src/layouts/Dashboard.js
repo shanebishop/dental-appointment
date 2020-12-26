@@ -21,7 +21,6 @@ const Dashboard = ({ children }) => (
   </React.Fragment>
 );
 
-// TODO All these 'children' props are of type object, not array
 Dashboard.propTypes = {
   children: PropTypes.object.isRequired
 };

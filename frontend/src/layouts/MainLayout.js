@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import Main from "../components/Main";
 
-const Landing = ({ children }) => <Main>{children}</Main>;
+const MainLayout = ({ children }) => <Main>{children}</Main>;
 
-Landing.propTypes = {
+MainLayout.propTypes = {
   children: PropTypes.object.isRequired
 };
 
-export default Landing;
+export default MainLayout;
