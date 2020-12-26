@@ -46,8 +46,18 @@ npm ERR! network 'proxy' config is set properly.  See: 'npm help config'
 
 My plan is to try again when I'm back in the soo.
 
-December 23, 2020
+### December 23, 2020
 
 Next step is to create an Administration page group in the sidebar, where
 one of the pages in the group is Register Client so a new client can be
 registered by a staff member.
+
+### December 26, 2020
+
+Will use first registration page so staff can register client, and then
+client completes registration via link they received in email.
+
+The link will be to /auth/sign-up, which is SignUp.js.
+
+Will need a way to store pending completed registrations in database, and
+remove them properly after registration completed successfully.

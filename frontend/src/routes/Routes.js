@@ -8,7 +8,8 @@ import {
 } from "./index";
 
 import DashboardLayout from "../layouts/Dashboard";
-import MainLayout from "../layouts/MainLayout";
+import LandingLayout from "../layouts/Landing";
+import StaffLayout from "../layouts/Staff";
 import AuthLayout from "../layouts/Auth";
 import Page404 from "../pages/auth/Page404";
 
@@ -49,10 +50,10 @@ const Routes = () => (
   <Router>
     <ScrollToTop>
       <Switch>
-        {childRoutes(MainLayout, landingRoutes)}
+        {childRoutes(LandingLayout, landingRoutes)}
         {childRoutes(DashboardLayout, dashboardRoutes)}
         {childRoutes(AuthLayout, pageRoutes)}
-        {childRoutes(MainLayout, staffRoutes)}
+        {childRoutes(StaffLayout, staffRoutes)}
         <Route
           render={() => (
             <AuthLayout>

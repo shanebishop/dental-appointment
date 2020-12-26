@@ -41,20 +41,6 @@ class RegisterUser extends React.Component {
               <Label>Email</Label>
               <Input type="email" name="email" placeholder="Email" />
             </FormGroup>
-            <Row form>
-              <Col md={6}>
-                <FormGroup>
-                  <Label>Password</Label>
-                  <Input type="password" name="password" placeholder="Password" />
-                </FormGroup>
-              </Col>
-              <Col md={6}>
-                <FormGroup>
-                  <Label>Confirm password</Label>
-                  <Input type="password" name="password-confirm" placeholder="Re-enter password" />
-                </FormGroup>
-              </Col>
-            </Row>
             <FormGroup>
               <Label>Address</Label>
               <Input type="text" name="address" placeholder="1234 Main St" />
