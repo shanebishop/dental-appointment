@@ -6,6 +6,7 @@ import {
   Sliders as SlidersIcon,
   Users as UsersIcon,
   Clipboard as ClipboardIcon,
+  List as ListIcon,
 } from "react-feather";
 
 // Landing
@@ -20,6 +21,7 @@ import Page500 from "../pages/auth/Page500";
 // Pages
 import Profile from "../pages/pages/Profile";
 import RegisterUser from "../pages/pages/RegisterUser";
+import Appointments from "../pages/pages/Appointments";
 
 // Dashboards
 const Default = async(() => import("../pages/dashboards/Default"));
@@ -44,7 +46,7 @@ const dashboardRoutes = {
   header: "Pages",
   icon: SlidersIcon,
   containsHome: true,
-  displayInSidebar: true,
+  displayInSidebar: false,
   requiresLoggedIn: true,
   children: [
     {
@@ -131,13 +133,20 @@ const staffRoutes = {
   ]
 };
 
+// A single link to a list of appointments in chronological order
+// (rather than a calendar view)
+const appointmentsRoutes = {
+  path: '/appointments-list',
+  name: 'Appointments',
+  icon: ListIcon,
+  component: Appointments,
+  displayInSidebar: true,
+  requiresLoggedIn: true,
+  children: null
+}
+
 // Dashboard specific routes
-export const dashboard = [
-  dashboardRoutes,
-  pageRoutes,
-  calendarRoutes,
-  staffRoutes,
-];
+export const dashboard = [dashboardRoutes];
 
 // Landing specific routes
 export const landing = [landingRoutes];
@@ -148,11 +157,17 @@ export const page = [authRoutes];
 // Staff routes
 export const staff = [staffRoutes];
 
+// Appointment routes
+export const appointments = [appointmentsRoutes];
+
 // All routes
+// Order matters - routes are displayed in sidebar in the order
+// defined here
 export default [
   dashboardRoutes,
   pageRoutes,
   authRoutes,
-  calendarRoutes,
   staffRoutes,
+  appointmentsRoutes,
+  calendarRoutes,
 ];

@@ -14,8 +14,8 @@ import {
 
 import { MoreHorizontal } from "react-feather";
 
-import Timeline from "../../../components/Timeline";
-import TimelineItem from "../../../components/TimelineItem";
+import Timeline from "./Timeline";
+import TimelineItem from "./TimelineItem";
 
 const Appointments = () => (
   <Card className="flex-fill w-100">

@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 
-import Appointments from "./Appointments";
 import BarChart from "./BarChart";
 import Feed from "./Feed";
 import Header from "./Header";
@@ -25,9 +24,6 @@ const Default = () => (
     <Row>
       <Col lg="6" xl="4" className="d-flex">
         <PieChart />
-      </Col>
-      <Col lg="6" xl="4" className="d-flex">
-        <Appointments />
       </Col>
     </Row>
     <Row>
