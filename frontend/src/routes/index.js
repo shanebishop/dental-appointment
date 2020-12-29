@@ -136,7 +136,7 @@ const staffRoutes = {
 // A single link to a list of appointments in chronological order
 // (rather than a calendar view)
 const appointmentsRoutes = {
-  path: '/appointments-list',
+  path: '/appointments',
   name: 'Appointments',
   icon: ListIcon,
   component: Appointments,

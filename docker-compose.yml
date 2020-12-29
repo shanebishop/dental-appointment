@@ -33,26 +33,23 @@ services:
     depends_on:
       - db
 
-  # TODO Ucomment this so frontend is brought up as well
-  #      (see notes.txt from Dec 22, 2020)
-  #      Also uncomment line 66 below
-  # frontend:
-  #   container_name: frontend
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   stdin_open: true
-  #   tty: true
-  #   volumes:
-  #     - ./frontend:/app
-  #     - /app/node_modules
-  #     - django-static:/usr/src/app/static
-  #   ports:
-  #     - 3000:3000
-  #   networks:
-  #     - main
-  #   environment:
-  #     - CHOKIDIR_USEPOLLING=true
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - django-static:/usr/src/app/static
+    ports:
+      - 3000:3000
+    networks:
+      - main
+    environment:
+      - CHOKIDIR_USEPOLLING=true
 
   nginx:
     container_name: nginx
@@ -63,7 +60,7 @@ services:
       - 80:80
     depends_on:
       - backend
-      #- frontend # TODO Uncomment me later (see TODO above)
+      - frontend
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - django-static:/usr/src/app/static

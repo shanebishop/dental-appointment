@@ -62,8 +62,9 @@ The link will be to /auth/sign-up, which is SignUp.js.
 Will need a way to store pending completed registrations in database, and
 remove them properly after registration completed successfully.
 
+One of my commits broke the calendar button on the sidebar, which I fixed by adding things back
+to "dashboard" array in routes/index.js. But now I've noticed a new visual bug where the dropdown
+for a sidebar group is not expanded when the user is on one of the pages in the group.
+
 Next I should update appointments page to list things relevant to dental appointments, with
 hard-coded dates for now.
-
-Before that, it looks like one of my last commits broke the calendar button on the sidebar, so
-that it is somehow getting 404 now.
