@@ -13,3 +13,8 @@ export const LAYOUT_BOXED_DISABLE = "LAYOUT_BOXED_DISABLE";
 
 // Theme
 export const THEME_TOGGLE = "THEME_TOGGLE";
+
+// Auth
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGOUT = "LOGOUT";
+

@@ -2,6 +2,8 @@
 
 import axios from 'axios';
 
+import { loginSuccess } from "./authActions";
+
 export function toggleDialog() {
   this.setState(state => ({
     dialogOpen: !state.dialogOpen
@@ -52,6 +54,8 @@ export function login(e) {
       const userData = {};
       localStorage.setItem('user-data', JSON.stringify(userData));
 
+      const { dispatch } = this.props;
+      dispatch(loginSuccess(userData));
       this.props.history.push(this.state.redirectedFrom);
     })
     .catch((err) => {

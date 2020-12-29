@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 import {
   Button,
@@ -122,4 +123,4 @@ SignIn.propTypes = {
   history: PropTypes.object,
 };
 
-export default SignIn;
+export default withRouter(connect()(SignIn));

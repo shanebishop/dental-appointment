@@ -1,39 +1,19 @@
 import React from "react"
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-// import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { enableCorporateTheme } from "../../redux/actions/themeActions";
-// import store from '../../redux/store';
+import store from '../../redux/store';
 import Sidebar from '../../components/Sidebar';
 import Wrapper from '../../components/Wrapper';
 import Main from '../../components/Main';
+import Navigation from "../../components/Navigation";
 
 import {
-  Button,
   Col,
   Container,
-  Navbar,
-  NavbarBrand,
   Row
 } from "reactstrap";
-
-import { Home } from "react-feather";
-
-const Navigation = () => (
-  <Navbar dark expand className="navbar-landing">
-    <NavbarBrand href="/">
-      <Home title="Dr. Phil Ing Dental Clinic" />
-      Dr. Phil Ing Dental Clinic
-    </NavbarBrand>
-    <Button
-        href='/auth/sign-in'
-        color="primary"
-        className="ml-auto ml-2"
-    >
-      Login
-    </Button>
-  </Navbar>
-);
 
 const Body = () => (
   <section className="py-6 bg-white">
@@ -64,19 +44,18 @@ class Landing extends React.Component {
   }
 
   render() {
-    // TODO Fix me once docker-compose works with frontend
-    // if (!store.getState().auth.loggedIn) {
-    //   return <Redirect to={{ pathname: '/auth/sign-in', state: { from: '/' } }} />
-    // }
+    if (!store.getState().auth.loggedIn) {
+      return <Redirect to={{ pathname: '/auth/sign-in', state: { from: '/' } }} />
+    }
 
     return (
-        <Wrapper>
-          <Sidebar />
-          <Main>
-            <Navigation />
-            <Body />
-          </Main>
-        </Wrapper>
+      <Wrapper>
+        <Sidebar />
+        <Main>
+          <Navigation />
+          <Body />
+        </Main>
+      </Wrapper>
     );
   }
 }
