@@ -37,6 +37,7 @@
     "@fullcalendar/timegrid": "5.1.0",
     "apexcharts": "3.21.0",
     "availity-reactstrap-validation": "2.6.1",
+    "axios": "^0.21.1",
     "bootstrap": "4.5.2",
     "chart.js": "2.9.3",
     "chokidar-cli": "2.1.0",
