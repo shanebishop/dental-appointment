@@ -16,6 +16,8 @@ class Navigation extends React.Component {
   }
 
   render() {
+    const isLoggedIn = this.loggedIn();
+
     return (
       <Navbar dark expand className="navbar-landing">
         <NavbarBrand href="/">
@@ -23,11 +25,11 @@ class Navigation extends React.Component {
           Dr. Phil Ing Dental Clinic
         </NavbarBrand>
         <Button
-          href='/auth/sign-in'
+          href={isLoggedIn ? '/auth/sign-out' : '/auth/sign-in'}
           color="primary"
           className="ml-auto ml-2"
         >
-          Login
+          {isLoggedIn ? 'Logout' : 'Login'}
         </Button>
       </Navbar>
     );

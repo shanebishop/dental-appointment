@@ -15,6 +15,7 @@ import Landing from "../pages/landing/Landing";
 // Auth
 import SignIn from "../pages/auth/SignIn";
 import SignUp from "../pages/auth/SignUp";
+import SignOut from "../pages/auth/SignOut";
 import Page404 from "../pages/auth/Page404";
 import Page500 from "../pages/auth/Page500";
 
@@ -103,6 +104,11 @@ const authRoutes = {
       path: "/auth/500",
       name: "500 Page",
       component: Page500
+    },
+    {
+      path: '/auth/sign-out',
+      name: 'Sign Out',
+      component: SignOut
     }
   ]
 };
