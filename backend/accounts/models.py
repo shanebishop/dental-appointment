@@ -12,4 +12,4 @@ class UserData(models.Model):
     address2 = models.CharField(max_length=200)
     city = models.CharField(max_length=80)
     province = models.CharField(max_length=80)
-    postal_code = models.CharField(max_length=7)
+    postalCode = models.CharField(max_length=7)

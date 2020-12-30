@@ -8,6 +8,7 @@ from .models import UserData
 class RegisterUserAPI(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
+    # TODO Consider validating postal code further to follow A1A 1A1 format
     def post(self, request):
         requesting_user = self.request.user
 
@@ -26,7 +27,7 @@ class RegisterUserAPI(generics.GenericAPIView):
             return Response(resp, status=status.HTTP_400_BAD_REQUEST)
 
         required_keys = {
-            'username', 'firstName', 'surname', 'email',
+            'username', 'firstName', 'surname', 'email', 'password',
             'address1', 'address2', 'city', 'province', 'postalCode'
         }
 
@@ -36,8 +37,20 @@ class RegisterUserAPI(generics.GenericAPIView):
             }
             return Response(resp, status=status.HTTP_400_BAD_REQUEST)
 
-        # TODO Should check postal code and such fit length restrictions
-        # TODO Should check if username is in use
+        usernames = {u.username for u in User.objects.all()}
+
+        if data['username'] in usernames:
+            resp = {
+                'message': 'Error: username ' + data['username'] + ' taken'
+            }
+            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
+
+        for k in {'address1', 'address2', 'city', 'province', 'postalCode'}:
+            if len(data[k]) > UserData._meta.get_field(k).max_length:
+                resp = {
+                    'message': f'Error: {k} exceeds max length'
+                }
+                return Response(resp, status=status.HTTP_400_BAD_REQUEST)
 
         new_user = User.objects.create_user(
             username=data['username'],
@@ -54,7 +67,7 @@ class RegisterUserAPI(generics.GenericAPIView):
             address2=data['address2'],
             city=data['city'],
             province=data['province'],
-            postal_code=data['postalCode']
+            postalCode=data['postalCode']
         )
         user_data.save()
 
