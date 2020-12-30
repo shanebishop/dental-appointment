@@ -8,6 +8,8 @@ from .models import UserData
 class RegisterUserAPI(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
+    DEFAULT_PASSWORD = 'PBEWjwj83b4HsM3GCxD7dXak9huLbq6H'
+
     # TODO Consider validating postal code further to follow A1A 1A1 format
     def post(self, request):
         requesting_user = self.request.user
@@ -27,13 +29,15 @@ class RegisterUserAPI(generics.GenericAPIView):
             return Response(resp, status=status.HTTP_400_BAD_REQUEST)
 
         required_keys = {
-            'username', 'firstName', 'surname', 'email', 'password',
+            'username', 'firstName', 'surname', 'email',
             'address1', 'address2', 'city', 'province', 'postalCode'
         }
 
-        if not (data.keys() >= required_keys):
+        missing_keys = required_keys - data.keys()
+
+        if missing_keys:
             resp = {
-                'message': 'Error: request body does not have all required keys'
+                'message': f'Error: request body is missing the following required keys: {missing_keys}'
             }
             return Response(resp, status=status.HTTP_400_BAD_REQUEST)
 
@@ -52,10 +56,13 @@ class RegisterUserAPI(generics.GenericAPIView):
                 }
                 return Response(resp, status=status.HTTP_400_BAD_REQUEST)
 
+        # The user is registered with the default password,
+        # and then the user cannot log into the site until they have
+        # completed their registration
         new_user = User.objects.create_user(
             username=data['username'],
             email=data['email'],
-            password=data['password'],
+            password=RegisterUserAPI.DEFAULT_PASSWORD,
             first_name=data['firstName'],
             last_name=data['surname']
         )

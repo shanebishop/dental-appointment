@@ -31,7 +31,6 @@ class RegisterUserAPITests(APITestCase):
             'city': 'Toronto',
             'province': 'Ontario',
             'postalCode': 'A1A 1B1',
-            'password': 'user1'
         }
 
     def test_create_user(self):
@@ -49,7 +48,7 @@ class RegisterUserAPITests(APITestCase):
 
     def test_missing_data_value(self):
         data = self.generate_valid_data('user2')
-        del data['password']
+        del data['surname']
 
         response = self.client.post(RegisterUserAPITests.URL, data)
         self.assertContains(
