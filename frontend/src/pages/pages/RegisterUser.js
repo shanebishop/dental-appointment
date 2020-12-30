@@ -40,10 +40,20 @@ class Body extends React.Component {
                 </FormGroup>
               </Col>
             </Row>
-            <FormGroup>
-              <Label>Email</Label>
-              <Input type="email" name="email" placeholder="Email" />
-            </FormGroup>
+            <Row form>
+              <Col md={6}>
+                <FormGroup>
+                  <Label>Username</Label>
+                  <Input type="username" name="username" placeholder="Username" />
+                </FormGroup>
+              </Col>
+              <Col md={6}>
+                <FormGroup>
+                  <Label>Email</Label>
+                  <Input type="email" name="email" placeholder="Email address" />
+                </FormGroup>
+              </Col>
+            </Row>
             <FormGroup>
               <Label>Address</Label>
               <Input type="text" name="address" placeholder="1234 Main St" />

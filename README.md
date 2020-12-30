@@ -19,3 +19,11 @@ http://localhost:3000.
 
 To build the client for "production", run `npm install` to install all dependencies,
 and then run `npm run build` to build a hardened client.
+
+## Run tests
+
+To run Django tests, run:
+
+```
+scripts/run_django_tests.sh
+```

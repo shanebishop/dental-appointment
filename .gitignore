@@ -23,3 +23,15 @@ yarn-error.log*
 !*/node_modules/.gitkeep
 
 */db.sqlite3
+
+__pycache__
+.coverage
+.pytest_cache
+
+backend/**/migrations/0001_initial.py
+backend/**/migrations/*_auto_*.py
+geckodriver*.log
+log.html
+output.xml
+report.html
+selenium-screenshot*.png

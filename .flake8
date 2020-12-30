@@ -1,0 +1,11 @@
+[flake8]
+max-line-length = 120
+exclude =
+    */migrations/*
+    .git/
+    frontend/
+    .vscode/
+    .idea/
+    nginx/
+    scripts/
+    robot/
