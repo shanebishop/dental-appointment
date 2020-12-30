@@ -1,4 +1,6 @@
 import React from 'react';
+import store from "../../redux/store";
+import { Redirect } from "react-router-dom";
 
 import {
   Card,
@@ -12,9 +14,10 @@ import {
   Col,
   Input,
   Button,
+  Container,
 } from 'reactstrap';
 
-class RegisterUser extends React.Component {
+class Body extends React.Component {
   render() {
     return (
       <Card>
@@ -92,6 +95,21 @@ class RegisterUser extends React.Component {
           </Form>
         </CardBody>
       </Card>
+    );
+  }
+}
+
+class RegisterUser extends React.Component {
+  render() {
+    if (!store.getState().auth.loggedIn) {
+      return <Redirect to={{ pathname: '/auth/sign-in', state: { from: window.location.pathname } }} />
+    }
+
+    return (
+      <Container fluid className="p-0">
+        <h1 className="h3 mb-3">Register User</h1>
+        <Body {...this.props} />
+      </Container>
     );
   }
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import store from "../redux/store";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
   landing as landingRoutes,
@@ -28,7 +29,7 @@ const childRoutes = (Layout, routes) =>
           exact
           render={props => (
             <Layout>
-              <Component {...props} />
+              <Component store={store} {...props} />
             </Layout>
           )}
         />
@@ -41,7 +42,7 @@ const childRoutes = (Layout, routes) =>
         exact
         render={props => (
           <Layout>
-            <Component {...props} />
+            <Component store={store} {...props} />
           </Layout>
         )}
       />

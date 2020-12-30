@@ -5,8 +5,8 @@ import {
   Layout as LayoutIcon,
   Sliders as SlidersIcon,
   Users as UsersIcon,
-  Clipboard as ClipboardIcon,
   List as ListIcon,
+  UserPlus as UserPlusIcon,
 } from "react-feather";
 
 // Landing
@@ -124,19 +124,15 @@ const calendarRoutes = {
 };
 
 // Routes to pages used by dental staff for administrative tasks
-const staffRoutes = {
-  path: '/administration',
-  name: 'Administration',
-  icon: ClipboardIcon,
+const registerUserRoutes = {
+  path: '/register-user',
+  name: 'Register User',
+  header: 'Administration',
+  icon: UserPlusIcon,
+  component: RegisterUser,
   displayInSidebar: true,
   requiresLoggedIn: true,
-  children: [
-    {
-      path: '/administration/register-user',
-      name: 'Register User',
-      component: RegisterUser
-    }
-  ]
+  children: null
 };
 
 // A single link to a list of appointments in chronological order
@@ -160,7 +156,7 @@ const appointmentsRoutes = {
 export const dashboard = [
   dashboardRoutes,
   calendarRoutes,
-  staffRoutes,
+  registerUserRoutes,
   appointmentsRoutes,
 ];
 
@@ -171,7 +167,7 @@ export const landing = [landingRoutes];
 export const page = [authRoutes];
 
 // Staff routes
-export const staff = [staffRoutes];
+export const staff = [registerUserRoutes];
 
 // Appointment routes
 export const appointments = [appointmentsRoutes];
@@ -183,7 +179,7 @@ export default [
   dashboardRoutes,
   pageRoutes,
   authRoutes,
-  staffRoutes,
   appointmentsRoutes,
   calendarRoutes,
+  registerUserRoutes,
 ];

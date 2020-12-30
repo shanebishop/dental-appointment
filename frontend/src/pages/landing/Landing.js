@@ -53,7 +53,7 @@ class Landing extends React.Component {
         <Sidebar />
         <Main>
           <Navigation />
-          <Body />
+          <Body {...this.props} />
         </Main>
       </Wrapper>
     );
