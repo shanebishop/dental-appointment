@@ -5,19 +5,9 @@ Library           SeleniumLibrary    run_on_failure=None
 Library           RequestsLibrary
 Library           CustomHelpers/BasicAuth.py
 Library           CustomHelpers/Users.py
+Variables         variables
 Suite Setup       Setup
 Suite Teardown    Close Browser
-
-# TODO These variables, if they are common, should be moved to a variables file, and then imported in the Settings above
-
-*** Variables ***
-${SERVER}         http://localhost
-${BROWSER}        Firefox
-${HOME URL}       ${SERVER}/
-${LOGIN URL}      ${SERVER}/auth/sign-in
-${REGISTER URL}    ${SERVER}/register-user
-${DEREGISTER URL}    ${SERVER}/api/user/deregister/
-${GET ALL USERS URL}    ${SERVER}/api/user/all/
 
 *** Keywords ***
 Setup
@@ -25,7 +15,7 @@ Setup
     Log    Browser options: ${BROWSER OPTS}    INFO    console=True
     Log    Server: ${SERVER}    INFO    console=True
     Get Admin Auth Token
-    Delete All Nonadmin Users    ${AUTH TOKEN}    ${DEREGISTER URL}    ${GET ALL USERS URL}
+    Delete All Nonadmin Users    ${AUTH TOKEN}    ${DEREGISTER_URL}    ${GET_ALL_USERS_URL}
     Open Browser    ${LOGIN URL}    ${BROWSER}
     Login Page Should Be Open
     Login
@@ -45,18 +35,18 @@ Login
     Input Text    email    admin
     Input Text    password    admin
     Click Button    sign-in-btn
-    Wait Until Location Is    ${HOME URL}    2
+    Wait Until Location Is    ${HOME_URL}    2
 
 Go To Login Page
-    Go To    ${LOGIN URL}
+    Go To    ${LOGIN_URL}
     Login Page Should Be Open
 
 Login Page Should Be Open
-    Location Should Be    ${LOGIN URL}
+    Location Should Be    ${LOGIN_URL}
 
 Go To Register User Page
-    Go To    ${REGISTER URL}
-    Location Should Be    ${REGISTER URL}
+    Go To    ${REGISTER_URL}
+    Location Should Be    ${REGISTER_URL}
 
 Enter Registration Data
     [Arguments]    ${first_name}    ${surname}    ${username}    ${email}    ${address1}    ${address2}    ${city}    ${province}    ${postal_code}
