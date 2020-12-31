@@ -20,7 +20,6 @@ import {
 } from "react-feather";
 
 import avatar1 from "../assets/img/avatars/avatar.jpg";
-import {Link} from "react-router-dom";
 
 const NavbarComponent = ({ dispatch }) => {
   return (
@@ -64,10 +63,8 @@ const NavbarComponent = ({ dispatch }) => {
               <DropdownItem divider />
               <DropdownItem>Settings & Privacy</DropdownItem>
               <DropdownItem>Help</DropdownItem>
-              <DropdownItem>
-                <Link to="/auth/sign-out">
-                  Sign out
-                </Link>
+              <DropdownItem href="/auth/sign-out">
+                Sign out
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
