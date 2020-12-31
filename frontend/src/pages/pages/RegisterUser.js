@@ -110,15 +110,15 @@ class Body extends React.Component {
               <FormGroup>
                 <Label>Address</Label>
                 <Input
-                  type="text" name="address" placeholder="1234 Main St"
+                  type="text" name="address"
+                  placeholder="1234 Main St"
                   onChange={this.onAddress1Changed}
                 />
               </FormGroup>
               <FormGroup>
                 <Label>Address 2</Label>
                 <Input
-                  type="text"
-                  name="address2"
+                  type="text" name="address2"
                   placeholder="Apartment, studio, or floor"
                   onChange={this.onAddress2Changed}
                 />

@@ -55,11 +55,22 @@ set -x
 flake8
 
 FIREFOX_OPTS='add_argument("--window-size=1420,1080"); add_argument("--headless"); add_argument("--disable-gpu");'
+#BROWSER='Headless Firefox'
+BROWSER='Firefox'
 
 to_run="$ROOT_DIR/robot"
 [ -n "$1" ] && to_run="$to_run/$(basename "$1")"
 
-robot --variable 'BROWSER:Headless Firefox' --variable "BROWSER OPTS:$FIREFOX_OPTS" "$to_run" && robot_tests_passed='yes'
+robot \
+  --output NONE \
+  --log NONE \
+  --report NONE \
+  --variable "BROWSER:$BROWSER" \
+  --variable "BROWSER OPTS:$FIREFOX_OPTS" \
+  "$to_run" && \
+  robot_tests_passed='yes'
+
+set +x
 
 echo "Tests passed: $robot_tests_passed"
 
