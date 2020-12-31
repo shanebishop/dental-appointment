@@ -83,3 +83,61 @@ class RegisterUserAPI(generics.GenericAPIView):
             'message': 'Registered new user'
         }
         return Response(resp)
+
+
+class DeregisterUserAPI(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def delete(self, request):
+        requesting_user = self.request.user
+
+        if not requesting_user.is_superuser:
+            resp = {
+                'message': 'Only administrators can deregister users'
+            }
+            return Response(resp, status=status.HTTP_401_UNAUTHORIZED)
+
+        data = request.data
+
+        if not isinstance(data, dict):
+            resp = {
+                'message': 'Error: request body is not a valid JSON object'
+            }
+            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
+
+        if 'id' not in data:
+            resp = {
+                'message': 'Error: request body does not have an "id" key'
+            }
+            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user_id = int(data['id'])
+        except ValueError:
+            resp = {
+                'message': 'Error: "id" is not and cannot be converted to an integer'
+            }
+            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            to_delete = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            resp = {
+                'message': f'No user found with {user_id} as ID'
+            }
+            return Response(resp, status=status.HTTP_404_NOT_FOUND)
+
+        username = to_delete.username
+
+        if username == 'admin':
+            resp = {
+                'message': 'Error: cannot deregister admin user'
+            }
+            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
+
+        to_delete.delete()
+
+        resp = {
+            'message': f'Deleted user with username {username}'
+        }
+        return Response(resp)
