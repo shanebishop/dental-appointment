@@ -3,6 +3,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 
 from .models import UserData
+from .serializers import UserSerializer
 
 
 class RegisterUserAPI(generics.GenericAPIView):
@@ -139,5 +140,27 @@ class DeregisterUserAPI(generics.GenericAPIView):
 
         resp = {
             'message': f'Deleted user with username {username}'
+        }
+        return Response(resp)
+
+
+# TODO This currently has no API tests
+class GetAllUsersAPI(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        requesting_user = self.request.user
+
+        if not requesting_user.is_staff:
+            resp = {
+                'message': 'Only staff members can retrieve all users'
+            }
+            return Response(resp, status=status.HTTP_401_UNAUTHORIZED)
+
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+
+        resp = {
+            'users': serializer.data
         }
         return Response(resp)

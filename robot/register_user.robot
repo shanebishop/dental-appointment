@@ -1,8 +1,14 @@
 *** Settings ***
 Documentation     Tests for staff user registration page.
+Library           Collections
 Library           SeleniumLibrary    run_on_failure=None
+Library           RequestsLibrary
+Library           CustomHelpers/BasicAuth.py
+Library           CustomHelpers/Users.py
 Suite Setup       Setup
 Suite Teardown    Close Browser
+
+# TODO These variables, if they are common, should be moved to a variables file, and then imported in the Settings above
 
 *** Variables ***
 ${SERVER}         http://localhost
@@ -10,15 +16,30 @@ ${BROWSER}        Firefox
 ${HOME URL}       ${SERVER}/
 ${LOGIN URL}      ${SERVER}/auth/sign-in
 ${REGISTER URL}    ${SERVER}/register-user
+${DEREGISTER URL}    ${SERVER}/api/user/deregister/
+${GET ALL USERS URL}    ${SERVER}/api/user/all/
 
 *** Keywords ***
 Setup
     Log    Browser: ${BROWSER}    INFO    console=True
     Log    Browser options: ${BROWSER OPTS}    INFO    console=True
     Log    Server: ${SERVER}    INFO    console=True
+    Get Admin Auth Token
+    Delete All Nonadmin Users    ${AUTH TOKEN}    ${DEREGISTER URL}    ${GET ALL USERS URL}
     Open Browser    ${LOGIN URL}    ${BROWSER}
     Login Page Should Be Open
     Login
+
+Get Admin Auth Token
+    ${basic auth}=    Generate Basic Auth    admin    admin
+    Create Session    session    ${SERVER}
+    &{data}=        Create dictionary   email=admin  password=admin
+    ${headers}=     Create dictionary   Authorization=${basic auth}
+    ${resp}=    Post request    session      /api/auth/login/     json=${data}    headers=${headers}
+    Status Should Be    200     ${resp}
+    Dictionary Should Contain Key   ${resp.json()}      token
+    ${temp auth token}=      Get From Dictionary    ${resp.json()}   token
+    Set Suite Variable      ${AUTH TOKEN}   ${temp auth token}
 
 Login
     Input Text    email    admin

@@ -9,3 +9,4 @@ djangorestframework==3.11.0
 django-rest-knox==4.1.0
 django-cors-headers==3.4.0
 django-extensions==2.2.9
+robotframework-requests==0.7.2
