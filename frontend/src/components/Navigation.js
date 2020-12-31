@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import store from "../redux/store";
 import { toggleSidebar } from "../redux/actions/sidebarActions";
@@ -43,6 +44,10 @@ class Navigation extends React.Component {
     );
   }
 }
+
+Navigation.propTypes = {
+  dispatch: PropTypes.func
+};
 
 export default connect(store => ({
   app: store.app

@@ -9,8 +9,6 @@ export function onSubmit(e) {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Token ${localStorage.getItem('user-token')}`,
-      // TODO Do I need the X-CSRFToken as well?
-      // 'X-CSRFToken': getCookie('csrftoken'),
     }
   };
 
@@ -18,22 +16,50 @@ export function onSubmit(e) {
 
   // Copy this.state to data
   const data = {...this.state};
+  delete data.dialog;
 
   axios.post('/api/user/register/', data, config)
     .then((/*resp*/) => {
-      // TODO Need to figure out how to show info versus error dialog
-      console.log('Request succeeded');
-      // this.showDialog(`Registered ${username}.`);
+      this.showSuccessDialog(`Registered ${username}.`);
     })
     .catch((err) => {
-      // TODO
-      console.log('Request failed');
-      console.log(err);
-      console.log(err.response);
-      // this.showDialog(err);
+      this.showErrorDialog(err);
     });
 
   return false; // Prevent triggering a submit action
+}
+
+export function toggleDialog() {
+  this.setState({
+    dialog: {
+      ...this.state.dialog,
+      open: !this.state.dialog.open
+    }
+  });
+}
+
+export function showSuccessDialog(msg) {
+  this.setState({
+    dialog: {
+      open: true,
+      msg: msg,
+      title: 'Registered',
+    }
+  });
+}
+
+export function showErrorDialog(err) {
+  const msg = (err.response && err.response.data && err.response.data.message)
+    ? err.response.data.message
+    : `${err}`;
+
+  this.setState({
+    dialog: {
+      open: true,
+      msg: msg,
+      title: 'Failed to register user',
+    }
+  });
 }
 
 export function onUsernameChanged(e) {
@@ -75,12 +101,4 @@ export function onPostalCodeChanged(e) {
 export function registerButtonEnabled() {
   const reducer = (accumulator, currentValue) => accumulator && (currentValue !== '');
   return Object.values(this.state).reduce(reducer, true);
-}
-
-// Private functions
-
-function getCookie(name) {
-  const re = new RegExp(`${name}=([^;]+)`);
-  const value = re.exec(document.cookie);
-  return (value != null) ? unescape(value[1]) : null;
 }

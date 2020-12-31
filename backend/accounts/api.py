@@ -11,6 +11,7 @@ class RegisterUserAPI(generics.GenericAPIView):
     DEFAULT_PASSWORD = 'PBEWjwj83b4HsM3GCxD7dXak9huLbq6H'
 
     # TODO Consider validating postal code further to follow A1A 1A1 format
+    # TODO Consider validating email as well
     def post(self, request):
         requesting_user = self.request.user
 
