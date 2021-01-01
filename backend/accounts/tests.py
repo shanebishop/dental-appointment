@@ -4,7 +4,10 @@ from knox.models import AuthToken
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from .models import UserData
+import base64
+
+from .models import UserData, PartiallyRegisteredUser
+from .api import DEFAULT_PASSWORD
 
 
 class RegisterUserAPITests(APITestCase):
@@ -75,6 +78,114 @@ class RegisterUserAPITests(APITestCase):
             response, 'postalCode exceeds max length',
             status_code=status.HTTP_400_BAD_REQUEST
         )
+
+
+class CompleteClientRegistrationAPITests(APITestCase):
+    URL = '/api/user/complete-registration/'
+
+    def setUp(self):
+        self.admin_auth_token = create_admin_user()
+
+    def use_admin_creds(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.admin_auth_token)
+
+    def use_client_creds(self, username, password):
+        self.client.credentials(HTTP_AUTHORIZATION=generate_basic_auth(username, password))
+
+    def create_regular_user(self, username):
+        """Creates a regular user, leaving registration partially complete"""
+        data = generate_valid_user_data(username)
+        self.use_admin_creds()
+
+        response = self.client.post(RegisterUserAPITests.URL, data)
+        self.assertIs(response.status_code, status.HTTP_200_OK)
+
+    def start_registration(self, username):
+        """Starts user registration, without completing it. Returns the valid
+        registration token for the user."""
+        data = generate_valid_user_data(username)
+
+        self.use_admin_creds()
+        response = self.client.post(RegisterUserAPITests.URL, data)
+        self.assertIs(response.status_code, status.HTTP_200_OK)
+
+        user = User.objects.get(username=username)
+        partial_registered_entry = PartiallyRegisteredUser.objects.get(user=user)
+        return partial_registered_entry.registration_token
+
+    def attempt_complete_registration(self, username, complete_registration_data):
+        """Attempts to complete registration with provided
+        data. Returns response received from complete registration attempt."""
+        self.use_client_creds(username, DEFAULT_PASSWORD)
+        return self.client.post(CompleteClientRegistrationAPITests.URL, complete_registration_data)
+
+    def test_complete_registration(self):
+        username = 'user1'
+        register_token = self.start_registration(username)
+
+        data = {
+            'username': username,
+            'register_token': register_token,
+            'password': 'new_password',
+        }
+
+        response = self.attempt_complete_registration(username, data)
+        self.assertIs(response.status_code, status.HTTP_200_OK)
+
+    def test_empty_json_request_body(self):
+        username = 'user2'
+        self.start_registration(username)
+        response = self.attempt_complete_registration(username, dict())
+
+        self.assertIs(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertTrue('request body is missing the following required keys' in response.json()['message'])
+
+    def test_json_request_missing_key(self):
+        username = 'user3'
+        self.start_registration(username)
+
+        # This data is missing the register_token key
+        data = {
+            'username': username,
+            'password': 'new_password',
+        }
+
+        response = self.attempt_complete_registration(username, data)
+
+        self.assertIs(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertTrue('request body is missing the following required keys' in response.json()['message'])
+
+    def test_user_is_not_partially_registered(self):
+        username = 'user4'
+
+        # Note that we do not start registration for the user, and that we proceed
+        # directly to attempting to complete the registration that was not begin
+
+        data = {
+            'username': username,
+            'password': 'new_password',
+            'register_token': 'we-do-not-know-the-token',
+        }
+
+        response = self.attempt_complete_registration(username, data)
+
+        self.assertIs(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertTrue('Invalid username/password' in response.json()['detail'])
+
+    def test_incorrect_register_token(self):
+        username = 'user5'
+        self.start_registration(username)
+
+        data = {
+            'username': username,
+            'password': 'new_password',
+            'register_token': 'an-invalid-token',
+        }
+
+        response = self.attempt_complete_registration(username, data)
+
+        self.assertIs(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertTrue('registration token is invalid' in response.json()['message'])
 
 
 class DeregisterUserAPI(APITestCase):
@@ -156,8 +267,8 @@ class GetAllUsersAPITests(APITestCase):
 
 # Helper functions
 
-def generate_valid_user_data(username):
-    return {
+def generate_valid_user_data(username, skip_email=True):
+    data = {
         'username': username,
         'firstName': 'John',
         'surname': 'Doe',
@@ -168,6 +279,9 @@ def generate_valid_user_data(username):
         'province': 'Ontario',
         'postalCode': 'A1A 1B1',
     }
+    if skip_email:
+        data['skip_email'] = skip_email
+    return data
 
 
 def create_admin_user():
@@ -185,3 +299,9 @@ def create_admin_user():
 def get_user_id_by_username(username):
     user = User.objects.get(username=username)
     return user.id
+
+
+def generate_basic_auth(username, password):
+    message_bytes = (username + ':' + password).encode('ascii')
+    base64_bytes = base64.b64encode(message_bytes)
+    return 'Basic ' + base64_bytes.decode('ascii')

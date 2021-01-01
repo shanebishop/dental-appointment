@@ -13,3 +13,12 @@ class UserData(models.Model):
     city = models.CharField(max_length=80)
     province = models.CharField(max_length=80)
     postalCode = models.CharField(max_length=7)
+
+
+class PartiallyRegisteredUser(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    registration_token = models.CharField(max_length=32)

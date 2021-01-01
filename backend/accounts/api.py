@@ -2,14 +2,25 @@ from django.contrib.auth.models import User
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 
-from .models import UserData
+import logging
+import random
+import string
+
+# For sending emails
+import smtplib
+import ssl
+from email.mime.text import MIMEText
+
+from .models import UserData, PartiallyRegisteredUser
 from .serializers import UserSerializer
+
+logger = logging.getLogger(__name__)
+
+DEFAULT_PASSWORD = 'PBEWjwj83b4HsM3GCxD7dXak9huLbq6H'
 
 
 class RegisterUserAPI(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
-
-    DEFAULT_PASSWORD = 'PBEWjwj83b4HsM3GCxD7dXak9huLbq6H'
 
     # TODO Consider validating postal code further to follow A1A 1A1 format
     # TODO Consider validating email as well
@@ -64,7 +75,7 @@ class RegisterUserAPI(generics.GenericAPIView):
         new_user = User.objects.create_user(
             username=data['username'],
             email=data['email'],
-            password=RegisterUserAPI.DEFAULT_PASSWORD,
+            password=DEFAULT_PASSWORD,
             first_name=data['firstName'],
             last_name=data['surname']
         )
@@ -80,8 +91,120 @@ class RegisterUserAPI(generics.GenericAPIView):
         )
         user_data.save()
 
+        registration_token = ''.join(
+            random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(32))
+
+        partially_registered_entry = PartiallyRegisteredUser.objects.create(
+            user=new_user,
+            registration_token=registration_token
+        )
+        partially_registered_entry.save()
+
+        # A better solution might be to queue sending registration emails separately,
+        # so a response can be returned more quickly.
+        # For now at least, we will simply not send an email if that is we are told
+        # not to.
+        if not ('skip_email' in data and data['skip_email']):
+            RegisterUserAPI.send_registration_email(new_user)
+
         resp = {
             'message': 'Registered new user'
+        }
+        return Response(resp)
+
+    @staticmethod
+    def send_registration_email(new_user):
+        port = 465  # For SSL
+
+        # Create a secure SSL context
+        context = ssl.create_default_context()
+
+        sender = 'honours.proj.dental@gmail.com'
+        recipient = new_user.email
+
+        gmail_password = 'HonoursProject'
+
+        succeeded = True
+
+        with smtplib.SMTP_SSL('smtp.gmail.com', port, context=context) as server:
+            server.login(sender, gmail_password)
+
+            msg = MIMEText('Please visit http://localhost/auth/sign-up to complete registration.')
+
+            msg['Subject'] = 'Please complete your registration'
+            msg['From'] = sender
+            msg['To'] = recipient
+
+            try:
+                ret = server.sendmail(sender, [recipient], msg.as_string())
+            except smtplib.SMTPRecipientsRefused:
+                succeeded = False
+                logger.error(f'Failed to send email to {new_user.username} using email address {new_user.email}.')
+
+            if succeeded and not (isinstance(ret, dict) and (not ret)):
+                # if ret is not an empty dictionary, then the email was not sent successfully
+                succeeded = False
+                logger.error(f'Failed to send email to {new_user.username} using email address {new_user.email}.')
+                logger.error('Result of server.sendmail():')
+                logger.error(ret)
+
+            server.quit()
+
+        return succeeded
+
+
+class CompleteClientRegistrationAPI(generics.GenericAPIView):
+    def post(self, request):
+        data = request.data
+
+        # Since we are using basic auth, we know what user is requesting this
+        user = self.request.user
+
+        if not isinstance(data, dict):
+            resp = {
+                'message': 'Error: request body is not a valid JSON object'
+            }
+            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
+
+        required_keys = {'username', 'register_token', 'password'}
+        missing_keys = required_keys - data.keys()
+
+        if missing_keys:
+            resp = {
+                'message': f'Error: request body is missing the following required keys: {missing_keys}'
+            }
+            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            partial_registered_entry = PartiallyRegisteredUser.objects.get(user=user)
+        except PartiallyRegisteredUser.DoesNotExist:
+            # In this case, the user is fully registered. However, we don't want to give
+            # a message saying the user is fully registered, as this would let an attacker
+            # now the username and password they entered were valid. So instead, we
+            # simply emulate the username or password being incorrect.
+            resp = {
+                'detail': 'Invalid username/password.'
+            }
+            return Response(resp, status=status.HTTP_403_FORBIDDEN)
+
+        # Check received registration token matches the registration token in the database
+        if data['register_token'] != partial_registered_entry.registration_token:
+            resp = {
+                'message': 'Error: provided registration token is invalid'
+            }
+            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
+
+        user.password = data['password']
+        user.save()
+
+        # The user is no fully registered, so the partial registration entry is deleted
+        partial_registered_entry.delete()
+
+        serializer = UserSerializer(user)
+
+        resp = {
+            'message': f'{user.username} is now fully registered',
+            'user': serializer.data,
         }
         return Response(resp)
 
