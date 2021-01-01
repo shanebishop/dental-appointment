@@ -4,6 +4,8 @@ from knox.models import AuthToken
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from .models import UserData
+
 
 class RegisterUserAPITests(APITestCase):
     URL = '/api/user/register/'
@@ -14,10 +16,23 @@ class RegisterUserAPITests(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
 
     def test_create_user(self):
-        data = generate_valid_user_data('user1')
+        username = 'user1'
+        data = generate_valid_user_data(username)
 
         response = self.client.post(RegisterUserAPITests.URL, data)
         self.assertIs(response.status_code, status.HTTP_200_OK)
+
+        user = User.objects.get(username=username)
+        user_data = UserData.objects.get(user=user)
+
+        self.assertEqual(user.first_name, data['firstName'])
+        self.assertEqual(user.last_name, data['surname'])
+        self.assertEqual(user.email, data['email'])
+        self.assertEqual(user_data.address1, data['address1'])
+        self.assertEqual(user_data.address2, data['address2'])
+        self.assertEqual(user_data.city, data['city'])
+        self.assertEqual(user_data.province, data['province'])
+        self.assertEqual(user_data.postalCode, data['postalCode'])
 
     def test_empty_request_body(self):
         response = self.client.post(RegisterUserAPITests.URL, dict())
@@ -118,6 +133,25 @@ class DeregisterUserAPI(APITestCase):
 
         message = response.json()['message']
         self.assertTrue('cannot deregister admin user' in message)
+
+
+class GetAllUsersAPITests(APITestCase):
+    URL = '/api/user/all/'
+
+    def setUp(self):
+        token = create_admin_user()
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
+
+    def test_get_all_users(self):
+        response = self.client.get(GetAllUsersAPITests.URL)
+        self.assertIs(response.status_code, status.HTTP_200_OK)
+
+        users = response.json()['users']
+
+        admin_user = [u for u in users if u['username'] == 'admin'][0]
+
+        self.assertIs(admin_user['is_staff'], True)
+        self.assertIs(admin_user['is_superuser'], True)
 
 
 # Helper functions
