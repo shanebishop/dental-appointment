@@ -3,6 +3,8 @@
 import axios from 'axios';
 
 import { loginSuccess } from "./authActions";
+import getCookie from "../../utils/getCookie";
+import genBasicAuth from "../../utils/auth";
 
 export function toggleDialog() {
   this.setState(state => ({
@@ -39,7 +41,7 @@ export function login(e) {
   const config = {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Basic ${genBasicAuth(user)}`,
+      'Authorization': `Basic ${genBasicAuth(user.email, user.password)}`,
       // This csrf token header may not be necessary
       // if the frontend is configured properly with nginx
       'X-CSRFToken': getCookie('csrftoken'),
@@ -76,16 +78,4 @@ export function handlePasswordChange(e) {
 
 export function signInButtonEnabled() {
   return this.state.email !== '' && this.state.password !== '';
-}
-
-// Private functions
-
-function getCookie(name) {
-  const re = new RegExp(`${name}=([^;]+)`);
-  const value = re.exec(document.cookie);
-  return (value != null) ? unescape(value[1]) : null;
-}
-
-function genBasicAuth({ email, password }) {
-  return btoa(`${email}:${password}`)
 }

@@ -105,7 +105,7 @@ class RegisterUserAPI(generics.GenericAPIView):
         # For now at least, we will simply not send an email if that is we are told
         # not to.
         if not ('skip_email' in data and data['skip_email']):
-            RegisterUserAPI.send_registration_email(new_user)
+            RegisterUserAPI.send_registration_email(new_user, registration_token)
 
         resp = {
             'message': 'Registered new user'
@@ -113,7 +113,7 @@ class RegisterUserAPI(generics.GenericAPIView):
         return Response(resp)
 
     @staticmethod
-    def send_registration_email(new_user):
+    def send_registration_email(new_user, registration_token):
         port = 465  # For SSL
 
         # Create a secure SSL context
@@ -129,7 +129,16 @@ class RegisterUserAPI(generics.GenericAPIView):
         with smtplib.SMTP_SSL('smtp.gmail.com', port, context=context) as server:
             server.login(sender, gmail_password)
 
-            msg = MIMEText('Please visit http://localhost/auth/sign-up to complete registration.')
+            msg = MIMEText(f'''Hello {new_user.first_name} {new_user.last_name},
+
+You recently began your registration with the Dr. Phil Ing Dental Clinic. You registered with the username {new_user.username}.
+
+Please visit http://localhost/auth/complete-registration to complete registration.
+
+Use {registration_token} as your registration token and {new_user.username} as your username.
+
+Thank you,
+Dr. Phil Ing Dental Clinic Staff''')
 
             msg['Subject'] = 'Please complete your registration'
             msg['From'] = sender
@@ -194,7 +203,7 @@ class CompleteClientRegistrationAPI(generics.GenericAPIView):
             }
             return Response(resp, status=status.HTTP_400_BAD_REQUEST)
 
-        user.password = data['password']
+        user.set_password(data['password'])
         user.save()
 
         # The user is no fully registered, so the partial registration entry is deleted
