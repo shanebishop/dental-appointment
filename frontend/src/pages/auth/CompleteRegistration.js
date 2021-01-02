@@ -11,7 +11,7 @@ import {
   Input
 } from "reactstrap";
 
-const SignUp = () => (
+const CompleteRegistration = () => (
   <React.Fragment>
     <div className="text-center mt-4">
       <h1 className="h2">Complete registration</h1>
@@ -72,4 +72,4 @@ const SignUp = () => (
   </React.Fragment>
 );
 
-export default SignUp;
+export default CompleteRegistration;
