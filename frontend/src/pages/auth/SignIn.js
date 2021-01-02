@@ -29,7 +29,7 @@ class SignIn extends React.Component {
     }
 
     this.state = {
-      email: '',
+      username: '',
       password: '',
       redirectedFrom,
       dialogOpen: false,
@@ -38,7 +38,7 @@ class SignIn extends React.Component {
     this.toggleDialog = Actions.toggleDialog.bind(this);
     this.showDialog = Actions.showDialog.bind(this);
     this.login = Actions.login.bind(this);
-    this.handleEmailChange = Actions.handleEmailChange.bind(this);
+    this.handleUsernameChange = Actions.handleUsernameChange.bind(this);
     this.handlePasswordChange = Actions.handlePasswordChange.bind(this);
     this.signInButtonEnabled = Actions.signInButtonEnabled.bind(this);
   }
@@ -55,13 +55,13 @@ class SignIn extends React.Component {
             <div className="m-sm-4">
               <Form>
                 <FormGroup>
-                  <Label>Email</Label>
+                  <Label>Username</Label>
                   <Input
                     bsSize="lg"
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    onChange={this.handleEmailChange}
+                    type="username"
+                    name="username"
+                    placeholder="Enter your username"
+                    onChange={this.handleUsernameChange}
                   />
                 </FormGroup>
                 <FormGroup>

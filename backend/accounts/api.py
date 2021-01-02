@@ -131,7 +131,8 @@ class RegisterUserAPI(generics.GenericAPIView):
 
             msg = MIMEText(f'''Hello {new_user.first_name} {new_user.last_name},
 
-You recently began your registration with the Dr. Phil Ing Dental Clinic. You registered with the username {new_user.username}.
+You recently began your registration with the Dr. Phil Ing Dental Clinic. You registered with the username
+{new_user.username}.
 
 Please visit http://localhost/auth/complete-registration to complete registration.
 
@@ -276,7 +277,6 @@ class DeregisterUserAPI(generics.GenericAPIView):
         return Response(resp)
 
 
-# TODO This currently has no API tests
 class GetAllUsersAPI(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 

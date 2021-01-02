@@ -16,7 +16,7 @@ export function showDialog(err) {
   let message;
 
   if (err.message && err.message === 'Request failed with status code 403') {
-    message = 'Email or password is incorrect.';
+    message = 'Username or password is incorrect.';
   } else {
     message = `Error: ${err}`;
   }
@@ -32,21 +32,21 @@ export function login(e) {
 
   const user = {
     // knox expects email as the key
-    email: this.state.email,
+    email: this.state.username,
     password: this.state.password
-  }
+  };
 
   const url = '/api/auth/login/';
 
   const config = {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Basic ${genBasicAuth(user.email, user.password)}`,
+      'Authorization': `Basic ${genBasicAuth(this.state.username, this.state.password)}`,
       // This csrf token header may not be necessary
       // if the frontend is configured properly with nginx
       'X-CSRFToken': getCookie('csrftoken'),
     }
-  }
+  };
 
   axios.post(url, user, config)
     .then((resp) => {
@@ -68,8 +68,8 @@ export function login(e) {
   return false; // Prevent triggering a submit action
 }
 
-export function handleEmailChange(e) {
-  this.setState({email: e.target.value});
+export function handleUsernameChange(e) {
+  this.setState({username: e.target.value});
 }
 
 export function handlePasswordChange(e) {
@@ -77,5 +77,5 @@ export function handlePasswordChange(e) {
 }
 
 export function signInButtonEnabled() {
-  return this.state.email !== '' && this.state.password !== '';
+  return this.state.username !== '' && this.state.password !== '';
 }

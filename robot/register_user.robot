@@ -23,6 +23,7 @@ Setup
 Get Admin Auth Token
     ${basic auth}=    Generate Basic Auth    admin    admin
     Create Session    session    ${SERVER}
+    # The /api/auth/login/ endpoint uses knox, and knox expects an `email` key, rather than a `username` key
     &{data}=        Create dictionary   email=admin  password=admin
     ${headers}=     Create dictionary   Authorization=${basic auth}
     ${resp}=    Post request    session      /api/auth/login/     json=${data}    headers=${headers}
@@ -32,7 +33,7 @@ Get Admin Auth Token
     Set Suite Variable      ${AUTH TOKEN}   ${temp auth token}
 
 Login
-    Input Text    email    admin
+    Input Text    username    admin
     Input Text    password    admin
     Click Button    sign-in-btn
     Wait Until Location Is    ${HOME_URL}    2
@@ -68,7 +69,10 @@ Staff Can Register A New Client User
     Go To Register User Page
     Enter Registration Data    John    Doe    john.doe    john@company.com    1234 Main St.    22    Toronto    Ontario    A1A 1A1
     Click Button    register-btn
-    Wait Until Element Is Visible    register-dialog    1
+    # Since registering a user involves sending an email out, and the
+    # registration dialog is not displayed unti the email has been sent,
+    # we need to wait a while for the dialog to appear
+    Wait Until Element Is Visible    register-dialog    40
     Element Text Should Be    register-dialog-msg    Registered john.doe.
 
 Username Cannot Be Reused
