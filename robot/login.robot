@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    Tests for Sign In page.
-Library          SeleniumLibrary
+Library          SeleniumLibrary    run_on_failure=None
 Variables        variables
 Suite Setup      Open Browser To Login Page
 Suite Teardown   Close Browser

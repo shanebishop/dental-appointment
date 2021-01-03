@@ -98,6 +98,7 @@ class CompleteRegistration extends React.Component {
                   <Link to="/dashboard/default">
                     <Button
                       type="submit" color="primary" size="lg"
+                      name="submit-btn"
                       disabled={!this.submitButtonEnabled()}
                       onClick={this.onSubmit}
                       onSubmit={this.onSubmit}

@@ -1,0 +1,38 @@
+*** Settings ***
+Documentation    A set of common keywords used by multiple Robot test suites.
+Library          Collections
+Library          RequestsLibrary
+Library          CustomHelpers/Users.py
+Library          CustomHelpers/BasicAuth.py
+
+*** Keywords ***
+Login
+    [Documentation]   Logs a user in. This can only be called when on the login page.
+    [Arguments]    ${username}    ${password}
+    Login Page Should Be Open
+    Input Text    username    ${username}
+    Input Text    password    ${password}
+    Click Button    sign-in-btn
+    Wait Until Location Is    ${HOME_URL}    2
+
+Login As Admin
+    Login    admin    admin
+
+Go To Login Page
+    Go To    ${LOGIN_URL}
+    Login Page Should Be Open
+
+Login Page Should Be Open
+    Location Should Be    ${LOGIN_URL}
+
+Get Admin Auth Token
+    ${basic auth}=    Generate Basic Auth    admin    admin
+    Create Session    session    ${SERVER}
+    # The /api/auth/login/ endpoint uses knox, and knox expects an `email` key, rather than a `username` key
+    &{data}=        Create dictionary   email=admin  password=admin
+    ${headers}=     Create dictionary   Authorization=${basic auth}
+    ${resp}=    Post request    session      /api/auth/login/     json=${data}    headers=${headers}
+    Status Should Be    200     ${resp}
+    Dictionary Should Contain Key   ${resp.json()}      token
+    ${temp auth token}=      Get From Dictionary    ${resp.json()}   token
+    Set Suite Variable      ${AUTH TOKEN}   ${temp auth token}
