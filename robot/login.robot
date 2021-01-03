@@ -2,7 +2,7 @@
 Documentation    Tests for Sign In page.
 Library          SeleniumLibrary    run_on_failure=None
 Variables        variables
-Suite Setup      Open Browser To Login Page
+Suite Setup      Setup
 Suite Teardown   Close Browser
 
 *** Variables ***
@@ -10,7 +10,7 @@ ${VALID USER}    admin
 ${VALID PASSWORD}    admin
 
 *** Keywords ***
-Open Browser To Login Page
+Setup
     Log     Browser: ${BROWSER}                 INFO    console=True
     Log     Browser options: ${BROWSER OPTS}    INFO    console=True
     Log     Server: ${SERVER}                   INFO    console=True

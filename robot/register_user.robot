@@ -5,6 +5,7 @@ Library           SeleniumLibrary    run_on_failure=None
 Library           RequestsLibrary
 Library           CustomHelpers/BasicAuth.py
 Library           CustomHelpers/Users.py
+Resource          common.robot
 Variables         variables
 Suite Setup       Setup
 Suite Teardown    Close Browser
@@ -18,48 +19,7 @@ Setup
     Delete All Nonadmin Users    ${AUTH TOKEN}    ${DEREGISTER_URL}    ${GET_ALL_USERS_URL}
     Open Browser    ${LOGIN URL}    ${BROWSER}
     Login Page Should Be Open
-    Login
-
-Get Admin Auth Token
-    ${basic auth}=    Generate Basic Auth    admin    admin
-    Create Session    session    ${SERVER}
-    # The /api/auth/login/ endpoint uses knox, and knox expects an `email` key, rather than a `username` key
-    &{data}=        Create dictionary   email=admin  password=admin
-    ${headers}=     Create dictionary   Authorization=${basic auth}
-    ${resp}=    Post request    session      /api/auth/login/     json=${data}    headers=${headers}
-    Status Should Be    200     ${resp}
-    Dictionary Should Contain Key   ${resp.json()}      token
-    ${temp auth token}=      Get From Dictionary    ${resp.json()}   token
-    Set Suite Variable      ${AUTH TOKEN}   ${temp auth token}
-
-Login
-    Input Text    username    admin
-    Input Text    password    admin
-    Click Button    sign-in-btn
-    Wait Until Location Is    ${HOME_URL}    2
-
-Go To Login Page
-    Go To    ${LOGIN_URL}
-    Login Page Should Be Open
-
-Login Page Should Be Open
-    Location Should Be    ${LOGIN_URL}
-
-Go To Register User Page
-    Go To    ${REGISTER_URL}
-    Location Should Be    ${REGISTER_URL}
-
-Enter Registration Data
-    [Arguments]    ${first_name}    ${surname}    ${username}    ${email}    ${address1}    ${address2}    ${city}    ${province}    ${postal_code}
-    Input Text    first-name    ${first_name}
-    Input Text    surname    ${surname}
-    Input Text    username    ${username}
-    Input Text    email    ${email}
-    Input Text    address    ${address1}
-    Input Text    address2    ${address2}
-    Input Text    city    ${city}
-    Input Text    postal-code    ${postal_code}
-    Select From List By Label    province    ${province}
+    Login As Admin
 
 *** Test Cases ***
 Register User Page Can Be Accessed
@@ -67,7 +27,7 @@ Register User Page Can Be Accessed
 
 Staff Can Register A New Client User
     Go To Register User Page
-    Enter Registration Data    John    Doe    john.doe    john@company.com    1234 Main St.    22    Toronto    Ontario    A1A 1A1
+    Enter User Registration Data    John    Doe    john.doe    john@company.com    1234 Main St.    22    Toronto    Ontario    A1A 1A1
     Click Button    register-btn
     # Since registering a user involves sending an email out, and the
     # registration dialog is not displayed unti the email has been sent,
@@ -77,14 +37,14 @@ Staff Can Register A New Client User
 
 Username Cannot Be Reused
     Go To Register User Page
-    Enter Registration Data    John    Doe    john.doe    john@company.com    1234 Main St.    22    Toronto    Ontario    A1A 1A1
+    Enter User Registration Data    John    Doe    john.doe    john@company.com    1234 Main St.    22    Toronto    Ontario    A1A 1A1
     Click Button    register-btn
     Wait Until Element Is Visible    register-dialog    1
     Element Text Should Be    register-dialog-msg    Error: username john.doe taken
 
 Staff Are Prevented From Entering An Invalid Postal Code
     Go To Register User Page
-    Enter Registration Data    John    Smith    john.smith    johns@company.com    1234 Main St.    22    Toronto    Ontario    A1A 1A12
+    Enter User Registration Data    John    Smith    john.smith    johns@company.com    1234 Main St.    22    Toronto    Ontario    A1A 1A12
     Click Button    register-btn
     Wait Until Element Is Visible    register-dialog    1
     Element Text Should Be    register-dialog-msg    Error: postalCode exceeds max length
