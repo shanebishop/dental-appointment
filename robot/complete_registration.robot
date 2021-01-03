@@ -30,6 +30,8 @@ Complete Registration
 
 Staff Completes Initial Registration For Client
     [Arguments]    ${username}
+    Go To Login Page
+    Login As Admin
     Go To    ${REGISTER_URL}
     Enter User Registration Data    John    Doe    ${username}    john@company.com    1234 Main St    Appt 4    Toronto    Ontario    A1A 1A1
     Click Button    register-btn
@@ -44,5 +46,27 @@ Client Can Be Fully Registered
     Staff Completes Initial Registration For Client    user1
     ${token}=    Get Register Token    user1
     Complete Registration    user1    ${token}    password1    password1
-    Login Page Should Be Open
+    Wait Until Location Is    ${LOGIN_URL}    4
     Login    user1    password1
+
+Completing Registration Fails If Username Is Invalid
+    Staff Completes Initial Registration For Client    user2
+    ${token}=    Get Register Token    user2
+    Complete Registration    unregistered    ${token}    password1    password1
+    Wait Until Element Is Visible    confirm-dialog    2
+    Element Text Should Be    confirm-dialog-msg    Invalid username/password.
+
+Completing Registration Fails If Registration Token Is Invalid
+    # Initial registration completed for user2 in previous test case
+    Complete Registration    user2    invalid-token    password1    password1
+    Wait Until Element Is Visible    confirm-dialog    2
+    Element Text Should Be    confirm-dialog-msg    Error: provided registration token is invalid
+
+Completing Registration Fails If Passwords Do Not Match
+    # Initial registration completed for user2 in a previous test case
+    ${token}=    Get Register Token    user2
+    Complete Registration    user2    ${token}    password1    password-does-not-match
+    Wait Until Element Is Visible    confirm-dialog    2
+    Element Text Should Be    confirm-dialog-msg    Passwords do not match.
+    # Confirm we stayed on the complete registration page
+    Location Should Be    ${COMPLETE_REGISTRATION_URL}

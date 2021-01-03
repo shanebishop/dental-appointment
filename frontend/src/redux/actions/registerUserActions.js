@@ -98,6 +98,8 @@ export function onPostalCodeChanged(e) {
   this.setState({postalCode: e.target.value});
 }
 
+// TODO See note in Long term TODOs Google Doc on how this function could be
+// modified for testability
 export function registerButtonEnabled() {
   const reducer = (accumulator, currentValue) => accumulator && (currentValue !== '');
   return Object.values(this.state).reduce(reducer, true);

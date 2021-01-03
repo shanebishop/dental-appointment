@@ -50,9 +50,16 @@ export function showSuccessDialog(msg) {
 }
 
 export function showErrorDialog(err) {
-  const msg = (err.response && err.response.data && err.response.data.message)
-    ? err.response.data.message
-    : `${err}`;
+  const responseDataExists = err.response && err.response.data;
+  let msg;
+
+  if (responseDataExists && err.response.data.message) {
+    msg = err.response.data.message;
+  } else if (responseDataExists && err.response.data.detail) {
+    msg = err.response.data.detail;
+  } else {
+    msg = `${err}`;
+  }
 
   this.setState({
     dialog: {

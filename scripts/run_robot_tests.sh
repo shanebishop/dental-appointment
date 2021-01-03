@@ -52,7 +52,7 @@ fi
 
 set -x
 
-flake8
+#flake8 # Commented out because this appears to be expensive
 
 FIREFOX_OPTS='add_argument("--window-size=1420,1080"); add_argument("--headless"); add_argument("--disable-gpu");'
 #BROWSER='Headless Firefox'
