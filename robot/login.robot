@@ -14,7 +14,7 @@ Setup
     Log     Browser: ${BROWSER}                 INFO    console=True
     Log     Browser options: ${BROWSER OPTS}    INFO    console=True
     Log     Server: ${SERVER}                   INFO    console=True
-    Open Browser    ${LOGIN URL}    ${BROWSER}
+    Open Browser    ${LOGIN URL}    ${BROWSER}    service_log_path=${{os.path.devnull}}
     Login Page Should Be Open
 
 Login Page Should Be Open

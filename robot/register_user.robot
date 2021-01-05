@@ -17,7 +17,7 @@ Setup
     Log    Server: ${SERVER}    INFO    console=True
     Get Admin Auth Token
     Delete All Nonadmin Users    ${AUTH TOKEN}    ${DEREGISTER_URL}    ${GET_ALL_USERS_URL}
-    Open Browser    ${LOGIN URL}    ${BROWSER}
+    Open Browser    ${LOGIN URL}    ${BROWSER}    service_log_path=${{os.path.devnull}}
     Login Page Should Be Open
     Login As Admin
 
