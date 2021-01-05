@@ -10,9 +10,10 @@ import {
   Media
 } from "reactstrap";
 
-import avatar1 from "../../../assets/img/avatars/avatar.jpg";
 import avatar4 from "../../../assets/img/avatars/avatar-4.jpg";
 import avatar5 from "../../../assets/img/avatars/avatar-5.jpg";
+import User from "../../../utils/User";
+import defaultProfilePic from "../../../assets/img/avatars/default-profile-pic.png";
 
 const Feed = () => (
   <Card className="flex-fill w-100">
@@ -46,11 +47,11 @@ const Feed = () => (
       <hr />
       <Media>
         <img
-          src={avatar1}
+          src={defaultProfilePic}
           width="36"
           height="36"
           className="rounded-circle mr-2"
-          alt="Chris Wood"
+          alt={User.getDisplayName()}
         />
         <Media body>
           <small className="float-right text-navy">30m ago</small>

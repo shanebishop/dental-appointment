@@ -8,12 +8,10 @@ import { Badge, Collapse } from "reactstrap";
 import PerfectScrollbar from "react-perfect-scrollbar";
 
 import { Home } from "react-feather";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
 import routes from "../routes/index";
-import avatar from "../assets/img/avatars/avatar.jpg";
 import User from "../utils/User";
+import defaultProfilePic from "../assets/img/avatars/default-profile-pic.png";
 
 const initOpenRoutes = (location) => {
   /* Open collapse element that matches current url */
@@ -186,20 +184,13 @@ const Sidebar = ({ location, sidebar, layout }) => {
               <div className="media">
                 <img
                   className="rounded-circle mr-3"
-                  src={avatar}
-                  alt="Chris Wood"
+                  src={defaultProfilePic}
+                  alt={User.getDisplayName()}
                   width="40"
                   height="40"
                 />
                 <div className="media-body">
-                  <h5 className="mb-1">Chris Wood</h5>
-                  <div>
-                    <FontAwesomeIcon
-                      icon={faCircle}
-                      className="text-success"
-                    />{" "}
-                    Online
-                  </div>
+                  <h5 className="mb-1">{User.getDisplayName()}</h5>
                 </div>
               </div>
             </div>

@@ -25,7 +25,8 @@ import { MoreHorizontal } from "react-feather";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
-import avatar1 from "../../assets/img/avatars/avatar.jpg";
+import defaultProfilePic from '../../assets/img/avatars/default-profile-pic.png';
+import User from "../../utils/User";
 
 const Navigation = () => (
   <Card>
@@ -103,8 +104,8 @@ const PublicInfo = () => (
           <Col md="4">
             <div className="text-center">
               <img
-                alt="Chris Wood"
-                src={avatar1}
+                alt={User.getDisplayName()}
+                src={defaultProfilePic}
                 className="rounded-circle img-responsive mt-2"
                 width="128"
                 height="128"

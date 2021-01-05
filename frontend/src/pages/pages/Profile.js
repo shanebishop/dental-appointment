@@ -36,13 +36,14 @@ import {
   faTwitter
 } from "@fortawesome/free-brands-svg-icons";
 
-import avatar1 from "../../assets/img/avatars/avatar.jpg";
 import avatar2 from "../../assets/img/avatars/avatar-2.jpg";
 import avatar4 from "../../assets/img/avatars/avatar-4.jpg";
 import avatar5 from "../../assets/img/avatars/avatar-5.jpg";
 
 import unsplash1 from "../../assets/img/photos/unsplash-1.jpg";
 import unsplash2 from "../../assets/img/photos/unsplash-2.jpg";
+import User from "../../utils/User";
+import defaultProfilePic from "../../assets/img/avatars/default-profile-pic.png";
 
 const ProfileDetails = () => (
   <Card>
@@ -197,11 +198,11 @@ const Activities = () => (
       <hr />
       <Media>
         <img
-          src={avatar1}
+          src={defaultProfilePic}
           width="36"
           height="36"
           className="rounded-circle mr-2"
-          alt="Chris Wood"
+          alt={User.getDisplayName()}
         />
         <Media body>
           <small className="float-right text-navy">30m ago</small>
@@ -321,11 +322,11 @@ const Activities = () => (
       <hr />
       <Media>
         <img
-          src={avatar1}
+          src={defaultProfilePic}
           width="36"
           height="36"
           className="rounded-circle mr-2"
-          alt="Chris Wood"
+          alt={User.getDisplayName()}
         />
         <Media body>
           <small className="float-right text-navy">1d ago</small>

@@ -16,10 +16,11 @@ import {
 import {
   PieChart,
   Settings,
-  User,
+  User as UserIcon,
 } from "react-feather";
 
-import avatar1 from "../assets/img/avatars/avatar.jpg";
+import defaultProfilePic from "../assets/img/avatars/default-profile-pic.png";
+import User from "../utils/User";
 
 const NavbarComponent = ({ dispatch }) => {
   return (
@@ -44,16 +45,16 @@ const NavbarComponent = ({ dispatch }) => {
             <span className="d-none d-sm-inline-block">
               <DropdownToggle nav caret>
                 <img
-                  src={avatar1}
+                  src={defaultProfilePic}
                   className="avatar img-fluid rounded-circle mr-1"
-                  alt="Chris Wood"
+                  alt={User.getDisplayName()}
                 />
-                <span className="text-dark">Chris Wood</span>
+                <span className="text-dark">{User.getDisplayName()}</span>
               </DropdownToggle>
             </span>
             <DropdownMenu right>
               <DropdownItem>
-                <User size={18} className="align-middle mr-2" />
+                <UserIcon size={18} className="align-middle mr-2" />
                 Profile
               </DropdownItem>
               <DropdownItem>

@@ -18,8 +18,21 @@ class User {
   }
 
   static isLoggedIn() {
-    // TODO This is insecure
+    // WARNING: This check is insecure, since it will grant users access if they manually
+    // set user-token and user-data to any "truthy" values in localStorage
     return localStorage.getItem(User.USER_TOKEN_KEY) && localStorage.getItem(User.ROOT_USER_DATA_KEY);
+  }
+
+  static getDisplayName() {
+    if (!User.isLoggedIn()) {
+      return 'Not logged in';
+    }
+
+    const userData = User.getRootData();
+    const firstName = userData.user.firstName;
+    const surname = userData.user.surname;
+
+    return (firstName && surname) ? `${firstName} ${surname}` : userData.user.username;
   }
 }
 
