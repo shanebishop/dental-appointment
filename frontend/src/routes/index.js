@@ -132,6 +132,7 @@ const registerUserRoutes = {
   component: RegisterUser,
   displayInSidebar: true,
   requiresLoggedIn: true,
+  staffOnlyRoute: true,
   children: null
 };
 

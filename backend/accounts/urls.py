@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .api import RegisterUserAPI, DeregisterUserAPI, GetAllUsersAPI, CompleteClientRegistrationAPI
+from .api import RegisterUserAPI, DeregisterUserAPI, GetAllUsersAPI, CompleteClientRegistrationAPI, UserProfileAPI
 
 
 urlpatterns = [
@@ -8,4 +8,5 @@ urlpatterns = [
     path('api/user/complete-registration/', CompleteClientRegistrationAPI.as_view()),
     path('api/user/deregister/', DeregisterUserAPI.as_view()),
     path('api/user/all/', GetAllUsersAPI.as_view()),
+    path('api/user/profile/', UserProfileAPI.as_view()),
 ]

@@ -13,6 +13,7 @@ import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
 import routes from "../routes/index";
 import avatar from "../assets/img/avatars/avatar.jpg";
+import User from "../utils/User";
 
 const initOpenRoutes = (location) => {
   /* Open collapse element that matches current url */
@@ -109,9 +110,19 @@ const Sidebar = ({ location, sidebar, layout }) => {
 
     // Toggle selected element
     setOpenRoutes(openRoutes => Object.assign({}, openRoutes, {[index]: !openRoutes[index]}));
-  }
+  };
 
-  const routesToDisplay = routes.filter(route => route.displayInSidebar);
+  const routesToDisplay = routes.filter(route => {
+    if (!route.displayInSidebar) {
+      return false;
+    }
+
+    if (route.staffOnlyRoute) {
+      return User.isLoggedIn() && User.isStaff();
+    }
+
+    return true;
+  });
 
   return (
     <nav

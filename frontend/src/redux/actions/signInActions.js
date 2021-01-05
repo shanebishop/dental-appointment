@@ -52,16 +52,21 @@ export function login(e) {
     .then((resp) => {
       localStorage.setItem('user-token', resp.data.token);
 
-      // TODO Will set user data better when there is an endpoint to get user data
-      const userData = {};
-      localStorage.setItem('user-data', JSON.stringify(userData));
+      axios.get('/api/user/profile/', config)
+        .then((resp) => {
+          const userData = resp.data;
+          localStorage.setItem('user-data', JSON.stringify(userData));
 
-      const { dispatch } = this.props;
-      dispatch(loginSuccess(userData));
-      this.props.history.push(this.state.redirectedFrom);
+          const { dispatch } = this.props;
+          dispatch(loginSuccess(userData));
+          this.props.history.push(this.state.redirectedFrom);
+        })
+        .catch((err) => {
+          this.showDialog(err);
+        });
+
     })
     .catch((err) => {
-      localStorage.removeItem('user-token');
       this.showDialog(err);
     });
 

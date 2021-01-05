@@ -12,11 +12,33 @@ import ssl
 from email.mime.text import MIMEText
 
 from .models import UserData, PartiallyRegisteredUser
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserDataSerializer
 
 logger = logging.getLogger(__name__)
 
 DEFAULT_PASSWORD = 'PBEWjwj83b4HsM3GCxD7dXak9huLbq6H'
+
+
+# TODO This API needs API tests
+class UserProfileAPI(generics.GenericAPIView):
+    def get(self, request):
+        """Returns the authenticated user's profile"""
+        user = self.request.user
+        user_serializer = UserSerializer(user)
+
+        try:
+            user_data = UserData.objects.get(user=user)
+            user_data_serializer = UserDataSerializer(user_data)
+            serialized_user_data = user_data_serializer.data
+        except UserData.DoesNotExist:
+            # It is possible, as in the case for the admin user, that a
+            # user might have no extra data associated with it
+            serialized_user_data = None
+
+        return Response({
+            'user': user_serializer.data,
+            'user_data': serialized_user_data,
+        })
 
 
 class RegisterUserAPI(generics.GenericAPIView):
