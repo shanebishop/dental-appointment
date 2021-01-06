@@ -13,6 +13,12 @@ class User {
   }
 
   static isStaff() {
+    // To avoid exception handling in call sites, return false if user is not
+    // logged in
+    if (!User.isLoggedIn()) {
+      return false;
+    }
+
     const userData = User.getRootData();
     return userData.user.is_staff;
   }

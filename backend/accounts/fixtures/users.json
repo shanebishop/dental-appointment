@@ -1,0 +1,20 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$g7XACLObeEYw$MFvcCNYuEwKItovWv4dE4kmAQCPVx+RpZJlsS0ACT24=",
+      "last_login": "2021-01-06T17:30:18.425Z",
+      "is_superuser": false,
+      "username": "bobb",
+      "first_name": "Bob",
+      "last_name": "Buchanan",
+      "email": "honours.proj.dental@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-06T17:29:16.218Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

@@ -1,0 +1,13 @@
+[
+  {
+    "model": "accounts.userdata",
+    "pk": 2,
+    "fields": {
+      "address1": "89 Thurston Dr",
+      "address2": "Appt 23",
+      "city": "Ottawa",
+      "province": "Ontario",
+      "postalCode": "K1P 5G8"
+    }
+  }
+]

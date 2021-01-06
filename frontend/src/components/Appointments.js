@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import {
   CardBody,
@@ -11,6 +12,14 @@ import Timeline from "./Timeline";
 import TimelineItem from "./TimelineItem";
 
 class Appointments extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      appointments: props.appointments
+    };
+  }
+
   render() {
     return (
       <Card className="flex-fill w-100">
@@ -26,39 +35,34 @@ class Appointments extends React.Component {
           </p>
         </div>
         <CardBody className="d-flex">
-          <Timeline>
-            <TimelineItem>
-              <strong>Chat with Carl and Ashley</strong>
-              <span className="float-right text-muted text-sm">30m ago</span>
-              <p>
-                Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget,
-                imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices
-                mauris. Integer ante arcu...
-              </p>
-            </TimelineItem>
-            <TimelineItem>
-              <strong>The big launch</strong>
-              <span className="float-right text-muted text-sm">2h ago</span>
-              <p>
-                Sed aliquam ultrices mauris. Integer ante arcu, accumsan a,
-                consectetuer eget, posuere ut, mauris. Praesent adipiscing.
-                Phasellus ullamcorper ipsum rutrum nunc...
-              </p>
-            </TimelineItem>
-            <TimelineItem>
-              <strong>Coffee break</strong>
-              <span className="float-right text-muted text-sm">3h ago</span>
-              <p className="mb-0">
-                Curabitur ligula sapien, tincidunt non, euismod vitae, posuere
-                imperdiet, leo. Maecenas malesuada. Praesent congue erat at massa.
-                Sed cursus turpis vitae tortor...
-              </p>
-            </TimelineItem>
-          </Timeline>
+          {this.state.appointments
+            ? (
+              <Timeline style={{width: "100%"}}>
+                {this.state.appointments.map((appointment, index) => (
+                  // The 'cursor: pointer' changes the cursor to a pointing hand on mouse hover.
+                  <TimelineItem
+                    key={index}
+                    style={{cursor: "pointer"}}
+                    onClick={() => this.props.onAppointmentSelected(appointment)}
+                  >
+                    <strong>{`${appointment.date} ${appointment.time}`}</strong>
+                    <span className="float-right text-muted text-sm">30m ago</span>
+                    <p>{appointment.operation}</p>
+                  </TimelineItem>
+                ))}
+              </Timeline>
+            )
+            : <p>No appointments</p>
+          }
         </CardBody>
       </Card>
     );
   }
 }
+
+Appointments.propTypes = {
+  appointments: PropTypes.array.isRequired,
+  onAppointmentSelected: PropTypes.func.isRequired,
+};
 
 export default Appointments;
