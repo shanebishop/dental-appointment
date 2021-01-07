@@ -25,7 +25,7 @@ yarn-error.log*
 */db.sqlite3
 
 __pycache__
-*.pyc
+*.py[cod]
 .coverage
 .pytest_cache
 

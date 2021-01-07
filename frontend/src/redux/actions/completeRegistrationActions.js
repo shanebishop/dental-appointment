@@ -1,5 +1,5 @@
 import axios from 'axios';
-import genBasicAuth from "../../utils/auth";
+import {basicAuthAxiosConfig} from "../../utils/auth";
 
 export function onSubmit(e) {
   e.preventDefault();
@@ -15,12 +15,7 @@ export function onSubmit(e) {
   // This is that password.
   const defaultPassword = 'PBEWjwj83b4HsM3GCxD7dXak9huLbq6H'
 
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Basic ${genBasicAuth(username, defaultPassword)}`,
-    }
-  };
+  const config = basicAuthAxiosConfig(username, defaultPassword);
 
   const data = {
     username,

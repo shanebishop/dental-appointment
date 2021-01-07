@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { loginSuccess } from "./authActions";
 import getCookie from "../../utils/getCookie";
-import genBasicAuth from "../../utils/auth";
+import {basicAuthAxiosConfig, genBasicAuth} from "../../utils/auth";
 
 export function toggleDialog() {
   this.setState(state => ({
@@ -37,16 +37,7 @@ export function login(e) {
   };
 
   const url = '/api/auth/login/';
-
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Basic ${genBasicAuth(this.state.username, this.state.password)}`,
-      // This csrf token header may not be necessary
-      // if the frontend is configured properly with nginx
-      'X-CSRFToken': getCookie('csrftoken'),
-    }
-  };
+  const config = basicAuthAxiosConfig(this.state.username, this.state.password);
 
   axios.post(url, user, config)
     .then((resp) => {

@@ -6,21 +6,25 @@
 // If the appointments page is visited by a staff member, all appointments for all clients are
 // displayed in chronological order.
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import store from "../../redux/store";
 import { Redirect } from "react-router-dom";
+import axios from "axios";
 
 import {
   Col,
   Row,
   Card,
   CardBody,
-  CardHeader, CardTitle,
+  CardHeader,
+  CardTitle,
+  Button,
 } from "reactstrap";
 
 import * as Actions from '../../redux/actions/appointmentsActions';
 import AppointmentsComponent from "../../components/Appointments";
 import User from "../../utils/User";
+import {authTokenAxiosConfig} from "../../utils/auth";
 
 class Appointments extends React.Component {
   constructor(props) {
@@ -32,29 +36,36 @@ class Appointments extends React.Component {
     const userIsStaff = User.isStaff();
 
     this.state = {
-      // TODO Appointments should be fetched from backend, based on whether the user is a client or staff member
-      appointments: [
-        {
-          date: 'foo',
-          time: 'foo',
-          hygienist: 'foo',
-          operation: 'foo',
-          extraNotes: null,
-        },
-        {
-          date: 'bar',
-          time: 'bar',
-          hygienist: 'bar',
-          operation: 'bar',
-          extraNotes: 'Some extra notes',
-        }
-      ],
-
+      appointments: [],
       selectedAppointment: null,
       userIsStaff,
+      errorFetchingAppointments: false,
+      fetchingAppointments: true,
     };
 
     this.onAppointmentSelected = Actions.onAppointmentSelected.bind(this);
+    this.onCancelClicked = Actions.onCancelClicked.bind(this);
+    this.onUpdateClicked = Actions.onUpdateClicked.bind(this);
+  }
+
+  // React best practices are to retrieve information from server
+  // in componentDidMount() rather than the constructor
+  componentDidMount() {
+    const config = authTokenAxiosConfig();
+
+    axios.get('/api/appointments/list/', config)
+      .then((resp) => {
+        this.setState({
+          appointments: resp.data,
+          fetchingAppointments: false,
+        });
+      })
+      .catch(() => {
+        this.setState({
+          errorFetchingAppointments: true,
+          fetchingAppointments: false,
+        });
+      });
   }
 
   render() {
@@ -63,6 +74,20 @@ class Appointments extends React.Component {
     }
 
     const selectedAppointment = this.state.selectedAppointment;
+
+    if (this.state.fetchingAppointments) {
+      return <p>Loading, please wait...</p>;
+    } else if (this.state.errorFetchingAppointments) {
+      return <p>Failed to load appointments. Try logging out and back in again.</p>;
+    }
+
+    // This will sort the appointments in-place, which is fine for this use case
+    // TODO If I turn this into a datetime sorting util function, I could unit test it
+    this.state.appointments.sort((a, b) => {
+      const timestampA = new Date(`${a.date} ${a.time}`);
+      const timestampB = new Date(`${b.date} ${b.time}`);
+      return timestampA - timestampB;
+    });
 
     return (
       <Row>
@@ -87,6 +112,10 @@ class Appointments extends React.Component {
                   <React.Fragment>
                     <p><strong>Date:</strong>{` ${selectedAppointment.date}`}</p>
                     <p><strong>Time:</strong>{` ${selectedAppointment.time}`}</p>
+                    {this.state.userIsStaff
+                      ? <p><strong>Client:</strong>{` ${selectedAppointment.client.display_name}`}</p>
+                      : null
+                    }
                     <p><strong>Hygienist:</strong>{` ${selectedAppointment.hygienist}`}</p>
                     <p><strong>Operation:</strong>{` ${selectedAppointment.operation}`}</p>
                     {selectedAppointment.extraNotes ? (
@@ -96,6 +125,22 @@ class Appointments extends React.Component {
                       </React.Fragment>
                       ) : null
                     }
+                  {this.state.userIsStaff
+                    ? (
+                      <React.Fragment>
+                        <Button
+                          onClick={() => this.onCancelClicked(selectedAppointment)}
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          onClick={() => this.onUpdateClicked(selectedAppointment)}
+                        >
+                          Update
+                        </Button>
+                      </React.Fragment>
+                    ) : null
+                  }
                   </React.Fragment>
                 )
                 : <p>Select an appointment to view.</p>

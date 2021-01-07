@@ -1,17 +1,12 @@
 /* global localStorage */
 
 import axios from 'axios';
+import {authTokenAxiosConfig} from "../../utils/auth";
 
 export function onSubmit(e) {
   e.preventDefault();
 
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Token ${localStorage.getItem('user-token')}`,
-    }
-  };
-
+  const config = authTokenAxiosConfig();
   const username = this.state.username;
 
   // Copy this.state to data
