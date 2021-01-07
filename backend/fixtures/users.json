@@ -1,0 +1,110 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$g7XACLObeEYw$MFvcCNYuEwKItovWv4dE4kmAQCPVx+RpZJlsS0ACT24=",
+      "last_login": "2021-01-06T17:30:18.425Z",
+      "is_superuser": false,
+      "username": "bobb",
+      "first_name": "Bob",
+      "last_name": "Buchanan",
+      "email": "honours.proj.dental@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-06T17:29:16.218Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$uN8F0pz6hxVD$y27ScyEBWPzr0I83maOt2Zt+LlXsbJqwMYssLf0k3L4=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "ruthm",
+      "first_name": "Ruth",
+      "last_name": "Murray",
+      "email": "honours.proj.dental@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-06T22:25:18.745Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$yJi6Eha63UhX$Sk2QFC0g6w101Ld4QE7asTVNk1YBqWycUm5on/0sXD4=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "jamesg",
+      "first_name": "James",
+      "last_name": "Good",
+      "email": "honours.proj.dental@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-06T22:26:10.683Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$T7NgcYKSqXKy$2KxHwJZ1CA1GnpUDxpEelLxsciUngU6iZxBEYOUTCnU=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "martinm",
+      "first_name": "Martin",
+      "last_name": "Meza",
+      "email": "honours.proj.dental@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-06T22:26:40.309Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$wUEGV11ak0ai$q46iUfyJSnXPE8mY2AuRxWfyEG48UnRYq1WkbBwLIB4=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "rebeccag",
+      "first_name": "Rebecca",
+      "last_name": "Garcia",
+      "email": "honours.proj.dental@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-06T22:27:17.148Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$Apn1DU7O1CeA$MMsOG1ziWs1gE3BQNoS53E/cZN9XaN+ZVYX5madVuEs=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "frankb",
+      "first_name": "Frank",
+      "last_name": "Brandt",
+      "email": "honours.proj.dental@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-06T22:27:53.710Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

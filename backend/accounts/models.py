@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-# from django.contrib.auth.models import User
 
 
 class UserData(models.Model):
@@ -14,6 +13,10 @@ class UserData(models.Model):
     city = models.CharField(max_length=80)
     province = models.CharField(max_length=80)
     postalCode = models.CharField(max_length=7)
+
+    def __str__(self):
+        return f'user: {self.user}, address 1: {self.address1}, address 2: {self.address2}, city: {self.city}, ' \
+               f'province: {self.province}, postal code: {self.postalCode}'
 
 
 # TODO Bring these back once https://stackoverflow.com/q/65600035/8593689 has been answered
@@ -44,3 +47,6 @@ class PartiallyRegisteredUser(models.Model):
         primary_key=True,
     )
     registration_token = models.CharField(max_length=32)
+
+    def __str__(self):
+        return f'user: {self.user}, registration_token: {self.registration_token}'

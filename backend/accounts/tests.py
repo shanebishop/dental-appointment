@@ -1,20 +1,18 @@
 from django.contrib.auth.models import User
-from knox.models import AuthToken
 
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-import base64
-
 from .models import UserData, PartiallyRegisteredUser
 from .api import DEFAULT_PASSWORD
+from utils import Utils
 
 
 class RegisterUserAPITests(APITestCase):
     URL = '/api/user/register/'
 
     def setUp(self):
-        token = create_admin_user()
+        token = Utils.create_admin_user()
 
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
 
@@ -84,13 +82,13 @@ class CompleteClientRegistrationAPITests(APITestCase):
     URL = '/api/user/complete-registration/'
 
     def setUp(self):
-        self.admin_auth_token = create_admin_user()
+        self.admin_auth_token = Utils.create_admin_user()
 
     def use_admin_creds(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.admin_auth_token)
 
     def use_client_creds(self, username, password):
-        self.client.credentials(HTTP_AUTHORIZATION=generate_basic_auth(username, password))
+        self.client.credentials(HTTP_AUTHORIZATION=Utils.generate_basic_auth(username, password))
 
     def create_regular_user(self, username):
         """Creates a regular user, leaving registration partially complete"""
@@ -192,7 +190,7 @@ class DeregisterUserAPI(APITestCase):
     URL = '/api/user/deregister/'
 
     def setUp(self):
-        token = create_admin_user()
+        token = Utils.create_admin_user()
 
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
 
@@ -205,7 +203,7 @@ class DeregisterUserAPI(APITestCase):
         self.assertIs(response.status_code, status.HTTP_200_OK)
 
     def test_deregister_user(self):
-        user_id = get_user_id_by_username('user1')
+        user_id = Utils.get_user_id_by_username('user1')
 
         response = self.client.delete(DeregisterUserAPI.URL, {'id': user_id})
         self.assertIs(response.status_code, status.HTTP_200_OK)
@@ -237,7 +235,7 @@ class DeregisterUserAPI(APITestCase):
         self.assertTrue(f'No user found with {user_id} as ID' in message)
 
     def test_deregister_admin_user(self):
-        user_id = get_user_id_by_username('admin')
+        user_id = Utils.get_user_id_by_username('admin')
         response = self.client.delete(DeregisterUserAPI.URL, {'id': user_id})
 
         self.assertIs(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -250,7 +248,7 @@ class GetAllUsersAPITests(APITestCase):
     URL = '/api/user/all/'
 
     def setUp(self):
-        token = create_admin_user()
+        token = Utils.create_admin_user()
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
 
     def test_get_all_users(self):
@@ -282,26 +280,3 @@ def generate_valid_user_data(username, skip_email=True):
     if skip_email:
         data['skip_email'] = skip_email
     return data
-
-
-def create_admin_user():
-    admin_user = User.objects.create_user(
-        username='admin', password='admin',
-        is_staff=True, is_superuser=True
-    )
-    admin_user.save()
-
-    _, token = AuthToken.objects.create(admin_user)
-
-    return token
-
-
-def get_user_id_by_username(username):
-    user = User.objects.get(username=username)
-    return user.id
-
-
-def generate_basic_auth(username, password):
-    message_bytes = (username + ':' + password).encode('ascii')
-    base64_bytes = base64.b64encode(message_bytes)
-    return 'Basic ' + base64_bytes.decode('ascii')

@@ -23,3 +23,9 @@ class Appointment(models.Model):
 
     class Meta:
         unique_together = [['date', 'time', 'client']]
+
+    def __str__(self):
+        string = f'time: {self.date} {self.time}, client: {self.client}, hygienist: {self.hygienist}, ' \
+                 f'operation: {self.operation}, extra notes: '
+
+        return string + f'{self.extra_notes}' if self.extra_notes else 'No extra notes'

@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('knox.urls')),
     path('', include('accounts.urls')),
+    path('', include('appointments.urls')),
 ]

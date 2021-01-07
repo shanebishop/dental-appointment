@@ -1,0 +1,68 @@
+[
+  {
+    "model": "accounts.userdata",
+    "pk": 2,
+    "fields": {
+      "address1": "89 Thurston Dr",
+      "address2": "Appt 23",
+      "city": "Ottawa",
+      "province": "Ontario",
+      "postalCode": "K1P 5G8"
+    }
+  },
+  {
+    "model": "accounts.userdata",
+    "pk": 3,
+    "fields": {
+      "address1": "4509 Montreal Road",
+      "address2": "Appt 41",
+      "city": "Ottawa",
+      "province": "Ontario",
+      "postalCode": "K1L 6C7"
+    }
+  },
+  {
+    "model": "accounts.userdata",
+    "pk": 4,
+    "fields": {
+      "address1": "3871 Carling Avenue",
+      "address2": "Appt 24",
+      "city": "Ottawa",
+      "province": "Ontario",
+      "postalCode": "K1Z 7B5"
+    }
+  },
+  {
+    "model": "accounts.userdata",
+    "pk": 5,
+    "fields": {
+      "address1": "2547 Carling Avenue",
+      "address2": "Appt 58",
+      "city": "Ottawa",
+      "province": "Ontario",
+      "postalCode": "K1Z 7B5"
+    }
+  },
+  {
+    "model": "accounts.userdata",
+    "pk": 6,
+    "fields": {
+      "address1": "4695 Merivale Road",
+      "address2": "Appt 49",
+      "city": "Ottawa",
+      "province": "Ontario",
+      "postalCode": "K2H 5B6"
+    }
+  },
+  {
+    "model": "accounts.userdata",
+    "pk": 7,
+    "fields": {
+      "address1": "1862 Merivale Road",
+      "address2": "Appt 5",
+      "city": "Ottawa",
+      "province": "Ontario",
+      "postalCode": "K2G 3K2"
+    }
+  }
+]

@@ -10,6 +10,7 @@ python3 manage.py makemigrations --no-input
 python3 manage.py migrate --no-input
 python3 manage.py initadmin
 # Print just the files that are found for debugging
-find . -path './*/fixtures/*.json' -type f -exec echo {} +
-find . -path './*/fixtures/*.json' -type f -exec python3 manage.py loaddata --no-color {} +
+#find . -path './*/fixtures/*.json' -type f -exec echo {} +
+#find . -path './*/fixtures/*.json' -type f -exec python3 manage.py loaddata --no-color {} +
+python3 manage.py loaddata --no-color fixtures/*.json
 python3 manage.py runserver 0.0.0.0:8000
