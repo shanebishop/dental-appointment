@@ -26,24 +26,26 @@ const Appointments = (props) => {
         </p>
       </div>
       <CardBody className="d-flex">
-        {props.appointments
+        {(props.appointments.length !== 0)
           ? (
             <Timeline style={{width: "100%"}}>
               {props.appointments.map((appointment, index) => (
                 // The 'cursor: pointer' changes the cursor to a pointing hand on mouse hover.
                 <TimelineItem
                   key={index}
+                  name={`appointment-${index}`}
                   style={{cursor: "pointer"}}
                   onClick={() => props.onAppointmentSelected(appointment)}
                 >
-                  <strong>{`${appointment.date} ${appointment.time}`}</strong>
+                  <strong id={`appointment-${index}-time`}>
+                    {`${appointment.date} ${appointment.time}`}
+                  </strong>
                   <span className="float-right text-muted text-sm">30m ago</span>
                   <p>{appointment.operation}</p>
                 </TimelineItem>
               ))}
             </Timeline>
-          )
-          : <p>No appointments</p>
+          ) : <p id="no-appointments-paragraph">No appointments</p>
         }
       </CardBody>
     </Card>

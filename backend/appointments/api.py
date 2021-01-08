@@ -35,6 +35,9 @@ class AppointmentsList(mixins.ListModelMixin,
             }
             return Response(resp, status=status.HTTP_401_UNAUTHORIZED)
 
+        # TODO Need to prevent creating an appointment that conflicts with an existing appointment for this client
+        # This would need API tests
+
         return self.create(request, *args, **kwargs)
 
 
@@ -52,6 +55,9 @@ class AppointmentsDetail(mixins.UpdateModelMixin,
                 'message': 'Appointments cannot be modified by non-staff'
             }
             return Response(resp, status=status.HTTP_401_UNAUTHORIZED)
+
+        # TODO Need to prevent updating an appointment to conflict with the client's other appointment
+        # This would need API tests
 
         return self.update(request, *args, **kwargs)
 

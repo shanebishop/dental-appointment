@@ -55,6 +55,7 @@ class Appointments extends React.Component {
     this.showSuccessDialog = Actions.showSuccessDialog.bind(this);
     this.showErrorDialog = Actions.showErrorDialog.bind(this);
     this.refreshData = Actions.refreshData.bind(this);
+    // TODO Add new button and event handler for scheduling a new appointment (should only show for staff users)
   }
 
   // React best practices are to retrieve information from server
@@ -84,6 +85,11 @@ class Appointments extends React.Component {
       return timestampA - timestampB;
     });
 
+    if (this.state.selectedAppointment) {
+      console.log(this.state.selectedAppointment);
+      console.log(this.state.selectedAppointment.extra_notes);
+    }
+
     return (
       <React.Fragment>
 
@@ -97,7 +103,7 @@ class Appointments extends React.Component {
           <Col>
             <Card>
               <CardHeader>
-                <CardTitle tag="h5" className="mb-0">
+                <CardTitle id="selected-appointment-details-card-title" tag="h5" className="mb-0">
                   {selectedAppointment
                     ? `${selectedAppointment.date} ${selectedAppointment.time}`
                     : 'No appointment selected'}
@@ -107,32 +113,31 @@ class Appointments extends React.Component {
                 {selectedAppointment
                   ? (
                     <React.Fragment>
-                      <p><strong>Date:</strong>{` ${selectedAppointment.date}`}</p>
-                      <p><strong>Time:</strong>{` ${selectedAppointment.time}`}</p>
+                      <p id="appointment-date"><strong>Date:</strong>{` ${selectedAppointment.date}`}</p>
+                      <p id="appointment-time"><strong>Time:</strong>{` ${selectedAppointment.time}`}</p>
                       {this.state.userIsStaff
-                        ? <p><strong>Client:</strong>{` ${selectedAppointment.client.display_name}`}</p>
-                        : null
+                        ? (
+                            <p id="appointment-client-display-name">
+                              <strong>Client:</strong>{` ${selectedAppointment.client.display_name}`}
+                            </p>
+                        ) : null
                       }
-                      <p><strong>Hygienist:</strong>{` ${selectedAppointment.hygienist}`}</p>
-                      <p><strong>Operation:</strong>{` ${selectedAppointment.operation}`}</p>
-                      {selectedAppointment.extraNotes ? (
+                      <p id="appointment-hygienist"><strong>Hygienist:</strong>{` ${selectedAppointment.hygienist}`}</p>
+                      <p id="appointment-operation"><strong>Operation:</strong>{` ${selectedAppointment.operation}`}</p>
+                      {selectedAppointment.extra_notes ? (
                         <React.Fragment>
-                          <p><strong>Extra Notes:</strong></p>
-                          <p>{selectedAppointment.extraNotes}</p>
+                          <p id="appointment-extra-notes-label"><strong>Extra Notes:</strong></p>
+                          <p id="appointment-extra-notes-content">{selectedAppointment.extra_notes}</p>
                         </React.Fragment>
                         ) : null
                       }
                     {this.state.userIsStaff
                       ? (
                         <React.Fragment>
-                          <Button
-                            onClick={() => this.onCancelClicked(selectedAppointment)}
-                          >
+                          <Button name="cancel-appointment-btn" onClick={() => this.onCancelClicked(selectedAppointment)}>
                             Cancel
                           </Button>
-                          <Button
-                            onClick={() => this.onUpdateClicked(selectedAppointment)}
-                          >
+                          <Button name="update-appointment-btn" onClick={() => this.onUpdateClicked(selectedAppointment)}>
                             Update
                           </Button>
                         </React.Fragment>

@@ -16,7 +16,13 @@ Login
     Wait Until Location Is    ${HOME_URL}    2
 
 Login As Admin
+    Go To    ${LOGIN_URL}
     Login    admin    admin
+
+Login As Client
+    [Arguments]    ${username}    ${password}
+    Go To    ${LOGIN_URL}
+    Login    ${username}    ${password}
 
 Go To Login Page
     Go To    ${LOGIN_URL}
@@ -25,6 +31,10 @@ Go To Login Page
 Go To Register User Page
     Go To    ${REGISTER_URL}
     Location Should Be    ${REGISTER_URL}
+
+Go To Appointments Page
+    Go To   ${APPOINTMENTS_URL}
+    Location Should Be    ${APPOINTMENTS_URL}
 
 Login Page Should Be Open
     Location Should Be    ${LOGIN_URL}
