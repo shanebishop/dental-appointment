@@ -49,8 +49,16 @@ Appointment Details Shows Extra Notes
 Appointment Details Does Not Show Extra Notes
     Element Should Not Be Visible    appointment-extra-notes-label
 
+Appointment Shows Client
+    [Arguments]    ${client_display_name}
+    Element Text Should Be    appointment-client-display-name    Client: ${client_display_name}
+
+Cancel Success Dialog Displays
+    Wait Until Element Is Visible    appointments-dialog    2
+    Element Text Should Be    appointments-dialog-msg    Appointment cancelled.
+    Click Button    appointments-dialog-btn
+
 *** Test Cases ***
-# TODO Uncomment
 Staff Appointments Are Displayed Chronologically
     Login As Admin
     Go To Appointments Page
@@ -114,6 +122,39 @@ Client View Appointment Details
     Appointment Shows Details    2021-06-03    11:15:00    Tonya Combs    Fillings
     Appointment Details Does Not Show Extra Notes
 
-## More stuff, since there are buttons to confirm are rendered
-#Staff View Appointment Details
+Staff View Appointment Details
+    [Documentation]    Test that staff can view appointment details. Test with two arbirtrary appointments.
+    Login As Admin
+    Go To Appointments Page
+    Wait Until Element Is Visible    appointment-0-time    2
+    # Check first appointment in display
+    Click Element    appointment-0-time
+    Appointment Shows Details    2021-05-23    14:30:00    Cheryl Holder    Checkup
+    Appointment Shows Client    Bob Buchanan
+    Appointment Details Shows Extra Notes    Yearly checkup
+    # Check staff buttons are visible
+    Element Should Be Visible    cancel-appointment-btn
+    Element Should Be Visible    update-appointment-btn
+    # Check fourth appointment in display
+    Click Element    appointment-3-time
+    Appointment Shows Details    2021-06-03    11:15:00    Tonya Combs    Fillings
+    Appointment Shows Client    Bob Buchanan
+    Appointment Details Does Not Show Extra Notes
 
+Staff Can Cancel Appointments
+    Login As Admin
+    Go To Appointments Page
+    Wait Until Element Is Visible    appointment-0-time    2
+    # Test canceling an appointment in the middle of the appointments list
+    Click Element    appointment-3-time
+    Click Button    cancel-appointment-btn
+    Cancel Success Dialog Displays
+    # Test canceling the first appointment in the appointments list
+    Click Element    appointment-0-time
+    Click Button    cancel-appointment-btn
+    Cancel Success Dialog Displays
+    # Test canceling the last appointment in the appointments list
+    Element Should Not Be Visible    appointment-4-time
+    Click Element    appointment-3-time
+    Click Button    cancel-appointment-btn
+    Cancel Success Dialog Displays

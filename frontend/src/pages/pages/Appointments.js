@@ -85,11 +85,6 @@ class Appointments extends React.Component {
       return timestampA - timestampB;
     });
 
-    if (this.state.selectedAppointment) {
-      console.log(this.state.selectedAppointment);
-      console.log(this.state.selectedAppointment.extra_notes);
-    }
-
     return (
       <React.Fragment>
 
@@ -145,7 +140,7 @@ class Appointments extends React.Component {
                     }
                     </React.Fragment>
                   )
-                  : <p>Select an appointment to view.</p>
+                  : <p>{this.state.userIsStaff ? 'Select an appointment to view, update, or cancel.' : 'Select an appointment to view.'}</p>
                 }
               </CardBody>
             </Card>

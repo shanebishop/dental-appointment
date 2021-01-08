@@ -46,6 +46,7 @@ class ConfirmDialog extends React.Component {
         </ModalBody>
         <ModalFooter>
           <Button
+            name={`${this.state.htmlName}-btn`}
             color="primary"
             onClick={toggleOpen}
           >
