@@ -9,7 +9,6 @@
 import React from 'react';
 import store from "../../redux/store";
 import { Redirect } from "react-router-dom";
-import axios from "axios";
 
 import {
   Col,
@@ -24,7 +23,7 @@ import {
 import * as Actions from '../../redux/actions/appointmentsActions';
 import AppointmentsComponent from "../../components/Appointments";
 import User from "../../utils/User";
-import {authTokenAxiosConfig} from "../../utils/auth";
+import ConfirmDialog from "../../components/ConfirmDialog";
 
 class Appointments extends React.Component {
   constructor(props) {
@@ -41,31 +40,27 @@ class Appointments extends React.Component {
       userIsStaff,
       errorFetchingAppointments: false,
       fetchingAppointments: true,
+
+      dialog: {
+        open: false,
+        msg: '',
+        title: '',
+      }
     };
 
     this.onAppointmentSelected = Actions.onAppointmentSelected.bind(this);
     this.onCancelClicked = Actions.onCancelClicked.bind(this);
     this.onUpdateClicked = Actions.onUpdateClicked.bind(this);
+    this.toggleDialog = Actions.toggleDialog.bind(this);
+    this.showSuccessDialog = Actions.showSuccessDialog.bind(this);
+    this.showErrorDialog = Actions.showErrorDialog.bind(this);
+    this.refreshData = Actions.refreshData.bind(this);
   }
 
   // React best practices are to retrieve information from server
   // in componentDidMount() rather than the constructor
   componentDidMount() {
-    const config = authTokenAxiosConfig();
-
-    axios.get('/api/appointments/list/', config)
-      .then((resp) => {
-        this.setState({
-          appointments: resp.data,
-          fetchingAppointments: false,
-        });
-      })
-      .catch(() => {
-        this.setState({
-          errorFetchingAppointments: true,
-          fetchingAppointments: false,
-        });
-      });
+    this.refreshData();
   }
 
   render() {
@@ -90,65 +85,84 @@ class Appointments extends React.Component {
     });
 
     return (
-      <Row>
-        <Col>
-          <AppointmentsComponent
-            onAppointmentSelected={this.onAppointmentSelected}
-            appointments={this.state.appointments}
-          />
-        </Col>
-        <Col>
-          <Card>
-            <CardHeader>
-              <CardTitle tag="h5" className="mb-0">
+      <React.Fragment>
+
+        <Row>
+          <Col>
+            <AppointmentsComponent
+              onAppointmentSelected={this.onAppointmentSelected}
+              appointments={this.state.appointments}
+            />
+          </Col>
+          <Col>
+            <Card>
+              <CardHeader>
+                <CardTitle tag="h5" className="mb-0">
+                  {selectedAppointment
+                    ? `${selectedAppointment.date} ${selectedAppointment.time}`
+                    : 'No appointment selected'}
+                </CardTitle>
+              </CardHeader>
+              <CardBody>
                 {selectedAppointment
-                  ? `${selectedAppointment.date} ${selectedAppointment.time}`
-                  : 'No appointment selected'}
-              </CardTitle>
-            </CardHeader>
-            <CardBody>
-              {selectedAppointment
-                ? (
-                  <React.Fragment>
-                    <p><strong>Date:</strong>{` ${selectedAppointment.date}`}</p>
-                    <p><strong>Time:</strong>{` ${selectedAppointment.time}`}</p>
+                  ? (
+                    <React.Fragment>
+                      <p><strong>Date:</strong>{` ${selectedAppointment.date}`}</p>
+                      <p><strong>Time:</strong>{` ${selectedAppointment.time}`}</p>
+                      {this.state.userIsStaff
+                        ? <p><strong>Client:</strong>{` ${selectedAppointment.client.display_name}`}</p>
+                        : null
+                      }
+                      <p><strong>Hygienist:</strong>{` ${selectedAppointment.hygienist}`}</p>
+                      <p><strong>Operation:</strong>{` ${selectedAppointment.operation}`}</p>
+                      {selectedAppointment.extraNotes ? (
+                        <React.Fragment>
+                          <p><strong>Extra Notes:</strong></p>
+                          <p>{selectedAppointment.extraNotes}</p>
+                        </React.Fragment>
+                        ) : null
+                      }
                     {this.state.userIsStaff
-                      ? <p><strong>Client:</strong>{` ${selectedAppointment.client.display_name}`}</p>
-                      : null
-                    }
-                    <p><strong>Hygienist:</strong>{` ${selectedAppointment.hygienist}`}</p>
-                    <p><strong>Operation:</strong>{` ${selectedAppointment.operation}`}</p>
-                    {selectedAppointment.extraNotes ? (
-                      <React.Fragment>
-                        <p><strong>Extra Notes:</strong></p>
-                        <p>{selectedAppointment.extraNotes}</p>
-                      </React.Fragment>
+                      ? (
+                        <React.Fragment>
+                          <Button
+                            onClick={() => this.onCancelClicked(selectedAppointment)}
+                          >
+                            Cancel
+                          </Button>
+                          <Button
+                            onClick={() => this.onUpdateClicked(selectedAppointment)}
+                          >
+                            Update
+                          </Button>
+                        </React.Fragment>
                       ) : null
                     }
-                  {this.state.userIsStaff
-                    ? (
-                      <React.Fragment>
-                        <Button
-                          onClick={() => this.onCancelClicked(selectedAppointment)}
-                        >
-                          Cancel
-                        </Button>
-                        <Button
-                          onClick={() => this.onUpdateClicked(selectedAppointment)}
-                        >
-                          Update
-                        </Button>
-                      </React.Fragment>
-                    ) : null
-                  }
-                  </React.Fragment>
-                )
-                : <p>Select an appointment to view.</p>
-              }
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
+                    </React.Fragment>
+                  )
+                  : <p>Select an appointment to view.</p>
+                }
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+
+        {
+          !this.state.dialog.open
+            ? null
+            : (
+              <ConfirmDialog
+                open={this.state.dialog.open}
+                msg={this.state.dialog.msg}
+                title={this.state.dialog.title}
+                htmlName="appointments-dialog"
+                msgHtmlName="appointments-dialog-msg"
+                toggleOpenFn={this.toggleDialog}
+              />
+            )
+        }
+
+      </React.Fragment>
     );
   }
 }

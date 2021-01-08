@@ -3,8 +3,7 @@
 import axios from 'axios';
 
 import { loginSuccess } from "./authActions";
-import getCookie from "../../utils/getCookie";
-import {basicAuthAxiosConfig, genBasicAuth} from "../../utils/auth";
+import {basicAuthAxiosConfig} from "../../utils/auth";
 
 export function toggleDialog() {
   this.setState(state => ({
