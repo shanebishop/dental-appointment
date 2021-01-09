@@ -6,6 +6,7 @@ import {
   Card,
   CardHeader,
   CardTitle,
+  Button,
 } from "reactstrap";
 
 import Timeline from "./Timeline";
@@ -25,6 +26,7 @@ const Appointments = (props) => {
           Your next appointment is in 2 hours.
         </p>
       </div>
+      {props.userIsStaff ? <Button>Schedule a new appointment</Button> : null}
       <CardBody className="d-flex">
         {(props.appointments.length !== 0)
           ? (
@@ -55,6 +57,7 @@ const Appointments = (props) => {
 Appointments.propTypes = {
   appointments: PropTypes.array.isRequired,
   onAppointmentSelected: PropTypes.func.isRequired,
+  userIsStaff: PropTypes.bool.isRequired,
 };
 
 export default Appointments;

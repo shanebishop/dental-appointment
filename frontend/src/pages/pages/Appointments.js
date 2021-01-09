@@ -55,7 +55,7 @@ class Appointments extends React.Component {
     this.showSuccessDialog = Actions.showSuccessDialog.bind(this);
     this.showErrorDialog = Actions.showErrorDialog.bind(this);
     this.refreshData = Actions.refreshData.bind(this);
-    // TODO Add new button and event handler for scheduling a new appointment (should only show for staff users)
+    // TODO Add Event handler for 'scheduling a new appointment' button
   }
 
   // React best practices are to retrieve information from server
@@ -93,6 +93,7 @@ class Appointments extends React.Component {
             <AppointmentsComponent
               onAppointmentSelected={this.onAppointmentSelected}
               appointments={this.state.appointments}
+              userIsStaff={this.state.userIsStaff}
             />
           </Col>
           <Col>
