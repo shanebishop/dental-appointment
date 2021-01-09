@@ -11,10 +11,12 @@ import {
   FormGroup,
   Label,
   Input,
-  Button, Container,
+  Button,
 } from "reactstrap";
+
 import store from "../../redux/store";
 import {Redirect} from "react-router-dom";
+import CustomDropdown from "../../components/CustomDropdown";
 
 class EditAppointment extends React.Component {
   constructor(props) {
@@ -23,7 +25,10 @@ class EditAppointment extends React.Component {
     const appointment = props.appointment || {
       date: '',
       time: '',
-      client: null,
+      client: {
+        display_name: '',
+        username: '',
+      },
       hygienist: '',
       operation: '',
       extra_notes: '',
@@ -52,6 +57,10 @@ class EditAppointment extends React.Component {
   }
 
   render() {
+    if (!store.getState().auth.loggedIn) {
+      return <Redirect to={{ pathname: '/auth/sign-in', state: { from: window.location.pathname } }} />
+    }
+
     return (
       <React.Fragment>
         <Card>
@@ -64,24 +73,66 @@ class EditAppointment extends React.Component {
             <Form>
 
               <FormGroup row>
-                <Label sm={2} className="text-sm-right">Job Name</Label>
+                <Label sm={2} className="text-sm-right">Date</Label>
                 <Col sm={10}>
                   <Input
-                    type="job-name" name="name"
-                    placeholder="Enter job name"
-                    value="TODO"
+                    name="date"
+                    placeholder="Enter appointment date"
+                    value={this.state.appointment.date}
                     onChange={this.updateValue}
                   />
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label sm={2} className="text-sm-right">Job Description</Label>
+                <Label sm={2} className="text-sm-right">Time</Label>
                 <Col sm={10}>
                   <Input
-                    type="job-description" name="description"
-                    placeholder="Enter job description"
-                    value="TODO"
+                    name="time"
+                    placeholder="Enter appointment time"
+                    value={this.state.appointment.time}
                     onChange={this.updateValue}
+                  />
+                </Col>
+              </FormGroup>
+              <FormGroup row>
+                <Label sm={2} className="text-sm-right">Client</Label>
+                <Col sm={10}>
+                  <Input
+                    name="client"
+                    placeholder="Enter client"
+                    value={this.state.appointment.client.display_name}
+                    onChange={this.updateValue}
+                  />
+                </Col>
+              </FormGroup>
+              <FormGroup row>
+                <Label sm={2} className="text-sm-right">Hygienist</Label>
+                <Col sm={10}>
+                  <Input
+                    name="hygienist"
+                    placeholder="Enter hygienist"
+                    value={this.state.appointment.hygienist}
+                    onChange={this.updateValue}
+                  />
+                </Col>
+              </FormGroup>
+              <FormGroup row>
+                <Label sm={2} className="text-sm-right">Operation</Label>
+                <Col sm={10}>
+                  <CustomDropdown
+                    id="operation-dropdown" values={['TODO']}
+                    onChange={() => console.log('TODO')}
+                  />
+                </Col>
+              </FormGroup>
+              <FormGroup row>
+                <Label sm={2} className="text-sm-right">Extra notes</Label>
+                <Col sm={10}>
+                  <Input
+                    type="textarea"
+                    name="extra_notes"
+                    placeholder="Enter extra notes here"
+                    rows="3"
                   />
                 </Col>
               </FormGroup>
