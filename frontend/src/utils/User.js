@@ -35,8 +35,8 @@ class User {
     }
 
     const userData = User.getRootData();
-    const firstName = userData.user.firstName;
-    const surname = userData.user.surname;
+    const firstName = userData.user.first_name;
+    const surname = userData.user.last_name;
 
     return (firstName && surname) ? `${firstName} ${surname}` : userData.user.username;
   }

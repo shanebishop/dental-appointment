@@ -7,12 +7,14 @@ import {
   page as pageRoutes,
   staff as staffRoutes,
   appointments as appointmentsRoutes,
+  editAppointment as editAppointmentRoutes,
 } from "./index";
 
 import DashboardLayout from "../layouts/Dashboard";
 import LandingLayout from "../layouts/Landing";
 import StaffLayout from "../layouts/Staff";
 import AppointmentsLayout from "../layouts/Appointments";
+import EditAppointmentLayout from "../layouts/EditAppointment";
 import AuthLayout from "../layouts/Auth";
 import Page404 from "../pages/auth/Page404";
 
@@ -58,6 +60,7 @@ const Routes = () => (
         {childRoutes(AuthLayout, pageRoutes)}
         {childRoutes(StaffLayout, staffRoutes)}
         {childRoutes(AppointmentsLayout, appointmentsRoutes)}
+        {childRoutes(EditAppointmentLayout, editAppointmentRoutes)}
         <Route
           render={() => (
             <AuthLayout>

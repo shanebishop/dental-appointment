@@ -23,6 +23,7 @@ import Page500 from "../pages/auth/Page500";
 import Profile from "../pages/pages/Profile";
 import RegisterUser from "../pages/pages/RegisterUser";
 import Appointments from "../pages/pages/Appointments";
+import EditAppointment from "../pages/pages/EditAppointment";
 
 // Dashboards
 const Default = async(() => import("../pages/dashboards/Default"));
@@ -146,7 +147,17 @@ const appointmentsRoutes = {
   displayInSidebar: true,
   requiresLoggedIn: true,
   children: null
-}
+};
+
+const editAppointmentRoutes = {
+  path: '/edit-appointment',
+  name: 'Edit Appointment',
+  component: EditAppointment,
+  displayInSidebar: true,
+  requiresLoggedIn: true,
+  staffOnlyRoute: true,
+  children: null
+};
 
 // All pages that display the sidebar (as opposed to something like an auth page,
 // which does not display the sidebar).
@@ -159,6 +170,7 @@ export const dashboard = [
   calendarRoutes,
   registerUserRoutes,
   appointmentsRoutes,
+  editAppointmentRoutes,
 ];
 
 // Landing specific routes
@@ -173,6 +185,9 @@ export const staff = [registerUserRoutes];
 // Appointment routes
 export const appointments = [appointmentsRoutes];
 
+// Edit appointment routes
+export const editAppointment = [editAppointmentRoutes];
+
 // All routes
 // Order matters - routes are displayed in sidebar in the order
 // defined here
@@ -181,6 +196,7 @@ export default [
   pageRoutes,
   authRoutes,
   appointmentsRoutes,
+  editAppointmentRoutes,
   calendarRoutes,
   registerUserRoutes,
 ];
