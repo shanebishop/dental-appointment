@@ -7,18 +7,28 @@ This project consists of a client and a server. The client code is under the `fr
 directory, and the server code is under the `backend` directory. The client is written in
 JavaScript with React, and the server is written in Python with Django.
 
-## Run server
+## Run app
 
-TODO
+This app uses Docker and docker-compose. To run the app, both Docker and docker-compose
+must be installed.
 
-## Run client
+To install both Docker and docker-compose, run
 
-To build and run the client for development, run `npm install` to install all dependencies,
-and then run `npm start` to start the client. The webapp can then be accessed at
-http://localhost:3000.
+```
+scripts/install_docker_compose.sh
+```
 
-To build the client for "production", run `npm install` to install all dependencies,
-and then run `npm run build` to build a hardened client.
+Once Docker and docker-compose are installed, the app can be started by running
+
+```
+docker-compose up -d
+```
+
+To stop the app once it is running, run
+
+```
+docker-compose down
+```
 
 ## Run tests
 
@@ -26,4 +36,10 @@ To run Django tests, run:
 
 ```
 scripts/run_django_tests.sh
+```
+
+To run Robot Framework tests, run:
+
+```
+scripts/run_robot_tests.sh
 ```
