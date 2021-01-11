@@ -35,6 +35,10 @@ class AppointmentsList(mixins.ListModelMixin,
             }
             return Response(resp, status=status.HTTP_401_UNAUTHORIZED)
 
+        # TODO Add tests for this
+        # Check the client, if it is a number, is has an entry in the
+        # TODO
+
         # TODO Need to prevent creating an appointment that conflicts with an existing appointment for this client
         # This would need API tests
 

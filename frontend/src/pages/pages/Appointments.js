@@ -129,14 +129,14 @@ class Appointments extends React.Component {
                       }
                     {this.state.userIsStaff
                       ? (
-                        <React.Fragment>
-                          <Button name="cancel-appointment-btn" onClick={() => this.onCancelClicked(selectedAppointment)}>
-                            Cancel
+                        <div className="text-center mt-3">
+                          <Button name="cancel-appointment-btn" style={{marginRight: '20px'}} onClick={() => this.onCancelClicked(selectedAppointment)}>
+                            Cancel appointment
                           </Button>
                           <Button name="update-appointment-btn" onClick={() => this.onUpdateClicked(selectedAppointment)}>
-                            Update
+                            Update appointment
                           </Button>
-                        </React.Fragment>
+                        </div>
                       ) : null
                     }
                     </React.Fragment>

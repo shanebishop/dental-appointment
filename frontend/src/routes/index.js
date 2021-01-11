@@ -7,6 +7,7 @@ import {
   Users as UsersIcon,
   List as ListIcon,
   UserPlus as UserPlusIcon,
+  PlusCircle as PlusCircleIcon,
 } from "react-feather";
 
 // Landing
@@ -151,7 +152,8 @@ const appointmentsRoutes = {
 
 const editAppointmentRoutes = {
   path: '/edit-appointment',
-  name: 'Edit Appointment',
+  name: 'Create Appointment',
+  icon: PlusCircleIcon,
   component: EditAppointment,
   displayInSidebar: true,
   requiresLoggedIn: true,
