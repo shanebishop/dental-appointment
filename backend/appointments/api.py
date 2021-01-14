@@ -54,7 +54,6 @@ class AppointmentsList(mixins.ListModelMixin,
             }
             return Response(resp, status=status.HTTP_400_BAD_REQUEST)
 
-        # TODO Add tests for this
         # Check the username has a user entry in the database
         client_username = data['client']
         try:
@@ -76,7 +75,6 @@ class AppointmentsList(mixins.ListModelMixin,
 
         appointment_has_conflict = False
 
-        # TODO Add API tests
         # Prevent creating an appointment that conflicts with an existing appointment for this client
         try:
             appointments = Appointment.objects.filter(client=client)

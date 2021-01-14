@@ -185,6 +185,59 @@ class AppointmentsListTests(AppointmentsTestCase):
         message = response.json()['message']
         self.assertTrue('Appointments cannot be created by non-staff' in message)
 
+    def test_create_appointment_fails_if_missing_client_key(self):
+        self.use_admin_creds()
+
+        data = {
+            'date': '2021-09-02',
+            'time': '12:15:00',
+            'hygienist': 'Sabrina Hess',
+            'operation': 'Checkup',
+            'extra_notes': ''
+        }
+
+        response = self.client.post(AppointmentsListTests.URL, data)
+        self.assertIs(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        message = response.json()['message']
+        self.assertTrue('following required keys' in message)
+
+    def test_create_appointment_fails_if_user_does_not_exist(self):
+        self.use_admin_creds()
+
+        data = {
+            'date': '2021-09-02',
+            'time': '12:15:00',
+            'client': 'idonotexist',
+            'hygienist': 'Sabrina Hess',
+            'operation': 'Checkup',
+            'extra_notes': ''
+        }
+
+        response = self.client.post(AppointmentsListTests.URL, data)
+        self.assertIs(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        message = response.json()['message']
+        self.assertTrue('No user found with username' in message)
+
+    def test_create_appointment_fails_if_appointment_conflicts_with_existing_appointment(self):
+        self.use_admin_creds()
+
+        data = {
+            'date': '2021-05-23',
+            'time': '14:30:00',
+            'client': 'bobb',
+            'hygienist': 'Sabrina Hess',
+            'operation': 'Filling',
+            'extra_notes': ''
+        }
+
+        response = self.client.post(AppointmentsListTests.URL, data)
+        self.assertIs(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        message = response.json()['message']
+        self.assertTrue('conflict with an existing appointment' in message)
+
 
 class AppointmentDetailTests(AppointmentsTestCase):
     URL = '/api/appointments/detail/'
