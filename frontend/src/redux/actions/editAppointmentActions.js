@@ -16,7 +16,7 @@ export function updateClient(e) {
       ...this.state.appointment,
       client: {
         ...this.state.appointment.client,
-        display_name: e.target.value
+        username: e.target.value
       }
     }
   });
@@ -37,7 +37,7 @@ export function onSubmit() {
   const data = {
     date: this.state.appointment.date,
     time: this.state.appointment.time,
-    client: this.state.appointment.client.id,
+    client: this.state.appointment.client.username,
     hygienist: this.state.appointment.hygienist,
     operation: this.state.appointment.operation,
     extra_notes: this.state.appointment.extra_notes,
@@ -53,6 +53,7 @@ export function onSubmit() {
     .catch((err) => {
       console.log('TODO Handle error');
       console.log(err);
+      console.log(err.response.data);
     })
 }
 
@@ -66,7 +67,7 @@ export function submitButtonEnabled() {
   // extra_notes is optional
   return appointment.date &&
     appointment.time &&
-    appointment.client.display_name &&
+    appointment.client.username &&
     appointment.hygienist &&
     appointment.operation;
 }

@@ -41,7 +41,7 @@ class EditAppointment extends React.Component {
       date: '',
       time: '',
       client: {
-        display_name: '',
+        // display_name: '',
         username: '',
       },
       hygienist: '',
@@ -117,8 +117,8 @@ class EditAppointment extends React.Component {
                 <Col sm={10}>
                   <Input
                     name="client"
-                    placeholder="Enter client's full name"
-                    value={this.state.appointment.client.display_name}
+                    placeholder="Enter client's username"
+                    value={this.state.appointment.client.username}
                     onChange={this.updateClient}
                   />
                 </Col>

@@ -1,6 +1,7 @@
 import os
 import json
 import datetime
+from pprint import pprint
 
 from django.core.management import call_command
 from django.contrib.auth.models import User
@@ -10,6 +11,16 @@ from rest_framework.test import APITestCase
 from utils import Utils
 
 from .models import Appointment
+
+
+USER_DATA = {
+    2: {'display_name': 'Bob Buchanan', 'id': 2, 'username': 'bobb'},
+    3: {'display_name': 'Ruth Murray', 'id': 3, 'username': 'ruthm'},
+    4: {'display_name': 'James Good', 'id': 4, 'username': 'jamesg'},
+    5: {'display_name': 'Martin Meza', 'id': 5, 'username': 'martinm'},
+    6: {'display_name': 'Rebecca Garcia', 'id': 6, 'username': 'rebeccag'},
+    7: {'display_name': 'Frank Brandt', 'id': 7, 'username': 'frankb'},
+}
 
 
 # This serves as a superclass for the other APITestCase classes in this file.
@@ -79,6 +90,9 @@ class AppointmentsListTests(AppointmentsTestCase):
         # From the fixture data, we only want the field data.
         expected_appointments = [e['fields'] for e in self.appointments_json]
 
+        for appointment in expected_appointments:
+            appointment['client'] = USER_DATA[appointment['client']]
+
         # Remove all 'id' keys from the response JSON
         response_json = response.json()
         for a in response_json:
@@ -92,25 +106,30 @@ class AppointmentsListTests(AppointmentsTestCase):
         response = self.client.get(AppointmentsListTests.URL)
         self.assertIs(response.status_code, status.HTTP_200_OK)
 
+        bobb_client_json = USER_DATA[2]
+
         expected_response = [
             {
                 'id': 1, 'date': '2021-05-23', 'time': '14:30:00',
                 'hygienist': 'Cheryl Holder', 'operation': 'Checkup',
-                'extra_notes': 'Yearly checkup', 'client': 2
+                'extra_notes': 'Yearly checkup', 'client': bobb_client_json
             },
             {
                 'id': 2, 'date': '2021-06-03', 'time': '10:00:00',
                 'hygienist': 'Tonya Combs', 'operation': 'Fillings',
-                'extra_notes': '', 'client': 2
+                'extra_notes': '', 'client': bobb_client_json
             },
             {
                 'id': 3, 'date': '2021-06-03', 'time': '11:15:00',
                 'hygienist': 'Tonya Combs', 'operation': 'Fillings',
-                'extra_notes': '', 'client': 2
+                'extra_notes': '', 'client': bobb_client_json
             }
         ]
 
-        self.assertEqual(response.json(), expected_response)
+        actual_response = response.json()
+
+        self.assertEqual(len(actual_response), len(expected_response))
+        self.assertEqual(actual_response, expected_response)
 
     def test_get_as_client_with_no_appointments(self):
         self.use_client_creds('frankb')
@@ -126,7 +145,7 @@ class AppointmentsListTests(AppointmentsTestCase):
         data = {
             'date': '2021-09-02',
             'time': '12:15:00',
-            'client': 5,
+            'client': 'martinm',
             'hygienist': 'Sabrina Hess',
             'operation': 'Checkup',
             'extra_notes': ''
@@ -154,7 +173,7 @@ class AppointmentsListTests(AppointmentsTestCase):
         data = {
             'date': '2021-09-02',
             'time': '12:15:00',
-            'client': 5,
+            'client': 'martinm',
             'hygienist': 'Sabrina Hess',
             'operation': 'Checkup',
             'extra_notes': ''
