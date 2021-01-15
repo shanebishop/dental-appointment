@@ -8,6 +8,7 @@ import {
   List as ListIcon,
   UserPlus as UserPlusIcon,
   PlusCircle as PlusCircleIcon,
+  User as UserIcon,
 } from "react-feather";
 
 // Landing
@@ -25,6 +26,7 @@ import Profile from "../pages/pages/Profile";
 import RegisterUser from "../pages/pages/RegisterUser";
 import Appointments from "../pages/pages/Appointments";
 import EditAppointment from "../pages/pages/EditAppointment";
+import Clients from "../pages/pages/Clients";
 
 // Dashboards
 const Default = async(() => import("../pages/dashboards/Default"));
@@ -161,6 +163,17 @@ const editAppointmentRoutes = {
   children: null
 };
 
+const clientListRoutes = {
+  path: '/clients',
+  name: 'View Clients',
+  icon: UserIcon,
+  component: Clients,
+  displayInSidebar: true,
+  requiresLoggedIn: true,
+  staffOnlyRoute: true,
+  children: null
+};
+
 // All pages that display the sidebar (as opposed to something like an auth page,
 // which does not display the sidebar).
 //
@@ -173,6 +186,7 @@ export const dashboard = [
   registerUserRoutes,
   appointmentsRoutes,
   editAppointmentRoutes,
+  clientListRoutes,
 ];
 
 // Landing specific routes
@@ -198,7 +212,8 @@ export default [
   pageRoutes,
   authRoutes,
   appointmentsRoutes,
-  editAppointmentRoutes,
   calendarRoutes,
   registerUserRoutes,
+  editAppointmentRoutes,
+  clientListRoutes,
 ];
