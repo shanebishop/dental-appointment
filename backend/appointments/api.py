@@ -8,6 +8,47 @@ from .models import Appointment
 from .serializers import AppointmentSerializer
 
 
+def preprocess_appointment_req(request, required_keys):
+    data = request.data
+    client = None
+    appointment_date = None
+    appointment_time = None
+
+    if not isinstance(data, dict):
+        resp = {
+            'message': 'Error: request body is not a valid JSON object'
+        }
+        return Response(resp, status=status.HTTP_400_BAD_REQUEST), client, appointment_date, appointment_time
+
+    missing_keys = required_keys - data.keys()
+    if missing_keys:
+        resp = {
+            'message': f'Error: request body is missing the following required keys: {missing_keys}'
+        }
+        return Response(resp, status=status.HTTP_400_BAD_REQUEST), client, appointment_date, appointment_time
+
+    # Check the username has a user entry in the database
+    client_username = data['client']
+    try:
+        client = User.objects.get(username=client_username)
+    except User.DoesNotExist:
+        resp = {
+            'message': f'Error: No user found with username "{client_username}"'
+        }
+        return Response(resp, status=status.HTTP_400_BAD_REQUEST), client, appointment_date, appointment_time
+
+    try:
+        appointment_date = datetime.strptime(data['date'], '%Y-%m-%d').date()
+        appointment_time = datetime.strptime(data['time'], '%H:%M:%S').time()
+    except ValueError as e:
+        resp = {
+            'message': f'Error: {str(e)}'
+        }
+        return Response(resp, status=status.HTTP_400_BAD_REQUEST), client, appointment_date, appointment_time
+
+    return None, client, appointment_date, appointment_time
+
+
 class AppointmentsList(mixins.ListModelMixin,
                        mixins.CreateModelMixin,
                        generics.GenericAPIView):
@@ -38,40 +79,11 @@ class AppointmentsList(mixins.ListModelMixin,
             }
             return Response(resp, status=status.HTTP_401_UNAUTHORIZED)
 
-        data = request.data
-
-        if not isinstance(data, dict):
-            resp = {
-                'message': 'Error: request body is not a valid JSON object'
-            }
-            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
-
         required_keys = {'client', 'date', 'extra_notes', 'hygienist', 'operation', 'extra_notes'}
-        missing_keys = required_keys - data.keys()
-        if missing_keys:
-            resp = {
-                'message': f'Error: request body is missing the following required keys: {missing_keys}'
-            }
-            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
+        resp, client, appointment_date, appointment_time = preprocess_appointment_req(request, required_keys)
 
-        # Check the username has a user entry in the database
-        client_username = data['client']
-        try:
-            client = User.objects.get(username=client_username)
-        except User.DoesNotExist:
-            resp = {
-                'message': f'Error: No user found with username "{client_username}"'
-            }
-            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            appointment_date = datetime.strptime(data['date'], '%Y-%m-%d').date()
-            appointment_time = datetime.strptime(data['time'], '%H:%M:%S').time()
-        except ValueError as e:
-            resp = {
-                'message': f'Error: {str(e)}'
-            }
-            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
+        if resp:
+            return resp
 
         appointment_has_conflict = False
 
@@ -92,6 +104,7 @@ class AppointmentsList(mixins.ListModelMixin,
             }
             return Response(resp, status=status.HTTP_400_BAD_REQUEST)
 
+        data = request.data
         appointment = Appointment.objects.create(
             date=data['date'],
             time=data['time'],
@@ -123,9 +136,43 @@ class AppointmentsDetail(mixins.UpdateModelMixin,
             }
             return Response(resp, status=status.HTTP_401_UNAUTHORIZED)
 
-        # TODO Need to prevent updating an appointment to conflict with the client's other appointment
-        # This would need API tests
-        # TODO There is a problem here - since an appointment is being edited, its time may "conflict" with itself
+        required_keys = {'id', 'client', 'date', 'extra_notes', 'hygienist', 'operation', 'extra_notes'}
+        resp, client, appointment_date, appointment_time = preprocess_appointment_req(request, required_keys)
+
+        if resp:
+            return resp
+
+        data = request.data
+        data_id = int(data['id'])
+
+        to_update = Appointment.objects.get(id=data_id)
+        if to_update.client.username != data['client']:
+            resp = {
+                'message': 'Error: Cannot change client for an appointment'
+            }
+            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
+
+        appointment_has_conflict = False
+
+        # Prevent updating the appointment in such a way that the new date and time conflicts with
+        # another appointment for the client
+        try:
+            appointments = Appointment.objects.filter(client=client)
+            for appointment in appointments:
+                if appointment.id == data_id:
+                    continue  # Skip the appointment that is being edited
+                if conflict(appointment, appointment_date, appointment_time):
+                    appointment_has_conflict = True
+                    break
+        except Appointment.DoesNotExist:
+            # Client has no appointments, so there is no conflict
+            appointment_has_conflict = False
+
+        if appointment_has_conflict:
+            resp = {
+                'message': 'Error: Time and date conflict with an existing appointment for this client'
+            }
+            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
 
         return self.update(request, *args, **kwargs)
 

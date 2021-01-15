@@ -1,7 +1,7 @@
 import os
 import json
 import datetime
-from pprint import pprint
+# from pprint import pprint
 
 from django.core.management import call_command
 from django.contrib.auth.models import User
@@ -250,17 +250,17 @@ class AppointmentDetailTests(AppointmentsTestCase):
 
     def test_update_appointment(self):
         self.use_admin_creds()
+        appointment_id = 1
 
         data = {
+            'id': appointment_id,
             'date': '2021-05-23',
             'time': '13:00:00',
-            'client': 2,
+            'client': 'bobb',
             'hygienist': 'Sabrina Hess',
             'operation': 'Checkup',
             'extra_notes': 'Yearly checkup'
         }
-
-        appointment_id = 1
 
         response = self.put(appointment_id, data)
         self.assertIs(response.status_code, status.HTTP_200_OK)
@@ -276,8 +276,10 @@ class AppointmentDetailTests(AppointmentsTestCase):
 
     def test_update_appointment_fails_if_not_staff(self):
         self.use_client_creds('bobb')
+        appointment_id = 1
 
         data = {
+            'id': appointment_id,
             'date': '2021-05-23',
             'time': '13:00:00',
             'client': 2,
@@ -286,7 +288,6 @@ class AppointmentDetailTests(AppointmentsTestCase):
             'extra_notes': 'Yearly checkup'
         }
 
-        appointment_id = 1
         appointment_before = Appointment.objects.get(pk=appointment_id)
 
         response = self.put(appointment_id, data)
@@ -298,6 +299,63 @@ class AppointmentDetailTests(AppointmentsTestCase):
         # Check appointment was not modified
         appointment_after = Appointment.objects.get(pk=appointment_id)
         self.assertEqual(appointment_after, appointment_before)
+
+    def test_update_appointment_to_same_time(self):
+        self.use_admin_creds()
+        appointment_id = 1
+
+        data = {
+            'id': appointment_id,
+            'date': '2021-05-23',
+            'time': '14:30:00',
+            'client': 'bobb',
+            'hygienist': 'Sabrina Hess',
+            'operation': 'Checkup',
+            'extra_notes': 'Yearly checkup'
+        }
+
+        response = self.put(appointment_id, data)
+        self.assertIs(response.status_code, status.HTTP_200_OK)
+
+    def test_update_appointment_fails_if_conflicting_date(self):
+        self.use_admin_creds()
+        appointment_id = 1
+
+        data = {
+            'id': appointment_id,
+            'date': '2021-06-03',
+            'time': '10:00:00',
+            'client': 'bobb',
+            'hygienist': 'Sabrina Hess',
+            'operation': 'Checkup',
+            'extra_notes': 'Yearly checkup'
+        }
+
+        response = self.put(appointment_id, data)
+        self.assertIs(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        message = response.json()['message']
+        self.assertTrue('conflict with an existing appointment' in message)
+
+    def test_update_appointment_fails_if_appointment_id_does_not_match_client(self):
+        self.use_admin_creds()
+        appointment_id = 4
+
+        data = {
+            'id': appointment_id,
+            'date': '2021-06-03',
+            'time': '11:00:00',
+            'client': 'bobb',
+            'hygienist': 'Sabrina Hess',
+            'operation': 'Checkup',
+            'extra_notes': 'Yearly checkup'
+        }
+
+        response = self.put(appointment_id, data)
+        self.assertIs(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        message = response.json()['message']
+        self.assertTrue('Cannot change client' in message)
 
     def test_delete_appointment(self):
         self.use_admin_creds()

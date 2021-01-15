@@ -43,6 +43,10 @@ export function onSubmit() {
     extra_notes: this.state.appointment.extra_notes,
   };
 
+  if (this.state.appointment.id) {
+    data.id = this.state.appointment.id;
+  }
+
   console.log(data);
 
   axios.post('/api/appointments/list/', data, config)
