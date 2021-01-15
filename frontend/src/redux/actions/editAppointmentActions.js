@@ -1,5 +1,6 @@
+/* globals localStorage */
+
 import axios from 'axios';
-import {authTokenAxiosConfig} from "../../utils/auth";
 
 export function updateValue(e) {
   this.setState({
@@ -32,8 +33,6 @@ export function updateOperation(e) {
 }
 
 export function onSubmit() {
-  const config = authTokenAxiosConfig();
-
   const data = {
     date: this.state.appointment.date,
     time: this.state.appointment.time,
@@ -47,18 +46,53 @@ export function onSubmit() {
     data.id = this.state.appointment.id;
   }
 
-  console.log(data);
+  const url = this.state.createMode
+    ? '/api/appointments/list/'
+    : `/api/appointments/detail/${this.state.appointment.id}/`;
 
-  axios.post('/api/appointments/list/', data, config)
-    .then((resp) => {
-      console.log('TODO Handle success');
-      console.log(resp);
+  const config = {
+    method: this.state.createMode ? 'post' : 'put',
+    url,
+    data,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${localStorage.getItem('user-token')}`,
+    }
+  };
+
+  const updateCreateStr = this.state.createMode ? 'create' : 'update';
+
+  axios(config)
+    .then((/*resp*/) => {
+      this.showSuccessDialog(`Appointment ${updateCreateStr}d.`, `Appointment ${updateCreateStr}d`);
     })
     .catch((err) => {
-      console.log('TODO Handle error');
-      console.log(err);
-      console.log(err.response.data);
+      this.showErrorDialog(err, `Failed to ${updateCreateStr} appointment`);
     })
+}
+
+export function showSuccessDialog(msg, title) {
+  this.setState({
+    dialog: {
+      open: true,
+      msg,
+      title,
+    }
+  });
+}
+
+export function showErrorDialog(err, title) {
+  const msg = (err.response && err.response.data && err.response.data.message)
+    ? err.response.data.message
+    : `${err}`;
+
+  this.setState({
+    dialog: {
+      open: true,
+      msg,
+      title,
+    }
+  });
 }
 
 export function onCancel() {
@@ -74,4 +108,13 @@ export function submitButtonEnabled() {
     appointment.client.username &&
     appointment.hygienist &&
     appointment.operation;
+}
+
+export function toggleDialog() {
+  this.setState({
+    dialog: {
+      ...this.state.dialog,
+      open: !this.state.dialog.open
+    }
+  });
 }

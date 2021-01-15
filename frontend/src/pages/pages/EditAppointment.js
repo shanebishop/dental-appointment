@@ -41,7 +41,6 @@ class EditAppointment extends React.Component {
       date: '',
       time: '',
       client: {
-        // display_name: '',
         username: '',
       },
       hygienist: '',
@@ -54,6 +53,11 @@ class EditAppointment extends React.Component {
     const createMode = Object.prototype.hasOwnProperty.call(props, 'createMode')
       ? props.createMode
       : true;
+
+    if (!createMode && !(props.appointment && props.appointment.id)) {
+      // If in update mode, the appointment ID must be set
+      throw new Error('Appointment ID not set with create mode');
+    }
 
     this.state = {
       appointment,
@@ -72,6 +76,9 @@ class EditAppointment extends React.Component {
     this.updateOperation = Actions.updateOperation.bind(this);
     this.updateClient = Actions.updateClient.bind(this);
     this.submitButtonEnabled = Actions.submitButtonEnabled.bind(this);
+    this.showSuccessDialog = Actions.showSuccessDialog.bind(this);
+    this.showErrorDialog = Actions.showErrorDialog.bind(this)
+    this.toggleDialog = Actions.toggleDialog.bind(this);
   }
 
   render() {
