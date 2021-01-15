@@ -11,6 +11,7 @@ import {
 
 import Timeline from "./Timeline";
 import TimelineItem from "./TimelineItem";
+import {Link} from "react-router-dom";
 
 const Appointments = (props) => {
   return (
@@ -26,7 +27,10 @@ const Appointments = (props) => {
           Your next appointment is in 2 hours.
         </p>
       </div>
-      {props.userIsStaff ? <Button>Schedule a new appointment</Button> : null}
+      {props.userIsStaff
+        ? <Link to="/edit-appointment"><Button style={{width: "100%"}}>Schedule a new appointment</Button></Link>
+        : null
+      }
       <CardBody className="d-flex">
         {(props.appointments.length !== 0)
           ? (

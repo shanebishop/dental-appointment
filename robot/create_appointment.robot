@@ -7,7 +7,6 @@ Resource         common.robot
 Variables        variables
 Suite Setup      Suite Setup
 Suite Teardown   Close Browser
-#Test Teardown    Test Teardown
 
 *** Keywords ***
 Suite Setup
