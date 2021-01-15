@@ -9,6 +9,7 @@ LOGIN_URL = f'{SERVER}/auth/sign-in'
 REGISTER_URL = f'{SERVER}/register-user'
 COMPLETE_REGISTRATION_URL = f'{SERVER}/auth/complete-registration'
 APPOINTMENTS_URL = f'{SERVER}/appointments/'
+CREATE_APPOINTMENTS_URL = f'{SERVER}/edit-appointment'
 
 # API URLs
 DEREGISTER_URL = f'{SERVER}/api/user/deregister/'

@@ -36,6 +36,10 @@ Go To Appointments Page
     Go To   ${APPOINTMENTS_URL}
     Location Should Be    ${APPOINTMENTS_URL}
 
+Go To Create Appointment Page
+    Go To    ${CREATE_APPOINTMENTS_URL}
+    Location Should Be    ${CREATE_APPOINTMENTS_URL}
+
 Login Page Should Be Open
     Location Should Be    ${LOGIN_URL}
 

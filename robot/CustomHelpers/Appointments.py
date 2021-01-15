@@ -34,3 +34,21 @@ def reset_appointments(admin_auth_token, cancel_appointment_url, get_all_appoint
     if process.returncode != 0:
         print(stderr, file=sys.stderr)
         raise Exception(f'docker exec command had non-zero exit code {process.returncode}')
+
+
+def appointment_exists(auth_token, date, time, username, get_all_appointments_url):
+    """Check if an appointment exists in the database"""
+
+    headers = {
+        'Authorization': f'Token {auth_token}'
+    }
+
+    response = requests.get(get_all_appointments_url, headers=headers)
+
+    appointments = [
+        a for a in response.json()
+        if a['client']['username'] == username and a['date'] == date and a['time'] == f'{time}:00'
+    ]
+
+    if len(appointments) != 1:
+        raise Exception(f'Expected only one appointment to match {(date, time, username)}, found {len(appointments)}')

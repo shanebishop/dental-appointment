@@ -8,6 +8,26 @@ from .models import Appointment
 from .serializers import AppointmentSerializer
 
 
+def parse_date_and_time(unparsed_date, unparsed_time):
+    date = None
+    time = None
+
+    try:
+        date = datetime.strptime(unparsed_date, '%Y-%m-%d').date()
+    except ValueError:
+        return f"Date '{unparsed_date}' does not match YYYY-MM-DD format", date, time
+
+    try:
+        time = datetime.strptime(unparsed_time, '%H:%M:%S').time()
+    except ValueError:
+        try:
+            time = datetime.strptime(unparsed_time, '%H:%M').time()
+        except ValueError:
+            return f"Time '{unparsed_time}' does not match either HH:MM:SS or HH:MM", date, time
+
+    return None, date, time
+
+
 def preprocess_appointment_req(request, required_keys):
     data = request.data
     client = None
@@ -37,12 +57,11 @@ def preprocess_appointment_req(request, required_keys):
         }
         return Response(resp, status=status.HTTP_400_BAD_REQUEST), client, appointment_date, appointment_time
 
-    try:
-        appointment_date = datetime.strptime(data['date'], '%Y-%m-%d').date()
-        appointment_time = datetime.strptime(data['time'], '%H:%M:%S').time()
-    except ValueError as e:
+    err_msg, appointment_date, appointment_time = parse_date_and_time(data['date'], data['time'])
+
+    if err_msg:
         resp = {
-            'message': f'Error: {str(e)}'
+            'message': f'Error: {err_msg}'
         }
         return Response(resp, status=status.HTTP_400_BAD_REQUEST), client, appointment_date, appointment_time
 
