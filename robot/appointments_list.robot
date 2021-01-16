@@ -33,26 +33,6 @@ Full Appointments Are Displayed Chronologically
     # Check there are no additional appointments
     Element Should Not Be Visible    appointment-6-time
 
-Appointment Shows Details
-    [Arguments]    ${date}    ${time}    ${hygienist}    ${operation}
-    Element Text Should Be    selected-appointment-details-card-title    ${date} ${time}
-    Element Text Should Be    appointment-date    Date: ${date}
-    Element Text Should Be    appointment-time    Time: ${time}
-    Element Text Should Be    appointment-hygienist    Hygienist: ${hygienist}
-    Element Text Should Be    appointment-operation    Operation: ${operation}
-
-Appointment Details Shows Extra Notes
-    [Arguments]    ${extra_notes}
-    Element Should Be Visible    appointment-extra-notes-label
-    Element Text Should Be    appointment-extra-notes-content    ${extra_notes}
-
-Appointment Details Does Not Show Extra Notes
-    Element Should Not Be Visible    appointment-extra-notes-label
-
-Appointment Shows Client
-    [Arguments]    ${client_display_name}
-    Element Text Should Be    appointment-client-display-name    Client: ${client_display_name}
-
 Cancel Success Dialog Displays
     Wait Until Element Is Visible    appointments-dialog    2
     Element Text Should Be    appointments-dialog-msg    Appointment cancelled.

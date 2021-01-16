@@ -37,8 +37,8 @@ Go To Appointments Page
     Location Should Be    ${APPOINTMENTS_URL}
 
 Go To Create Appointment Page
-    Go To    ${CREATE_APPOINTMENTS_URL}
-    Location Should Be    ${CREATE_APPOINTMENTS_URL}
+    Go To    ${EDIT_APPOINTMENT_URL}
+    Location Should Be    ${EDIT_APPOINTMENT_URL}
 
 Login Page Should Be Open
     Location Should Be    ${LOGIN_URL}
@@ -66,3 +66,32 @@ Enter User Registration Data
     Input Text    city    ${city}
     Input Text    postal-code    ${postal_code}
     Select From List By Label    province    ${province}
+
+Enter Appointment Data
+    [Arguments]    ${date}    ${time}    ${username}    ${hygienist}    ${operation}    ${extra_notes}
+    Input Text    date    ${date}
+    Input Text    time    ${time}
+    Input Text    client    ${username}
+    Input Text    hygienist    ${hygienist}
+    Select From List By Label    operation-dropdown    ${operation}
+    Input Text    extra_notes    ${extra_notes}
+
+Appointment Shows Details
+    [Arguments]    ${date}    ${time}    ${hygienist}    ${operation}
+    Element Text Should Be    selected-appointment-details-card-title    ${date} ${time}
+    Element Text Should Be    appointment-date    Date: ${date}
+    Element Text Should Be    appointment-time    Time: ${time}
+    Element Text Should Be    appointment-hygienist    Hygienist: ${hygienist}
+    Element Text Should Be    appointment-operation    Operation: ${operation}
+
+Appointment Details Shows Extra Notes
+    [Arguments]    ${extra_notes}
+    Element Should Be Visible    appointment-extra-notes-label
+    Element Text Should Be    appointment-extra-notes-content    ${extra_notes}
+
+Appointment Details Does Not Show Extra Notes
+    Element Should Not Be Visible    appointment-extra-notes-label
+
+Appointment Shows Client
+    [Arguments]    ${client_display_name}
+    Element Text Should Be    appointment-client-display-name    Client: ${client_display_name}

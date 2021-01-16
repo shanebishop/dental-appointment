@@ -37,7 +37,10 @@ class EditAppointment extends React.Component {
   constructor(props) {
     super(props);
 
-    const appointment = props.appointment || {
+    const appointmentPropProvided = props && props.location && props.location.state && props.location.state.appointment;
+    const createMode = !appointmentPropProvided;
+
+    const appointment = appointmentPropProvided ? props.location.state.appointment : {
       date: '',
       time: '',
       client: {
@@ -48,15 +51,11 @@ class EditAppointment extends React.Component {
       extra_notes: '',
     };
 
-    // Since this page can be accessed directly by URL, it is possible it will
-    // receive no props. We default to true if createMode is not in props.
-    const createMode = Object.prototype.hasOwnProperty.call(props, 'createMode')
-      ? props.createMode
-      : true;
+    console.log(appointment);
 
-    if (!createMode && !(props.appointment && props.appointment.id)) {
+    if (!createMode && !appointment.id) {
       // If in update mode, the appointment ID must be set
-      throw new Error('Appointment ID not set with create mode');
+      throw new Error('Appointment ID not set with update mode');
     }
 
     this.state = {
@@ -145,7 +144,9 @@ class EditAppointment extends React.Component {
                 <Label sm={2} className="text-sm-right">Operation</Label>
                 <Col sm={10}>
                   <CustomDropdown
-                    id="operation-dropdown" values={EditAppointment.OPERATIONS}
+                    id="operation-dropdown"
+                    values={EditAppointment.OPERATIONS}
+                    value={this.state.appointment.operation}
                     onChange={this.updateOperation}
                   />
                 </Col>
@@ -158,6 +159,7 @@ class EditAppointment extends React.Component {
                     name="extra_notes"
                     placeholder="(Optionally) enter extra notes here"
                     rows="3"
+                    value={this.state.appointment.extra_notes}
                     onChange={this.updateValue}
                   />
                 </Col>
@@ -208,8 +210,7 @@ class EditAppointment extends React.Component {
 // Since this page can be accessed directly by URL, it is possible it will
 // receive no props. Therefore, all props are technically optional.
 EditAppointment.propTypes = {
-  createMode: PropTypes.bool,
-  appointment: PropTypes.object,
+  location: PropTypes.object
 };
 
 export default EditAppointment;

@@ -37,6 +37,7 @@ class CustomDropdown extends React.Component {
         type="select"
         className="mb-3"
         id={this.props.id}
+        value={this.state.value}
         onChange={this.props.onChange}
       >
         {items}

@@ -39,8 +39,13 @@ export function refreshData() {
 }
 
 export function onUpdateClicked(appointment) {
-  // TODO
-  console.log('TODO This will come later when I have created an update page');
+  this.props.history.push({
+    pathname: '/edit-appointment',
+    state: {
+      appointment
+    },
+    lastPage: window.location.pathname,
+  });
 }
 
 export function showSuccessDialog(msg, title) {

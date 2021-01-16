@@ -94,7 +94,7 @@ class Appointments extends React.Component {
         {this.state.userIsStaff
           ? (
             <Row style={{marginBottom: '20px', marginLeft: '5px', marginRight: '5px'}}>
-              <Input name="filter-input" placeholder="Enter text to filter by user name" onChange={this.onFilterChanged} />
+              <Input name="filter-input" placeholder="Enter text to filter by client name" onChange={this.onFilterChanged} />
             </Row>
           ) : null}
         <Row>

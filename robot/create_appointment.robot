@@ -25,15 +25,6 @@ Test Teardown
 Press Submit Button
     Click Button    submit-btn
 
-Enter Appointment Data
-    [Arguments]    ${date}    ${time}    ${username}    ${hygienist}    ${operation}    ${extra_notes}
-    Input Text    date    ${date}
-    Input Text    time    ${time}
-    Input Text    client    ${username}
-    Input Text    hygienist    ${hygienist}
-    Select From List By Label    operation-dropdown    ${operation}
-    Input Text    extra_notes    ${extra_notes}
-
 Dialog Shows Message
     [Arguments]    ${message}
     Wait Until Element Is Visible    edit-appointment-dialog    2
