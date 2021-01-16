@@ -79,3 +79,44 @@ Staff Can Update Appointments
     Appointment Shows Details    2021-05-22    10:00:00    Tonya Combs    Cosmetic surgery
     Appointment Details Shows Extra Notes    Test notes
     Appointment Shows Client    Bob Buchanan
+
+Updating Fails When Date Is Invalid
+    Go To Appointments Page
+    Wait Until Element Is Visible    appointment-0-time    2
+    Click Element    appointment-0-time
+    Click Button    update-appointment-btn
+    Location Should Be    ${EDIT_APPOINTMENT_URL}
+    Input Text    date    foo
+    Press Submit Button
+    Dialog Shows Message    Error: Date 'foo' does not match YYYY-MM-DD format
+
+Updating Fails When Time Is Invalid
+    Go To Appointments Page
+    Wait Until Element Is Visible    appointment-0-time    2
+    Click Element    appointment-0-time
+    Click Button    update-appointment-btn
+    Location Should Be    ${EDIT_APPOINTMENT_URL}
+    Input Text    time    foo
+    Press Submit Button
+    Dialog Shows Message    Error: Time 'foo' does not match either HH:MM:SS or HH:MM
+
+Updating Fails When Username Is Not Registered
+    Go To Appointments Page
+    Wait Until Element Is Visible    appointment-0-time    2
+    Click Element    appointment-0-time
+    Click Button    update-appointment-btn
+    Location Should Be    ${EDIT_APPOINTMENT_URL}
+    Input Text    client    notindb
+    Press Submit Button
+    Dialog Shows Message    Error: No user found with username "notindb"
+
+Updating Fails When New Time Would Conflict With Another Appointment
+    Go To Appointments Page
+    Wait Until Element Is Visible    appointment-0-time    2
+    Click Element    appointment-0-time
+    Click Button    update-appointment-btn
+    Location Should Be    ${EDIT_APPOINTMENT_URL}
+    Input Text    date    2021-06-03
+    Input Text    time    10:00:00
+    Press Submit Button
+    Dialog Shows Message    Error: Time and date conflict with an existing appointment for this client
