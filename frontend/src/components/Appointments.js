@@ -47,11 +47,11 @@ const Appointments = (props) => {
                     {`${appointment.date} ${appointment.time}`}
                   </strong>
                   <span className="float-right text-muted text-sm">30m ago</span>
-                  <p>{appointment.operation}</p>
+                  <p>{props.userIsStaff ? `${appointment.operation} for ${appointment.client.display_name}` : appointment.operation}</p>
                 </TimelineItem>
               ))}
             </Timeline>
-          ) : <p id="no-appointments-paragraph">No appointments</p>
+          ) : <p id="no-appointments-paragraph">{props.filtered ? 'No appointments for filter' : 'No appointments'}</p>
         }
       </CardBody>
     </Card>
@@ -60,6 +60,7 @@ const Appointments = (props) => {
 
 Appointments.propTypes = {
   appointments: PropTypes.array.isRequired,
+  filtered: PropTypes.bool.isRequired,
   onAppointmentSelected: PropTypes.func.isRequired,
   userIsStaff: PropTypes.bool.isRequired,
 };

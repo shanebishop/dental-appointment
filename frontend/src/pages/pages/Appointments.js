@@ -18,6 +18,7 @@ import {
   CardHeader,
   CardTitle,
   Button,
+  Input,
 } from "reactstrap";
 
 import * as Actions from '../../redux/actions/appointmentsActions';
@@ -36,10 +37,12 @@ class Appointments extends React.Component {
 
     this.state = {
       appointments: [],
+      filteredAppointments: [],
       selectedAppointment: null,
       userIsStaff,
       errorFetchingAppointments: false,
       fetchingAppointments: true,
+      filterText: '',
 
       dialog: {
         open: false,
@@ -55,7 +58,7 @@ class Appointments extends React.Component {
     this.showSuccessDialog = Actions.showSuccessDialog.bind(this);
     this.showErrorDialog = Actions.showErrorDialog.bind(this);
     this.refreshData = Actions.refreshData.bind(this);
-    // TODO Add Event handler for 'scheduling a new appointment' button
+    this.onFilterChanged = Actions.onFilterChanged.bind(this);
   }
 
   // React best practices are to retrieve information from server
@@ -79,7 +82,7 @@ class Appointments extends React.Component {
 
     // This will sort the appointments in-place, which is fine for this use case
     // TODO If I turn this into a datetime sorting util function, I could unit test it
-    this.state.appointments.sort((a, b) => {
+    this.state.filteredAppointments.sort((a, b) => {
       const timestampA = new Date(`${a.date} ${a.time}`);
       const timestampB = new Date(`${b.date} ${b.time}`);
       return timestampA - timestampB;
@@ -88,11 +91,18 @@ class Appointments extends React.Component {
     return (
       <React.Fragment>
 
+        {this.state.userIsStaff
+          ? (
+            <Row style={{marginBottom: '20px', marginLeft: '5px', marginRight: '5px'}}>
+              <Input name="filter-input" placeholder="Enter text to filter by user name" onChange={this.onFilterChanged} />
+            </Row>
+          ) : null}
         <Row>
           <Col>
             <AppointmentsComponent
               onAppointmentSelected={this.onAppointmentSelected}
-              appointments={this.state.appointments}
+              filtered={!!this.state.filterText}
+              appointments={this.state.filteredAppointments}
               userIsStaff={this.state.userIsStaff}
             />
           </Col>

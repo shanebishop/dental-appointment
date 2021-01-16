@@ -23,6 +23,8 @@ export function refreshData() {
     .then((resp) => {
       this.setState({
         appointments: resp.data,
+        filteredAppointments: resp.data,
+        filterText: '',
         fetchingAppointments: false,
         selectedAppointment: null,
       });
@@ -71,5 +73,20 @@ export function toggleDialog() {
       ...this.state.dialog,
       open: !this.state.dialog.open
     }
+  });
+}
+
+export function onFilterChanged(e) {
+  const filterText = e.target.value.toLowerCase();
+
+  const filteredAppointments = this.state.appointments.filter(a => {
+    return a.client.display_name
+      .toLowerCase()
+      .indexOf(filterText) !== -1;
+  });
+
+  this.setState({
+    filterText,
+    filteredAppointments,
   });
 }

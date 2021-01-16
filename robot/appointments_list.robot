@@ -141,6 +141,31 @@ Staff View Appointment Details
     Appointment Shows Client    Bob Buchanan
     Appointment Details Does Not Show Extra Notes
 
+Staff Can Filter Displayed Appointments By Client Name
+    Login As Admin
+    Go To Appointments Page
+    Wait Until Element Is Visible    appointment-0-time    2
+    Element Should Be Visible    filter-input
+    # Filter by "bob", expect three appointments
+    Input Text    filter-input    bob
+    Element Text Should Be    appointment-0-time    2021-05-23 14:30:00
+    Element Text Should Be    appointment-1-time    2021-06-03 10:00:00
+    Element Text Should Be    appointment-2-time    2021-06-03 11:15:00
+    Element Should Not Be Visible    appointment-3-time
+    # Clearing filter should display all appointments
+    Input Text    filter-input    ${EMPTY}
+    Full Appointments Are Displayed Chronologically
+    # Filter by "billy", expect no appointments
+    Input Text    filter-input    billy
+    Wait Until Element Is Visible    no-appointments-paragraph    2
+    Element Text Should Be    no-appointments-paragraph    No appointments for filter
+
+Filter Is Not Displayed For Clients
+    Login As Client    bobb    bobb
+    Go To Appointments Page
+    Wait Until Element Is Visible    appointment-0-time    2
+    Element Should Not Be Visible    filter-input
+
 Staff Can Cancel Appointments
     Login As Admin
     Go To Appointments Page
