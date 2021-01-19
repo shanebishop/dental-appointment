@@ -24,10 +24,13 @@
 This should be some text
 \#
 .HEADING 1 NAMED intro "Introduction"
-.HEADING 2 "subheading"
-.HEADING 3 "subsubheading"
-.HEADING 2 "Next main heading"
+.PP
+Placeholder text
 \#
-.PSPIC img/uc1.ps 500p
+.HEADING 1 "Use Cases"
+.HEADING 2 "Use Case Activity Diagrams"
+\#
+\# .PSPIC img/uc1.ps 500p
+.PDF_IMAGE img/uc1.pdf 657p 152p SCALE 75
 \# This needs to be the very last macro
 .TOC
