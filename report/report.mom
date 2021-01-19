@@ -1,0 +1,33 @@
+\#
+\# groff-mom source for Honours Project report
+\#
+\# ===================================================================
+\#
+\# Metadata
+\#
+.TITLE "TODO Determine Title"
+.AUTHOR "Shane Bishop"
+.ATTRIBUTE_STRING ""
+.PRINTSTYLE TYPESET
+\#
+\# This determines what goes on the the cover page
+.DOC_COVER TITLE AUTHOR
+\#
+\# Set up Table of Contents
+\#
+.AUTO_RELOCATE_TOC
+.SPACE_TOC_ITEMS
+\#
+.START
+\#
+.PP
+This should be some text
+\#
+.HEADING 1 NAMED intro "Introduction"
+.HEADING 2 "subheading"
+.HEADING 3 "subsubheading"
+.HEADING 2 "Next main heading"
+\#
+.PSPIC img/uc1.ps 500p
+\# This needs to be the very last macro
+.TOC
