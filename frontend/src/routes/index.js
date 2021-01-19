@@ -130,7 +130,7 @@ const calendarRoutes = {
 // Routes to pages used by dental staff for administrative tasks
 const registerUserRoutes = {
   path: '/register-user',
-  name: 'Register User',
+  name: 'Register Client',
   header: 'Administration',
   icon: UserPlusIcon,
   component: RegisterUser,

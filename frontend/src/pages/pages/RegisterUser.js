@@ -205,7 +205,7 @@ class RegisterUser extends React.Component {
 
     return (
       <Container fluid className="p-0">
-        <h1 className="h3 mb-3">Register User</h1>
+        <h1 className="h3 mb-3">Register Client</h1>
         <Body {...this.props} />
       </Container>
     );
