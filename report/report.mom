@@ -18,19 +18,104 @@
 .AUTO_RELOCATE_TOC
 .SPACE_TOC_ITEMS
 \#
+\# Have captions after labels
+\#
+.CAPTION_AFTER_LABEL IMG
+.CATPION_AFTER_LABEL TBL
+\#
 .START
 \#
+.HEADING 1 NAMED abstract "Abstract"
 .PP
-This should be some text
+Placeholder text
 \#
 .HEADING 1 NAMED intro "Introduction"
 .PP
 Placeholder text
 \#
 .HEADING 1 "Use Cases"
+\#
+\# Tables are really complicated, and use difficult to read stuf...
+\# To really understand how this works, read chapter 5 of "Unix Text Processing"
+\# up to at least page 177 (inclusive).
+\# Unix Text Processing: https://drive.google.com/file/d/128T-HMKbnDeYnLFzi714fZwytYsswS1z/view?usp=sharing
+\#
+.TS BOXED LABEL "Table 1: Use Case 1"
+box, tab(@);
+l | l .
+Use Case Identifier@UC1
+_
+Title@Login
+_
+Participating actor(s)@Dental staff member or client
+_
+Precondition(s)@System is ready to receive requests
+_
+Parameters@Username, password
+_
+Flow of events@1. System prompts for username and password
+\^@2. User submits their username and password
+\^@3. System logs user in
+\^@4. User is redirected to homepage
+.TE
+\#
+.NEWPAGE
+.TS
+tab(@);
+c c c
+^ ^ C
+l l n .
+Fuel@Substance@kcal/
+@@gram mol. wt.
+.SP
+Gases@Hydrogen@68.4
+\^@Methane@211
+\^@Butane@680
+\^@Ethane@368
+.sp
+Liquids@Benzene@82
+\^@Ethyl alcohol@328
+\^@Methyl alcohol@171
+.TE
+\#
 .HEADING 2 "Use Case Activity Diagrams"
 \#
-\# .PSPIC img/uc1.ps 500p
-.PDF_IMAGE img/uc1.pdf 657p 152p SCALE 75
+.PDF_IMAGE img/uc1.pdf 657p 152p SCALE 70 CAPTION "Figure 1: Activity diagram for UC1"
+.PP
+.\" Placeholder text
+.PDF_IMAGE img/uc2.pdf 345p 61p CAPTION "Figure 2: Activity diagram for UC2"
+.PP
+.\" Placeholder text
+.NEWPAGE
+.PDF_IMAGE img/uc3.pdf 517p 301p SCALE 75 CAPTION "Figure 3: Activity diagram for UC3"
+\# .ALD 301p
+.PP
+.\" Placeholder text
+.NEWPAGE
+.PDF_IMAGE img/uc4.pdf 540p 470p SCALE 75 CAPTION "Figure 4: Activity diagram for UC4"
+.PP
+.\" Placeholder text
+.PDF_IMAGE img/uc5.pdf 431p 54p CAPTION "Figure 5: Activity diagram for UC5"
+.PP
+.\" Placeholder text
+.PDF_IMAGE img/uc6.pdf 335p 63p CAPTION "Figure 6: Activity diagram for UC6"
+.PP
+.\" Placeholder text
+.PDF_IMAGE img/uc7.pdf 531p 539p SCALE 75 CAPTION "Figure 7: Activity diagram for UC7"
+.PP
+.\" Placeholder text
+.NEWPAGE
+.PDF_IMAGE img/uc8.pdf 533p 456p SCALE 75 CAPTION "Figure 8: Activity diagram for UC8"
+.PP
+.\" Placeholder text
+.PDF_IMAGE img/uc9.pdf 323p 54p CAPTION "Figure 9: Activity diagram for UC9"
+.PP
+.\" Placeholder text
+.PDF_IMAGE img/uc10.pdf 243p 65p CAPTION "Figure 10: Activity diagram for UC10"
+.PP
+.\" Placeholder text
+.PDF_IMAGE img/uc11.pdf 423p 63p CAPTION "Figure 11: Activity diagram for UC11"
+.PP
+.\" Placeholder text
 \# This needs to be the very last macro
 .TOC
