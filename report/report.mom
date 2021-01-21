@@ -34,15 +34,20 @@ Placeholder text
 Placeholder text
 \#
 .HEADING 1 "Use Cases"
+.HEADING 2 "Use Case Diagrams"
 \#
 \# Tables are really complicated, and use difficult to read stuf...
 \# To really understand how this works, read chapter 5 of "Unix Text Processing"
-\# up to at least page 177 (inclusive).
+\# in detail up to at least page 177 (inclusive).
 \# Unix Text Processing: https://drive.google.com/file/d/128T-HMKbnDeYnLFzi714fZwytYsswS1z/view?usp=sharing
+\# Also a good read is http://www.snake.net/software/troffcvt/tbl.html,
+\# which for example covers the comma stuff below under 'Alternative notation'
 \#
 .TS BOXED LABEL "Table 1: Use Case 1"
-box, tab(@);
-l | l .
+tab(@);
+lI lB, lI l, lI l, lI l, lI l
+lIT l, ^.
+_
 Use Case Identifier@UC1
 _
 Title@Login
@@ -53,30 +58,268 @@ Precondition(s)@System is ready to receive requests
 _
 Parameters@Username, password
 _
-Flow of events@1. System prompts for username and password
-\^@2. User submits their username and password
-\^@3. System logs user in
-\^@4. User is redirected to homepage
+T{
+Flow of events
+T}@1. System prompts for username and password
+^@2. User submits their username and password
+^@3. System logs the user in
+^@4. User is redirected to homepage
+_
 .TE
 \#
 .NEWPAGE
-.TS
+.TS BOXED LABEL "Table 2: Use Case 2"
 tab(@);
-c c c
-^ ^ C
-l l n .
-Fuel@Substance@kcal/
-@@gram mol. wt.
-.SP
-Gases@Hydrogen@68.4
-\^@Methane@211
-\^@Butane@680
-\^@Ethane@368
-.sp
-Liquids@Benzene@82
-\^@Ethyl alcohol@328
-\^@Methyl alcohol@171
+lI lB, lI l, lI l, lI l, lI l
+lIT l, ^.
+_
+Use Case Identifier@UC2
+_
+Title@Logout
+_
+Participating actor(s)@Dental staff member or client
+_
+Precondition(s)@User is logged in
+_
+Parameters@None
+_
+T{
+Flow of events
+T}@1. User clicks Logout button
+^@2. System logs the user out
+^@3. User is redirected to Logout page
+_
 .TE
+\#
+.TS BOXED LABEL "Table 3: Use Case 3"
+tab(@);
+lI lB, lI l, lI l, lI l, lI l
+lIT l, ^.
+_
+Use Case Identifier@UC 3
+_
+Title@Add new client
+_
+Participating actor(s)@Dental staff member
+_
+Precondition(s)@Dental staff member is logged in
+_
+Parameters@Client name, client address, client email, client phone number
+_
+T{
+Flow of events
+T}@1. Staff member selects "Register Client"
+^@2. System displays page for adding a new client
+^@3. Staff member enters the new client's information, including
+^@name, address, email, and phone number
+^@4. Staff member submits the client information
+^@5. System adds the client's information to the database
+^@6. System sends an email to the new client to complete their
+^@registration
+_
+.TE
+\#
+.NEWPAGE
+.TS BOXED LABEL "Table 4: Use Case 4"
+tab(@);
+lI lB, lI l, lI l,
+lI l, ^, ^,
+lI l,
+lIT l, ^.
+_
+Use Case Identifier@UC 4
+_
+Title@Client registration
+_
+Participating actor(s)@Dental client
+_
+T{
+Precondition(s)
+T}@The dental client's information has been added to the system by
+^@a dental staff member; the client received an email to complete
+^@registration
+_
+Parameters@Client name, client address, client email, client phone number
+_
+T{
+Flow of events
+T}@1. Client clicks on the link to complete registration in their
+^@email
+^@2. Client enters their username, desired password, and the
+^@regisration token they were provided in the email
+^@3. System redirects the client to the Login page
+_
+.TE
+\#
+.TS BOXED LABEL "Table 5: Use Case 5"
+tab(@);
+lI lB, lI l, lI l, lI l, lI l
+lIT l, ^.
+_
+Use Case Identifier@UC 5
+_
+Title@Client view appointment
+_
+Participating actor(s)@Dental client
+_
+Precondition(s)@Client is logged in
+_
+Parameters@None
+_
+T{
+Flow of events
+T}@1. Client navigates to Appointments page
+^@2. System displays all appointments for the client
+^@3. Client selects an appointment to view
+^@4. System displays appointment details
+_
+.TE
+\#
+.NEWPAGE
+.TS BOXED LABEL "Table 6: Use Case 6"
+tab(@);
+lI lB, lI l, lI l, lI l, lI l
+lIT l, ^.
+_
+Use Case Identifier@UC 6
+_
+Title@Staff member view appointment
+_
+Participating actor(s)@Dental staff member
+_
+Precondition(s)@Staff member is logged in
+_
+Parameters@None
+_
+T{
+Flow of events
+T}@1. Staff member navigates to Appointments page
+^@2. Staff member selects an appointment to view
+^@3. System displays appointment details
+_
+.TE
+\#
+.TS BOXED LABEL "Table 7: Use Case 7"
+tab(@);
+lI lB, lI l, lI l, lI l, lI l
+lIT l, ^.
+_
+Use Case Identifier@UC 7
+_
+Title@Staff member edit appointment
+_
+Participating actor(s)@Dental staff member
+_
+Precondition(s)@Staff member is logged in
+_
+Parameters@Date, time, client username, hygienist, operation, extra notes
+_
+T{
+Flow of events
+T}@1. Staff member selects an appointment to edit
+^@2. Staff member edits the appointment
+^@3. Staff member submits their edits
+^@4. System stores the changes in the database
+_
+.TE
+\#
+.NEWPAGE
+.TS BOXED LABEL "Table 8: Use Case 8"
+tab(@);
+lI lB, lI l, lI l, lI l, lI l
+lIT l, ^.
+_
+Use Case Identifier@UC 8
+_
+Title@Staff member create appointment
+_
+Participating actor(s)@Dental staff member
+_
+Precondition(s)@Staff member is logged in
+_
+Parameters@Date, time, client username, hygienist, operation, extra notes
+_
+T{
+Flow of events
+T}@1. Staff member selects "Create Appointment"
+^@2. System displays Create Appointment page
+^@3. Staff member enters appointment information, including client,
+^@hygienist, appointment type, date, time, and extra notes
+^@4. System stores the new appointment in the database
+_
+.TE
+\#
+.TS BOXED LABEL "Table 9: Use Case 9"
+tab(@);
+lI lB, lI l, lI l, lI l, lI l
+lIT l, ^.
+_
+Use Case Identifier@UC 9
+_
+Title@Staff member cancel appointment
+_
+Participating actor(s)@Dental staff member
+_
+Precondition(s)@Staff member is logged in
+_
+Parameters@None
+_
+T{
+Flow of events
+T}@1. Staff member selects an appointment to cancel
+^@2. Staff member selects "Cancel Appointment"
+^@3. System deletes the appointment from the database
+_
+.TE
+\#
+.NEWPAGE
+.TS BOXED LABEL "Table 10: Use Case 10"
+tab(@);
+lI lB, lI l, lI l, lI l, lI l
+lIT l, ^.
+_
+Use Case Identifier@UC 10
+_
+Title@Client view profile
+_
+Participating actor(s)@Dental client
+_
+Precondition(s)@Client is logged in
+_
+Parameters@None
+_
+T{
+Flow of events
+T}@1. Client navigates to Profile page
+^@2. System displays the client's profile
+_
+.TE
+\#
+.TS BOXED LABEL "Table 11: Use Case 11"
+tab(@);
+lI lB, lI l, lI l, lI l, lI l
+lIT l, ^.
+_
+Use Case Identifier@UC 11
+_
+Title@Staff member view profile
+_
+Participating actor(s)@Dental staff member
+_
+Precondition(s)@Staff member is logged in
+_
+Parameters@None
+_
+T{
+Flow of events
+T}@1. Staff member navigates to Clients page
+^@2. System displays all clients
+^@3. Staff member selects a client
+^@4. System displayes the client's profile
+_
+.TE
+\#
+.NEWPAGE
 \#
 .HEADING 2 "Use Case Activity Diagrams"
 \#

@@ -33,3 +33,9 @@ Example:
 ```
 .PDF_IMAGE img/uc1.pdf 657p 152p SCALE 75
 ```
+
+## `save-commands.json`
+
+The `save-commands.json` file is used to automatically recompile the
+report PDF every time `report.mom` is saved in the Atom text editor. It
+uses the [save-commands](https://atom.io/packages/save-commands) Atom package.
