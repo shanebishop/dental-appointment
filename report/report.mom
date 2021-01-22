@@ -23,6 +23,12 @@
 .CAPTION_AFTER_LABEL IMG
 .CATPION_AFTER_LABEL TBL
 \#
+\# Use Palatino instead of default Times Roman font
+\# If Palatino is unavailable, use Times Roma font
+\# TODO Currently doesn't work, but have a question for this: https://unix.stackexchange.com/questions/630457/using-palatino-font-with-groff-mom-macros
+\#.FAMILY P
+\#.FALLBACK_FONT TR
+\#
 .START
 \#
 .HEADING 1 NAMED abstract "Abstract"
@@ -315,7 +321,7 @@ Flow of events
 T}@1. Staff member navigates to Clients page
 ^@2. System displays all clients
 ^@3. Staff member selects a client
-^@4. System displayes the client's profile
+^@4. System displays the client's profile
 _
 .TE
 \#
