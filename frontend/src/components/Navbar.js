@@ -14,7 +14,6 @@ import {
 } from "reactstrap";
 
 import {
-  PieChart,
   Settings,
   User as UserIcon,
 } from "react-feather";
@@ -53,17 +52,11 @@ const NavbarComponent = ({ dispatch }) => {
               </DropdownToggle>
             </span>
             <DropdownMenu right>
-              <DropdownItem>
+              <DropdownItem href="/profile">
                 <UserIcon size={18} className="align-middle mr-2" />
                 Profile
               </DropdownItem>
-              <DropdownItem>
-                <PieChart size={18} className="align-middle mr-2" />
-                Analytics
-              </DropdownItem>
               <DropdownItem divider />
-              <DropdownItem>Settings & Privacy</DropdownItem>
-              <DropdownItem>Help</DropdownItem>
               <DropdownItem href="/auth/sign-out">
                 Sign out
               </DropdownItem>

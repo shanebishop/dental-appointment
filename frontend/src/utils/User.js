@@ -40,6 +40,10 @@ class User {
 
     return (firstName && surname) ? `${firstName} ${surname}` : userData.user.username;
   }
+
+  static getUsername() {
+    return User.getRootData().user.username;
+  }
 }
 
 export default User;

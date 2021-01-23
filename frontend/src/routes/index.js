@@ -2,7 +2,6 @@ import async from "../components/Async";
 
 import {
   Calendar as CalendarIcon,
-  Layout as LayoutIcon,
   Sliders as SlidersIcon,
   Users as UsersIcon,
   List as ListIcon,
@@ -67,19 +66,14 @@ const dashboardRoutes = {
   ]
 };
 
-const pageRoutes = {
-  path: "/pages",
-  name: "Pages",
-  icon: LayoutIcon,
+const profileRoutes = {
+  path: "/profile",
+  name: "Profile",
+  icon: null,
+  component: Profile,
   displayInSidebar: false,
   requiresLoggedIn: true,
-  children: [
-    {
-      path: "/pages/profile",
-      name: "Profile",
-      component: Profile
-    },
-  ]
+  children: null,
 };
 
 const authRoutes = {
@@ -187,6 +181,7 @@ export const dashboard = [
   appointmentsRoutes,
   editAppointmentRoutes,
   clientListRoutes,
+  profileRoutes,
 ];
 
 // Landing specific routes
@@ -209,7 +204,7 @@ export const editAppointment = [editAppointmentRoutes];
 // defined here
 export default [
   dashboardRoutes,
-  pageRoutes,
+  profileRoutes,
   authRoutes,
   appointmentsRoutes,
   calendarRoutes,

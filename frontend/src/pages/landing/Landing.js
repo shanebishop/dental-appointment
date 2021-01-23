@@ -7,13 +7,13 @@ import store from '../../redux/store';
 import Sidebar from '../../components/Sidebar';
 import Wrapper from '../../components/Wrapper';
 import Main from '../../components/Main';
-import Navigation from "../../components/Navigation";
 
 import {
   Col,
   Container,
   Row
 } from "reactstrap";
+import Navbar from "../../components/Navbar";
 
 const Body = () => (
   <section className="py-6 bg-white">
@@ -52,7 +52,7 @@ class Landing extends React.Component {
       <Wrapper>
         <Sidebar />
         <Main>
-          <Navigation />
+          <Navbar />
           <Body {...this.props} />
         </Main>
       </Wrapper>
