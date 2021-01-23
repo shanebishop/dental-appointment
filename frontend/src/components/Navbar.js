@@ -46,9 +46,9 @@ const NavbarComponent = ({ dispatch }) => {
                 <img
                   src={defaultProfilePic}
                   className="avatar img-fluid rounded-circle mr-1"
-                  alt={User.getDisplayName()}
+                  alt={User.getLoggedInUserDisplayName()}
                 />
-                <span className="text-dark">{User.getDisplayName()}</span>
+                <span className="text-dark">{User.getLoggedInUserDisplayName()}</span>
               </DropdownToggle>
             </span>
             <DropdownMenu right>

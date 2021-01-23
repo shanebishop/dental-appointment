@@ -42,7 +42,7 @@ export function login(e) {
     .then((resp) => {
       localStorage.setItem('user-token', resp.data.token);
 
-      axios.get('/api/user/profile/', config)
+      axios.post('/api/user/profile/', {username: this.state.username}, config)
         .then((resp) => {
           const userData = resp.data;
           localStorage.setItem('user-data', JSON.stringify(userData));

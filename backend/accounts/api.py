@@ -21,9 +21,34 @@ DEFAULT_PASSWORD = 'PBEWjwj83b4HsM3GCxD7dXak9huLbq6H'
 
 # TODO This API needs API tests
 class UserProfileAPI(generics.GenericAPIView):
-    def get(self, request):
-        """Returns the authenticated user's profile"""
-        user = self.request.user
+    def post(self, request):
+        requesting_user = self.request.user
+        data = request.data
+
+        if not isinstance(data, dict):
+            resp = {
+                'message': 'Error: request body is not a valid JSON object'
+            }
+            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
+
+        if 'username' not in data:
+            resp = {
+                'message': 'Error: request body must include a "username" key'
+            }
+            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
+
+        # Only staff members can retrieve the profile of another user
+        if (not requesting_user.is_staff) and (requesting_user.username != data['username']):
+            resp = {
+                'message': 'Only staff can retrieve the profile of another user'
+            }
+            return Response(resp, status=status.HTTP_401_UNAUTHORIZED)
+
+        try:
+            user = User.objects.get(username=data['username'])
+        except User.DoesNotExist:
+            pass  # TODO Return appropriate response
+
         user_serializer = UserSerializer(user)
 
         try:

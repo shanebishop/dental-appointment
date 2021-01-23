@@ -27,6 +27,8 @@ class Clients extends React.Component {
     };
 
     this.fetchClientData = Actions.fetchClientData.bind(this);
+    this.onClientClicked = Actions.onClientClicked.bind(this);
+    this.showErrorDialog = Actions.showErrorDialog.bind(this);
   }
 
   clientTableColumns = [
@@ -63,6 +65,12 @@ class Clients extends React.Component {
       return <p>No clients have been registered yet.</p>
     }
 
+    const customActions = [{
+      btnLabel: 'View Profile',
+      btnName: 'view-profile',
+      onBtnClicked: this.onClientClicked
+    }];
+
     return (
       <React.Fragment>
 
@@ -78,6 +86,7 @@ class Clients extends React.Component {
               fieldPrefix="client"
               data={this.state.clients}
               columns={this.clientTableColumns}
+              customActions={customActions}
             />
           </CardBody>
         </Card>

@@ -51,8 +51,6 @@ class EditAppointment extends React.Component {
       extra_notes: '',
     };
 
-    console.log(appointment);
-
     if (!createMode && !appointment.id) {
       // If in update mode, the appointment ID must be set
       throw new Error('Appointment ID not set with update mode');

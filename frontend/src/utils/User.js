@@ -29,16 +29,20 @@ class User {
     return localStorage.getItem(User.USER_TOKEN_KEY) && localStorage.getItem(User.ROOT_USER_DATA_KEY);
   }
 
-  static getDisplayName() {
+  static getDisplayName(user) {
+    const firstName = user.first_name;
+    const surname = user.last_name;
+
+    return (firstName && surname) ? `${firstName} ${surname}` : user.username;
+  }
+
+  static getLoggedInUserDisplayName() {
     if (!User.isLoggedIn()) {
       return 'Not logged in';
     }
 
     const userData = User.getRootData();
-    const firstName = userData.user.first_name;
-    const surname = userData.user.last_name;
-
-    return (firstName && surname) ? `${firstName} ${surname}` : userData.user.username;
+    return User.getDisplayName(userData.user);
   }
 
   static getUsername() {

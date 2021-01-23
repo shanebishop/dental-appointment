@@ -51,7 +51,7 @@ const Feed = () => (
           width="36"
           height="36"
           className="rounded-circle mr-2"
-          alt={User.getDisplayName()}
+          alt={User.getLoggedInUserDisplayName()}
         />
         <Media body>
           <small className="float-right text-navy">30m ago</small>

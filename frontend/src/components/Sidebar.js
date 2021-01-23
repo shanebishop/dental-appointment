@@ -185,12 +185,12 @@ const Sidebar = ({ location, sidebar, layout }) => {
                 <img
                   className="rounded-circle mr-3"
                   src={defaultProfilePic}
-                  alt={User.getDisplayName()}
+                  alt={User.getLoggedInUserDisplayName()}
                   width="40"
                   height="40"
                 />
                 <div className="media-body">
-                  <h5 className="mb-1">{User.getDisplayName()}</h5>
+                  <h5 className="mb-1">{User.getLoggedInUserDisplayName()}</h5>
                 </div>
               </div>
             </div>
