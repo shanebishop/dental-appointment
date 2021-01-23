@@ -1,7 +1,4 @@
-import async from "../components/Async";
-
 import {
-  Sliders as SlidersIcon,
   Users as UsersIcon,
   List as ListIcon,
   UserPlus as UserPlusIcon,
@@ -26,10 +23,6 @@ import Appointments from "../pages/pages/Appointments";
 import EditAppointment from "../pages/pages/EditAppointment";
 import Clients from "../pages/pages/Clients";
 
-// Dashboards
-const Default = async(() => import("../pages/dashboards/Default"));
-const Analytics = async(() => import("../pages/dashboards/Analytics"));
-
 // Routes
 const landingRoutes = {
   path: "/",
@@ -40,27 +33,6 @@ const landingRoutes = {
   children: null
 };
 
-const dashboardRoutes = {
-  path: "/dashboard",
-  name: "Dashboards",
-  header: "Pages",
-  icon: SlidersIcon,
-  containsHome: true,
-  displayInSidebar: false,
-  requiresLoggedIn: true,
-  children: [
-    {
-      path: "/dashboard/default",
-      name: "Default",
-      component: Default
-    },
-    {
-      path: "/dashboard/analytics",
-      name: "Analytics",
-      component: Analytics
-    },
-  ]
-};
 
 const profileRoutes = {
   path: "/profile",
@@ -161,7 +133,6 @@ const clientListRoutes = {
 // When they go here, they are automatically wrapped, and the button to toggle the
 // sidebar is displayed properly.
 export const dashboard = [
-  dashboardRoutes,
   registerUserRoutes,
   appointmentsRoutes,
   editAppointmentRoutes,
@@ -188,7 +159,6 @@ export const editAppointment = [editAppointmentRoutes];
 // Order matters - routes are displayed in sidebar in the order
 // defined here
 export default [
-  dashboardRoutes,
   profileRoutes,
   authRoutes,
   appointmentsRoutes,
