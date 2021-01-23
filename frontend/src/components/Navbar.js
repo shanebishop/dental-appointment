@@ -35,7 +35,7 @@ const NavbarComponent = ({ dispatch }) => {
 
       <Collapse navbar>
         <Nav className="ml-auto" navbar>
-          <UncontrolledDropdown nav inNavbar>
+          <UncontrolledDropdown nav inNavbar id="navbar-dropdown">
             <span className="d-inline-block d-sm-none">
               <DropdownToggle nav caret>
                 <Settings size={18} className="align-middle" />
@@ -57,7 +57,7 @@ const NavbarComponent = ({ dispatch }) => {
                 Profile
               </DropdownItem>
               <DropdownItem divider />
-              <DropdownItem href="/auth/sign-out">
+              <DropdownItem id="sign-out-dropdown-item" href="/auth/sign-out">
                 Sign out
               </DropdownItem>
             </DropdownMenu>

@@ -6,6 +6,7 @@ BROWSER = 'Firefox'
 # Frontend URLs
 HOME_URL = f'{SERVER}/'
 LOGIN_URL = f'{SERVER}/auth/sign-in'
+LOGOUT_URL = f'{SERVER}/auth/sign-out'
 REGISTER_URL = f'{SERVER}/register-user'
 COMPLETE_REGISTRATION_URL = f'{SERVER}/auth/complete-registration'
 APPOINTMENTS_URL = f'{SERVER}/appointments/'
