@@ -71,6 +71,11 @@ class Clients extends React.Component {
       onBtnClicked: this.onClientClicked
     }];
 
+    // In-place sort clients array by username
+    this.state.clients.sort((a, b) => {
+      return a.username.localeCompare(b.username);
+    });
+
     return (
       <React.Fragment>
 

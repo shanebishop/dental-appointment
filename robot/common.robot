@@ -44,6 +44,10 @@ Go To Profile Page
     Go To   ${PROFILE_URL}
     Location Should Be    ${PROFILE_URL}
 
+Go To Clients Page
+    Go To    ${CLIENTS_URL}
+    Location Should Be    ${CLIENTS_URL}
+
 Login Page Should Be Open
     Location Should Be    ${LOGIN_URL}
 
