@@ -1,7 +1,6 @@
 import async from "../components/Async";
 
 import {
-  Calendar as CalendarIcon,
   Sliders as SlidersIcon,
   Users as UsersIcon,
   List as ListIcon,
@@ -30,9 +29,6 @@ import Clients from "../pages/pages/Clients";
 // Dashboards
 const Default = async(() => import("../pages/dashboards/Default"));
 const Analytics = async(() => import("../pages/dashboards/Analytics"));
-
-// Calendar
-const Calendar = async(() => import("../pages/calendar/Calendar"));
 
 // Routes
 const landingRoutes = {
@@ -111,16 +107,6 @@ const authRoutes = {
   ]
 };
 
-const calendarRoutes = {
-  path: "/calendar",
-  name: "Calendar",
-  icon: CalendarIcon,
-  component: Calendar,
-  displayInSidebar: true,
-  requiresLoggedIn: true,
-  children: null
-};
-
 // Routes to pages used by dental staff for administrative tasks
 const registerUserRoutes = {
   path: '/register-user',
@@ -176,7 +162,6 @@ const clientListRoutes = {
 // sidebar is displayed properly.
 export const dashboard = [
   dashboardRoutes,
-  calendarRoutes,
   registerUserRoutes,
   appointmentsRoutes,
   editAppointmentRoutes,
@@ -207,7 +192,6 @@ export default [
   profileRoutes,
   authRoutes,
   appointmentsRoutes,
-  calendarRoutes,
   registerUserRoutes,
   editAppointmentRoutes,
   clientListRoutes,
