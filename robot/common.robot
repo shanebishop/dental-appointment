@@ -40,6 +40,10 @@ Go To Create Appointment Page
     Go To    ${EDIT_APPOINTMENT_URL}
     Location Should Be    ${EDIT_APPOINTMENT_URL}
 
+Go To Profile Page
+    Go To   ${PROFILE_URL}
+    Location Should Be    ${PROFILE_URL}
+
 Login Page Should Be Open
     Location Should Be    ${LOGIN_URL}
 

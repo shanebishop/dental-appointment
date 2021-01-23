@@ -10,6 +10,7 @@ REGISTER_URL = f'{SERVER}/register-user'
 COMPLETE_REGISTRATION_URL = f'{SERVER}/auth/complete-registration'
 APPOINTMENTS_URL = f'{SERVER}/appointments/'
 EDIT_APPOINTMENT_URL = f'{SERVER}/edit-appointment'
+PROFILE_URL = f'{SERVER}/profile'
 
 # API URLs
 DEREGISTER_URL = f'{SERVER}/api/user/deregister/'

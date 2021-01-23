@@ -37,6 +37,19 @@ def reset_users(admin_auth_token, deregister_url, get_all_users_url):
         raise Exception(f'docker exec command had non-zero exit code {process.returncode}')
 
 
+def reset_user_data():
+    """Restore user data from fixtures"""
+
+    cmd = 'docker exec backend python3 backend/manage.py loaddata --no-color backend/fixtures/userdata.json'
+    process = subprocess.Popen(
+        shlex.split(cmd), stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    stdout, stderr = process.communicate()
+
+    if process.returncode != 0:
+        print(stderr, file=sys.stderr)
+        raise Exception(f'docker exec command had non-zero exit code {process.returncode}')
+
+
 def get_register_token(username):
     cmd = f"sh -c 'docker exec -i -e '\\''USERNAME={username}'\\'' backend backend/manage.py shell < " \
           f"robot/CustomHelpers/get_register_token.py'"

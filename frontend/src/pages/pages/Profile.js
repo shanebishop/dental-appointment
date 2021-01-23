@@ -25,12 +25,12 @@ const PrimaryInfo = () => (
     <CardBody>
       <Row>
         <Col md="8">
-          <Label>{`Username: ${User.getUsername()}`}</Label>
+          <Label id="username-lbl">{`Username: ${User.getUsername()}`}</Label>
         </Col>
       </Row>
       <Row>
         <Col md="8">
-          <Label>{`Display name: ${User.getDisplayName()}`}</Label>
+          <Label id="display-name-lbl">{`Display name: ${User.getDisplayName()}`}</Label>
         </Col>
       </Row>
     </CardBody>
@@ -46,7 +46,7 @@ const ContactInfo = () => {
   }
 
   return (
-    <Card>
+    <Card id="contact-info-card">
       <CardHeader>
         <CardTitle tag="h5" className="mb-0">
           Contact info
@@ -117,9 +117,10 @@ const ContactInfo = () => {
             </Col>
             <Col md={4}>
               <FormGroup>
-                <Label>Province or Territory</Label>
+                <Label>Province or territory</Label>
                 <Input
                   type="text"
+                  id="province"
                   value={userRootData.user_data.province}
                   disabled={true}
                 />
@@ -127,9 +128,10 @@ const ContactInfo = () => {
             </Col>
             <Col md={2}>
               <FormGroup>
-                <Label>Zip</Label>
+                <Label>Postal code</Label>
                 <Input
                   type="text"
+                  id="postalCode"
                   value={userRootData.user_data.postalCode}
                   disabled={true}
                 />
