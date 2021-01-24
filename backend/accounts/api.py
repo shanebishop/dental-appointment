@@ -19,7 +19,6 @@ logger = logging.getLogger(__name__)
 DEFAULT_PASSWORD = 'PBEWjwj83b4HsM3GCxD7dXak9huLbq6H'
 
 
-# TODO This API needs API tests
 class UserProfileAPI(generics.GenericAPIView):
     def post(self, request):
         requesting_user = self.request.user
@@ -47,7 +46,10 @@ class UserProfileAPI(generics.GenericAPIView):
         try:
             user = User.objects.get(username=data['username'])
         except User.DoesNotExist:
-            pass  # TODO Return appropriate response
+            resp = {
+                'message': 'No user found with username "{}"'.format(data['username'])
+            }
+            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
 
         user_serializer = UserSerializer(user)
 

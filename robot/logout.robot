@@ -20,7 +20,7 @@ Logout
     # Check localStorage values are set
     ${user_token}=    Execute Javascript    return localStorage.getItem('user-token');
     Log    User token is ${user_token}    INFO    console=True
-    # We must use $var instead of ${var} to get the actual variable in the correct type
+    # We must use $var syntax instead of ${var} syntax to get the actual variable in the correct type
     # See https://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Using%20variables for details
     Should Be True    $user_token is not None
     # Here we need to use Object.prototype.hasOwnProperty() because for the admin user (although not for clients),

@@ -1,4 +1,7 @@
+import os
+
 from django.contrib.auth.models import User
+from django.core.management import call_command
 
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -261,6 +264,93 @@ class GetAllUsersAPITests(APITestCase):
 
         self.assertIs(admin_user['is_staff'], True)
         self.assertIs(admin_user['is_superuser'], True)
+
+
+class UserProfileAPITests(APITestCase):
+    URL = '/api/user/profile/'
+
+    def setUp(self):
+        self.admin_auth_token = Utils.create_admin_user()
+
+        # Find fixtures path
+        this_file_path = os.path.dirname(os.path.realpath(__file__))
+        fixtures_path = os.path.realpath(os.path.join(this_file_path, '..', 'fixtures'))
+
+        # Load fixtures
+        # verbosity=0 turns off "Installed x object(s) from y fixture(s)" messages
+        call_command('loaddata', os.path.join(fixtures_path, 'users.json'), verbosity=0)
+        call_command('loaddata', os.path.join(fixtures_path, 'userdata.json'), verbosity=0)
+
+    def use_admin_creds(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.admin_auth_token)
+
+    def use_client_creds(self, username):
+        token = Utils.get_user_auth_token(username)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
+
+    def test_get_user_profile_as_client(self):
+        username = 'bobb'
+        self.use_client_creds(username)
+
+        data = {'username': username}
+        response = self.client.post(UserProfileAPITests.URL, data)
+
+        response_json = response.json()
+
+        self.assertTrue('user' in response_json)
+        self.assertTrue('date_joined' in response_json['user'])
+
+        del response_json['user']['date_joined']
+
+        expected = {
+            'user': {
+                'first_name': 'Bob',
+                'last_name': 'Buchanan',
+                'email': 'honours.proj.dental@gmail.com',
+                'id': 2,
+                'username': username,
+                'is_staff': False,
+                'is_superuser': False,
+                'is_active': True,
+            },
+            'user_data': {
+                'user': 2,
+                'address1': '89 Thurston Dr',
+                'address2': 'Appt 23',
+                'city': 'Ottawa',
+                'province': 'Ontario',
+                'postalCode': 'K1P 5G8',
+            }
+        }
+
+        self.assertEqual(response_json, expected)
+
+    def test_missing_key(self):
+        self.use_admin_creds()
+        response = self.client.post(UserProfileAPITests.URL, {'invalid_key': 0})
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        message = response.json()['message']
+        self.assertTrue('must include a "username" key' in message)
+
+    def test_get_for_other_user_as_client(self):
+        self.use_client_creds('bobb')
+        response = self.client.post(UserProfileAPITests.URL, {'username': 'martinm'})
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        message = response.json()['message']
+        self.assertTrue('Only staff can retrieve the profile of another user' in message)
+
+    def test_no_user_with_username(self):
+        self.use_admin_creds()
+        response = self.client.post(UserProfileAPITests.URL, {'username': 'invalid_username'})
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        message = response.json()['message']
+        self.assertTrue('No user found with username "invalid_username"' in message)
 
 
 # Helper functions
