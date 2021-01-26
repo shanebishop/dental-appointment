@@ -76,7 +76,8 @@
     "reactstrap": "8.6.0",
     "redux": "4.0.5",
     "smartwizard": "5.1.1",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "react-time-ago": "^6.2.2"
   },
   "devDependencies": {}
 }

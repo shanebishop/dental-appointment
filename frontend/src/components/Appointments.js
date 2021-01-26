@@ -12,6 +12,18 @@ import {
 import Timeline from "./Timeline";
 import TimelineItem from "./TimelineItem";
 import {Link} from "react-router-dom";
+import TimeAgo from 'javascript-time-ago';
+
+// English locale
+import en from 'javascript-time-ago/locale/en';
+
+TimeAgo.addDefaultLocale(en);
+const timeAgo = new TimeAgo('en-US');
+
+function timeDeltaDisplay(appointment) {
+  const time = new Date(`${appointment.date} ${appointment.time}`);
+  return timeAgo.format(time);
+}
 
 const Appointments = (props) => {
   return (
@@ -21,12 +33,6 @@ const Appointments = (props) => {
           Appointments
         </CardTitle>
       </CardHeader>
-      <div className="p-4 bg-light">
-        <h2>You have an appointment today!</h2>
-        <p className="mb-0 text-sm">
-          Your next appointment is in 2 hours.
-        </p>
-      </div>
       {props.userIsStaff
         ? <Link to="/edit-appointment"><Button style={{width: "100%"}}>Schedule a new appointment</Button></Link>
         : null
@@ -46,7 +52,7 @@ const Appointments = (props) => {
                   <strong id={`appointment-${index}-time`}>
                     {`${appointment.date} ${appointment.time}`}
                   </strong>
-                  <span className="float-right text-muted text-sm">30m ago</span>
+                  <span className="float-right text-muted text-sm">{timeDeltaDisplay(appointment)}</span>
                   <p>{props.userIsStaff ? `${appointment.operation} for ${appointment.client.display_name}` : appointment.operation}</p>
                 </TimelineItem>
               ))}
