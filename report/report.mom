@@ -23,6 +23,34 @@
 .CAPTION_AFTER_LABEL IMG
 .CATPION_AFTER_LABEL TBL
 \#
+\# Use numbered footnotes
+\#
+.FOOTNOTE_MARKER_STYLE NUMBER
+\# Set headings to be numbered
+.HEADING_STYLE 1 NUMBER
+.HEADING_STYLE 2 NUMBER
+.HEADING_STYLE 3 NUMBER
+.HEADING_STYLE 4 NUMBER
+.HEADING_STYLE 5 NUMBER
+\# Set indent for quoting
+.QUOTE_INDENT 1
+.\" Make QUOTE look like CODE
+.\" .QUOTE_STYLE \
+.\"   FAMILY C \
+.\"   FONT   B \
+.\"   SIZE   +1.5 \
+.\"   COLOR  dark-grey \
+.\"   INDENT 9p
+.\"
+.\" Color for code snippets
+.CODE_STYLE \
+  FONT  B \
+  SIZE  115 \
+.CONDENSE 87 \" Condense percentage used in COD
+.\" Strings for inline code
+.ds cod  \E*[CODE]\&\E*[COND]
+.ds codx \E*[CONDX]\E*[CODE off]\&
+\#
 \# Use Palatino instead of default Times Roman font
 \# If Palatino is unavailable, use Times Roma font
 \# TODO Currently doesn't work, but have a question for this: https://unix.stackexchange.com/questions/630457/using-palatino-font-with-groff-mom-macros
@@ -39,6 +67,66 @@ Placeholder text
 .PP
 Placeholder text
 \#
+.HEADING 1 NAMED techologies "Tools and Technologies"
+.PP
+The Dental Appointments system is a full-stack webapp, consisting of a
+frontend, backend server, and database. Each layer of the application has
+its own tests as appropriate for the language or framework being used for
+that layer. This section will describe all of the tools and techologies
+employed by this system in terms of both implementation and testing.
+.HEADING 2 "Frontend"
+.PP
+The frontend is written in JavaScript using the
+.PDF_WWW_LINK https://reactjs.org/ "React"
+library.
+.HEADING 2 NAMED technologies_backend "Backend"
+.PP
+The backend server is written in Python using the
+.PDF_WWW_LINK https://www.djangoproject.com/ "Django"
+framework. An
+additional Python library called
+.PDF_WWW_LINK https://www.django-rest-framework.org/ "Django REST framework"
+was used to simplify the code for writing the REST APIs.
+.PP
+The Django framework includes its own built-in testing framework. The API
+tests for the backend are written using this built-in testing framework.
+.HEADING 2 "Database"
+.PP
+The database uses the
+.PDF_WWW_LINK https://www.postgresql.org/ "PostgreSQL"
+relational database management system.
+However, the Django framework used in the backend abstracts away all of the
+details of PostgreSQL (or any alternative database management system), which
+means no actual PostgreSQL code was written "by hand" for this project.
+.HEADING 2 "Deployment"
+.PP
+The system is spun up using Docker and \*[cod]docker-compose\*[codx].
+.PP
+.PDF_WWW_LINK https://www.docker.com/ "Docker"
+is a container technology that allows for running an application
+under controlled and isolated conditions, often used for fast and easy
+application development and deployment. Docker supports reproducible builds,
+and any Docker "image" can be rebuilt from the same specification.
+.PP
+.CODE
+.PDF_WWW_LINK https://docs.docker.com/compose/ "docker-compose"
+.CODE OFF
+is a Docker tool that uses declarative code to define the
+deployment of a system consisting of several individual Docker containers.
+.HEADING 2 "Acceptance Testing"
+.PP
+Acceptance tests are written using the
+.PDF_WWW_LINK https://robotframework.org/ "Robot Framework"
+test automation
+framework. Robot Framework is a test automation framework written in Python.
+The acceptance tests also use
+.PDF_WWW_LINK https://www.selenium.dev/ SUFFIX , "Selenium"
+an open source framework for automated testing with a real web browser.
+.HEADING 3 "Robot Framework Overview"
+.PP
+Placeholder text
+\#
+.NEWPAGE
 .HEADING 1 "Use Cases"
 .HEADING 2 "Use Case Diagrams"
 \#
@@ -366,5 +454,131 @@ _
 .PDF_IMAGE img/uc11.pdf 423p 63p CAPTION "Figure 11: Activity diagram for UC11"
 .PP
 .\" Placeholder text
+\#
+.NEWPAGE
+.HEADING 1 "Testing"
+.HEADING 2 "Frontend Testing"
+.PP
+Placeholder text
+.HEADING 2 "Backend Testing"
+.PP
+As stated in
+.PDF_LINK technologies_backend SUFFIX , *
+the API tests for the backend were written using
+Django's built-in testing framework. This built-in framework is further
+augmented by the Django REST framework library, which includes Python
+classes that allows for tests to be more expressed more clearly and
+concisely.
+.PP
+The two Django REST framework classes used in the API tests are
+.CODE
+.PDF_WWW_LINK https://www.django-rest-framework.org/api-guide/testing/#api-test-cases APITestCase
+.CODE OFF
+and
+.CODE
+.PDF_WWW_LINK https://www.django-rest-framework.org/api-guide/testing/#apiclient SUFFIX . APIClient
+.CODE OFF
+\*[cod]APIClient\*[codx] is simply an HTTP client for making HTTP
+requests. Responses can be analyzed for correctness. The
+\*[cod]APITestCase\*[codx] class is a subclass of Django's
+.CODE
+.PDF_WWW_LINK https://docs.djangoproject.com/en/3.1/topics/testing/tools/#testcase TestCase
+.CODE OFF
+class where each instance of the class has a
+\*[cod]APIClient\*[codx] instance.
+.PP
+Django's \*[cod]TestCase\*[codx] class is itself a subclass of
+Python's built-in
+.CODE
+.PDF_WWW_LINK https://docs.python.org/3/library/unittest.html#unittest.TestCase unittest.TestCase
+.CODE OFF
+class. The
+\*[cod]TestCase\*[codx] class, in addition to several assert functions,
+defines the
+.CODE
+.PDF_WWW_LINK https://docs.python.org/3/library/unittest.html#unittest.TestCase.setUp setUp()
+.CODE OFF
+and
+.CODE
+.PDF_WWW_LINK https://docs.python.org/3/library/unittest.html#unittest.TestCase.tearDown tearDown()
+.CODE OFF
+functions. The \*[cod]setUp()\*[codx] function is called before the
+execution of each test function defined in a \*[cod]TestCase\*[codx],
+and the \*[cod]tearDown()\*[codx] function is called after the
+execution of each test function in a \*[cod]TestCase\*[codx].
+.PP
+Helper functions can also be defined in a \*[cod]TestCase\*[codx]
+class. To differentiate between helper functions and functions that
+execute tests, all functions that execute tests must have function names
+with the \*[cod]test\*[codx] prefix.\c
+.FOOTNOTE
+If desired, the prefix for a test function can be changed from the default
+.CODE
+test
+.CODE OFF
+to a different value, by using the
+.CODE
+.PDF_WWW_LINK https://docs.python.org/3/library/unittest.html#unittest.TestLoader.testMethodPrefix "unittest.TestLoader.testMethodPrefix"
+.CODE OFF
+.FOOTNOTE OFF
+ If a function has a name that
+does not begin with this prefix, it will not be executed as a test, and
+will not contribute to the number of passing or failing tests.
+.PP
+For each API implemented in the Django backend, there is a corresponding
+API test. Let us look at an example.
+.NEWPAGE
+.QUOTE
+.CODE
+def test_create_user(self):
+    username = 'user1'
+    data = generate_valid_user_data(username)
+
+    response = self.client.post(
+        RegisterUserAPITests.URL, data)
+    self.assertIs(response.status_code, status.HTTP_200_OK)
+
+    user = User.objects.get(username=username)
+    user_data = UserData.objects.get(user=user)
+
+    self.assertEqual(user.first_name, data['firstName'])
+    self.assertEqual(user.last_name, data['surname'])
+    self.assertEqual(user.email, data['email'])
+    self.assertEqual(user_data.address1, data['address1'])
+    self.assertEqual(user_data.address2, data['address2'])
+    self.assertEqual(user_data.city, data['city'])
+    self.assertEqual(user_data.province, data['province'])
+    self.assertEqual(
+        user_data.postalCode, data['postalCode'])
+.QUOTE OFF
+.PP
+The function above is a test function, as indicated by the fact that its
+name begins with the \*[cod]test\*[codx] prefix. From the name of the
+function, it is clear that the action of creating a user is being tested.
+First, valid user data is generated using a helper function (the code for
+the helper function is omitted here for simplicity). Then the valid data
+is sent to the URL for registering users using an HTTP POST request. The
+HTTP response is stored in the \*[cod]response\*[codx] variable.
+.PP
+Next, there is an assert to test that the response's status code is the
+HTTP 200 status code. If the assert fails, this test function would be
+marked as failed, and no further assertions in the body of this function
+would be executed.
+.PP
+To test the user was created successfully in the database, the data in the
+database is retrieved with
+.QUOTE
+.CODE
+user = User.objects.get(username=username)
+user_data = UserData.objects.get(user=user)
+.QUOTE OFF
+Finally, all attributes of the data in the database is verified against
+the data sent in the POST request with the remaining
+\*[cod]assertEqual()\*[codx] asserts. If any assertion fails, this
+test will fail.
+.HEADING 2 "Acceptance Testing"
+.PP
+Placeholder text
+\#
 \# This needs to be the very last macro
 .TOC
