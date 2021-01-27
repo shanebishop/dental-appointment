@@ -1,3 +1,5 @@
+/* global test expect */
+
 import compareByTime from "./appointments";
 
 test('sorts dates in ascending order', () => {

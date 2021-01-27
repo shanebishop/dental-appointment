@@ -1,3 +1,5 @@
+/* global describe it expect */
+
 import User from "./User";
 
 describe('test User.getDisplayName()', () => {

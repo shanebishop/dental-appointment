@@ -1,3 +1,5 @@
+/* global describe it expect */
+
 import {_registerButtonEnabled} from "./registerUserActions";
 
 describe('register button is enabled and disabled correctly', () => {

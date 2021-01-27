@@ -1,3 +1,5 @@
+/* global jest describe it expect */
+
 // These tests use Jest mocking.
 // For information on mocking with Jest, see https://jestjs.io/docs/en/es6-class-mocks
 
