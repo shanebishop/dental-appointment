@@ -9,12 +9,12 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 
 import { Home } from "react-feather";
 
-import routes from "../routes/index";
+import routes, {displayRoute} from "../routes/index";
 import User from "../utils/User";
 import defaultProfilePic from "../assets/img/avatars/default-profile-pic.png";
 
 const initOpenRoutes = (location) => {
-  /* Open collapse element that matches current url */
+  // Open collapse element that matches current url
   const pathName = location.pathname;
 
   let _routes = {};
@@ -110,17 +110,7 @@ const Sidebar = ({ location, sidebar, layout }) => {
     setOpenRoutes(openRoutes => Object.assign({}, openRoutes, {[index]: !openRoutes[index]}));
   };
 
-  const routesToDisplay = routes.filter(route => {
-    if (!route.displayInSidebar) {
-      return false;
-    }
-
-    if (route.staffOnlyRoute) {
-      return User.isLoggedIn() && User.isStaff();
-    }
-
-    return true;
-  });
+  const routesToDisplay = routes.filter(displayRoute);
 
   return (
     <nav

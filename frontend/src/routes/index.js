@@ -22,6 +22,7 @@ import RegisterUser from "../pages/pages/RegisterUser";
 import Appointments from "../pages/pages/Appointments";
 import EditAppointment from "../pages/pages/EditAppointment";
 import Clients from "../pages/pages/Clients";
+import User from "../utils/User";
 
 // Routes
 const landingRoutes = {
@@ -125,6 +126,18 @@ const clientListRoutes = {
   staffOnlyRoute: true,
   children: null
 };
+
+export function displayRoute(route) {
+  if (!route.displayInSidebar) {
+    return false;
+  }
+
+  if (route.staffOnlyRoute) {
+    return User.isLoggedIn() && User.isStaff();
+  }
+
+  return true;
+}
 
 // All pages that display the sidebar (as opposed to something like an auth page,
 // which does not display the sidebar).
