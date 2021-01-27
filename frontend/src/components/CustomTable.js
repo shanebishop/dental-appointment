@@ -3,7 +3,7 @@
 //
 // These shortcomings include inability to add custom tooltips to table headers, and
 // setting HTML "id" attributes for uniquely identifying fields in each table row
-// (for use with writing selenium tests).
+// (for use with writing tests).
 //
 // Documentation for all prop types can be found below. Look for "CustomTable.propTypes"
 // in the code below.
