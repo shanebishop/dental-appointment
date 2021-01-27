@@ -25,7 +25,7 @@ import * as Actions from '../../redux/actions/appointmentsActions';
 import AppointmentsComponent from "../../components/Appointments";
 import User from "../../utils/User";
 import ConfirmDialog from "../../components/ConfirmDialog";
-import sortByTime from "../../utils/appointments";
+import compareByTime from "../../utils/appointments";
 
 class Appointments extends React.Component {
   constructor(props) {
@@ -82,8 +82,7 @@ class Appointments extends React.Component {
     }
 
     // This will sort the appointments in-place, which is fine for this use case
-    // TODO If I turn this into a datetime sorting util function, I could unit test it
-    this.state.filteredAppointments.sort(sortByTime);
+    this.state.filteredAppointments.sort(compareByTime);
 
     return (
       <React.Fragment>

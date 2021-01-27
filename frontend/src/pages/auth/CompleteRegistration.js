@@ -11,8 +11,12 @@ import {
   Input
 } from "reactstrap"
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+
 import * as Actions from '../../redux/actions/completeRegistrationActions';
 import ConfirmDialog from "../../components/ConfirmDialog";
+import TooltipItem from "../../components/TooltipItem";
 
 class CompleteRegistration extends React.Component {
   constructor(props) {
@@ -63,9 +67,11 @@ class CompleteRegistration extends React.Component {
                     onChange={this.onUsernameChanged}
                   />
                 </FormGroup>
-                {/*TODO Should create tooltip for this*/}
                 <FormGroup>
-                  <Label>Register token</Label>
+                  <TooltipItem title="Enter the registration token you received in your 'complete registration' email">
+                    <Label>Register token</Label>
+                    {' '}<FontAwesomeIcon icon={faQuestionCircle} />
+                  </TooltipItem>
                   <Input
                     bsSize="lg"
                     type="password"

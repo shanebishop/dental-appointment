@@ -1,4 +1,4 @@
-import sortByTime from "./appointments";
+import compareByTime from "./appointments";
 
 test('sorts dates in ascending order', () => {
   const appointments = [
@@ -16,7 +16,7 @@ test('sorts dates in ascending order', () => {
     {date: '1747-08-13', time: '14:53:59'},
   ];
 
-  appointments.sort(sortByTime);
+  appointments.sort(compareByTime);
 
   const expected = [
     {date: '1714-12-15', time: '19:38:08'},

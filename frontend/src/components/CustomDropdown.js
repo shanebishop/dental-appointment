@@ -1,5 +1,3 @@
-// TODO See if I have better documentation for this component somewhere
-
 import React from "react";
 import PropTypes from 'prop-types';
 
