@@ -6,9 +6,9 @@ describe('test User.getDisplayName()', () => {
     const user = {
       first_name: undefined,
       last_name: undefined,
-      username: 'username'
+      username: 'billyjoe'
     };
-    expect(User.getDisplayName(user)).toBe('username');
+    expect(User.getDisplayName(user)).toBe('billyjoe');
   });
 
   it('if first name is set, returns first name and surname in order', () => {

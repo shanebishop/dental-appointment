@@ -53,7 +53,9 @@ const Appointments = (props) => {
                     {`${appointment.date} ${appointment.time}`}
                   </strong>
                   <span className="float-right text-muted text-sm">{timeDeltaDisplay(appointment)}</span>
-                  <p>{props.userIsStaff ? `${appointment.operation} for ${appointment.client.display_name}` : appointment.operation}</p>
+                  <p id={`appointment-${index}-operation`}>
+                    {props.userIsStaff ? `${appointment.operation} for ${appointment.client.display_name}` : appointment.operation}
+                  </p>
                 </TimelineItem>
               ))}
             </Timeline>
