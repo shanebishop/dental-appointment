@@ -3,7 +3,7 @@
 import * as types from "../constants";
 
 const initialState = {
-  // TODO This is an insecure check
+  // WARNING This is an insecure check
   loggedIn: localStorage.getItem('user-token') !== null && localStorage.getItem('user-token') !== '',
 
   userData: localStorage.getItem('user-data'),
