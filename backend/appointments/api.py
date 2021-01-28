@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 from rest_framework import generics, permissions, status, mixins
 from rest_framework.response import Response
 
@@ -104,6 +105,10 @@ class AppointmentsList(mixins.ListModelMixin,
         if resp:
             return resp
 
+        return AppointmentsList._create_appointment(request, client, appointment_date, appointment_time)
+
+    @staticmethod
+    def _create_appointment(request, client, appointment_date, appointment_time):
         appointment_has_conflict = False
 
         # Prevent creating an appointment that conflicts with an existing appointment for this client
@@ -124,15 +129,22 @@ class AppointmentsList(mixins.ListModelMixin,
             return Response(resp, status=status.HTTP_400_BAD_REQUEST)
 
         data = request.data
-        appointment = Appointment.objects.create(
-            date=data['date'],
-            time=data['time'],
-            client=client,
-            hygienist=data['hygienist'],
-            operation=data['operation'],
-            extra_notes=data['extra_notes'],
-        )
-        appointment.save()
+
+        try:
+            appointment = Appointment.objects.create(
+                date=data['date'],
+                time=data['time'],
+                client=client,
+                hygienist=data['hygienist'],
+                operation=data['operation'],
+                extra_notes=data['extra_notes'],
+            )
+            appointment.save()
+        except IntegrityError:
+            resp = {
+                'message': 'Error: Time and date conflict with an existing appointment for this client'
+            }
+            return Response(resp, status=status.HTTP_400_BAD_REQUEST)
 
         resp = {
             'message': 'Appointment created'

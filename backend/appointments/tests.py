@@ -98,7 +98,7 @@ class AppointmentsListTests(AppointmentsTestCase):
         for a in response_json:
             del a['id']
 
-        self.assertEqual(response_json, expected_appointments)
+        self.assertCountEqual(response_json, expected_appointments)
 
     def test_get_as_client(self):
         self.use_client_creds('bobb')

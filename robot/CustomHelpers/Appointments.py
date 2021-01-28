@@ -1,3 +1,5 @@
+import json
+
 import requests
 import subprocess
 import shlex
@@ -52,3 +54,39 @@ def appointment_exists(auth_token, date, time, username, get_all_appointments_ur
 
     if len(appointments) != 1:
         raise Exception(f'Expected only one appointment to match {(date, time, username)}, found {len(appointments)}')
+
+
+def create_appointments_concurrently(auth_token, appointments_list_api_url):
+    from concurrent.futures.thread import ThreadPoolExecutor
+    from functools import partial
+
+    data = {
+        'date': '2021-07-03',
+        'time': '12:00:00',
+        'client': 'bobb',
+        'hygienist': 'Sabrina Hess',
+        'operation': 'Filling',
+        'extra_notes': ''
+    }
+
+    with ThreadPoolExecutor() as executor:
+        fn = partial(_create_appointment, auth_token, appointments_list_api_url)
+        results = executor.map(fn, [data, data], timeout=30)
+        results = list(results)
+
+        assert len(results) == 2
+        status_codes = [r.status_code for r in results]
+        messages = [r.json()['message'] for r in results]
+        assert 201 in status_codes
+        assert 400 in status_codes
+        assert 'Appointment created' in messages
+        assert 'Error: Time and date conflict with an existing appointment for this client' in messages
+
+
+def _create_appointment(auth_token, appointments_list_api_url, data):
+    headers = {
+        'Authorization': f'Token {auth_token}',
+        'Content-Type': 'application/json',
+    }
+
+    return requests.post(appointments_list_api_url, data=json.dumps(data), headers=headers)

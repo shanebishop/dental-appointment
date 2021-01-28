@@ -71,8 +71,6 @@ class UserProfileAPI(generics.GenericAPIView):
 class RegisterUserAPI(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    # TODO Consider validating postal code further to follow A1A 1A1 format
-    # TODO Consider validating email as well
     def post(self, request):
         requesting_user = self.request.user
 
