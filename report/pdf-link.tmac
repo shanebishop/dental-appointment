@@ -1,0 +1,60 @@
+.MAC PDF_LINK END
+.    ds PDF_NM \\$1
+.    shift
+.    ie '\\$1'PREFIX' \{\
+.       ds PDF_PRE -P "\&\\$2"
+.       shift 2
+.    \}
+.    el .ds PDF_PRE
+.    ie '\\$1'SUFFIX' \{\
+.       ds PDF_POST -A "\\$2"
+.       shift 2
+.    \}
+.    el .ds PDF_POST
+.    ds PDF_AST_Q
+.    ds PDF_TXT \&\\$1
+.    ds PDF_AST \\*[PDF_TXT]
+.    substring PDF_AST -1 -1
+.    if '\\*[PDF_AST]'+' \{\
+.       ds PDF_AST *
+.       ds PDF_AST_Q ""
+.    \}
+.    if '\\*[PDF_AST]'*' \{\
+.        chop PDF_TXT
+\# ---
+.nr char -1 1
+.while 1 \{\
+. ds pdf-nm \\*[pdf:look(\\*[PDF_NM])]
+. substring pdf-nm \\n+[char] \\n[char]
+. if '\\*[pdf-nm]' ' \{\
+.   substring pdf:look(\\*[PDF_NM]) 0 \\n[char]-2
+.   break
+. \}
+.\}
+\# ---
+.        ie '\\*[.T]'pdf' \{\
+.           ie d pdf:look(\\*[PDF_NM]) \{\
+.               as PDF_TXT \&\\*[PDF_AST_Q]\\*[pdf:look(\\*[PDF_NM])]\\*[PDF_AST_Q]
+.           \}
+.           el \{\
+.               as PDF_TXT Unknown
+.               if !rPDF_UNKNOWN .tm \
+\\n[.F]:\\n[.c]: forward reference detected (please run using 'pdfmom')
+.               nr PDF_UNKNOWN 1
+.           \}
+.        \}
+.        el \{\
+.            ie d pdf:href(\\*[PDF_NM]).info \
+.               as PDF_TXT \&\\*[PDF_AST_Q]\\*[pdf:href(\\*[PDF_NM]).info]\\*[PDF_AST_Q]
+.            el .as PDF_TXT Unknown
+.       \}
+.    \}
+.    pdfhref L \\*[PDF_PRE] \\*[PDF_POST] -D \\*[PDF_NM] -- \\*[PDF_TXT]
+.    rm PDF_NM
+.    rm PDF_PRE
+.    rm PDF_POST
+.    rm PDF_TXT
+.    rm PDF_AST
+.    rm PDF_AST_Q
+.END
+

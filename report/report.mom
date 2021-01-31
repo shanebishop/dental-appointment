@@ -32,6 +32,12 @@
 .HEADING_STYLE 3 NUMBER
 .HEADING_STYLE 4 NUMBER
 .HEADING_STYLE 5 NUMBER
+\#
+\# Pull the custom implementation of PDF_LINK macro from ~/pdf-link.tmac
+\# For details, refer to previous email correspondence with Peter Schaffter
+\#
+.rm PDF_LINK
+.mso pdf-link.tmac
 \# Set indent for quoting
 .QUOTE_INDENT 1
 .\" Make QUOTE look like CODE
@@ -462,7 +468,7 @@ _
 .HEADING 2 NAMED testing_frontend "Frontend Testing"
 .PP
 As stated in
-.PDF_LINK technologies_frontend SUFFIX , *
+.PDF_LINK technologies_frontend SUFFIX , "\[sc]*"
 the unit tests for the React frontend were written using the Jest
 JavaScript testing framework. This section will not attempt to exhaustively
 cover the features and usage details for this framework, as that is what
@@ -561,7 +567,7 @@ documentation pages:
 .HEADING 2 NAMED testing_backend "Backend Testing"
 .PP
 As stated in
-.PDF_LINK technologies_backend SUFFIX , *
+.PDF_LINK technologies_backend SUFFIX , "\[sc]*"
 the API tests for the backend were written using
 Django's built-in testing framework. This built-in framework is further
 augmented by the Django REST framework library, which includes Python

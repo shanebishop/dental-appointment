@@ -38,4 +38,11 @@ Example:
 
 The `save-commands.json` file is used to automatically recompile the
 report PDF every time `report.mom` is saved in the Atom text editor. It
-uses the [save-commands](https://atom.io/packages/save-commands) Atom package.
+uses the [save-commands](https://atom.io/packages/save-commands) Atom
+package.
+
+## `pdf-link.tmac`
+
+This is a file for replacing the `PDF_LINK` mom macro to enable displaying
+just the section number, instead of the whole name. For details, see email
+correspondence with Peter Schaffter.

@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+[ -f "$HOME/pdf-link.tmac" ] || cp pdf-link.tmac "$HOME"
+
 [ -f report.mom ] || cd report || { echo 'cd failed.'; exit 1; }
 [ -f report.mom ] || { echo "report.mom not found in $(pwd)."; exit 1; }
 
