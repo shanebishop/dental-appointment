@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class WebdriverWrapper(object):
-    __TIMEOUT = 10
+    __TIMEOUT = 2
 
     def __init__(self, driver):
         super(WebdriverWrapper, self).__init__()
@@ -44,7 +44,7 @@ class WebdriverWrapper(object):
                 if condition():
                     return
             except StaleElementReferenceException as err:
-                print("Suppressing StaleElementReferenceException from Selenium.")
+                print('Suppressing StaleElementReferenceException from Selenium.')
                 not_found = err
             else:
                 not_found = None
