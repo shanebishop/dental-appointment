@@ -58,7 +58,7 @@
 .ds codx \E*[CONDX]\E*[CODE off]\&
 \#
 \# Use Palatino instead of default Times Roman font
-\# If Palatino is unavailable, use Times Roma font
+\# If Palatino is unavailable, use Times Roman font
 \# TODO Currently doesn't work, but have a question for this: https://unix.stackexchange.com/questions/630457/using-palatino-font-with-groff-mom-macros
 \#.FAMILY P
 \#.FALLBACK_FONT TR
@@ -437,7 +437,7 @@ _
 .PP
 .\" Placeholder text
 .NEWPAGE
-.PDF_IMAGE img/uc4.pdf 540p 470p SCALE 75 CAPTION "Figure 4: Activity diagram for UC4"
+.PDF_IMAGE img/uc4.pdf 536p 459p SCALE 75 CAPTION "Figure 4: Activity diagram for UC4"
 .PP
 .\" Placeholder text
 .PDF_IMAGE img/uc5.pdf 431p 54p CAPTION "Figure 5: Activity diagram for UC5"
