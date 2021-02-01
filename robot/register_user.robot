@@ -48,3 +48,27 @@ Staff Are Prevented From Entering An Invalid Postal Code
     Click Button    register-btn
     Wait Until Element Is Visible    register-dialog    1
     Element Text Should Be    register-dialog-msg    Error: postalCode exceeds max length
+
+Address 1 Value Cannot Be Too Long
+    Go To Register User Page
+    Enter User Registration Data    John    Smith    john.smith    johns@company.com    ogzsgqbgenhwhyezrquwiokvcnkcihmuiombdwzyqcherqrgolthiazuiutzhkzcalgeqbjuopfglfuvweajfsnyqyjqgflazonqlsvpfidytlpawyrrinmoekivkmpjvnzfcljmdzkenakevzckdotrbyeopddautcvspdnvuhciemhmguddfqejbjdzfbbjpnkvmmog    22    Toronto    Ontario    A1A 1A1
+    Click Button    register-btn
+    Wait Until Element Is Visible    register-dialog    1
+    Element Text Should Be    register-dialog-msg    Error: address1 exceeds max length
+
+Address 2 Value Cannot Be Too Long
+    Go To Register User Page
+    Enter User Registration Data    John    Smith    john.smith    johns@company.com    1234 Main St.    ierigkyrcrzyvsvbwdhpdfgvbexwswicimgtsdoqwntggqrsmgrhjsjkhnfvoqwhtbpjxpkrzrpythdbtqeluworputyilowgusxgpmslmefokboppqbkksthybyiwgwmxvsfnmncglkiyxcrhglzmwomkkcqnwujdsnzpfudpyskanubofuqpfwmqrdjjjdzmkjofdvi    Toronto    Ontario    A1A 1A1
+    Click Button    register-btn
+    Wait Until Element Is Visible    register-dialog    1
+    Element Text Should Be    register-dialog-msg    Error: address2 exceeds max length
+
+City Value Cannot Be Too Long
+    Go To Register User Page
+    Enter User Registration Data    John    Smith    john.smith    johns@company.com    1234 Main St.    22    yeifdcopytmkwxnivbhqijbczmtawynsgihhhkxwfdifiihzajicngdgytkdwsgtewairlonljduhusfo    Ontario    A1A 1A1
+    Click Button    register-btn
+    Wait Until Element Is Visible    register-dialog    1
+    Element Text Should Be    register-dialog-msg    Error: city exceeds max length
+
+# There is no check for the province being too long, because the province value can
+# only be entered by the dropdown

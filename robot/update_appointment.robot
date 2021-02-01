@@ -120,3 +120,13 @@ Updating Fails When New Time Would Conflict With Another Appointment
     Input Text    time    10:00:00
     Press Submit Button
     Dialog Shows Message    Error: Time and date conflict with an existing appointment for this client
+
+Updating Fails When Client Is Changed
+    Go To Appointments Page
+    Wait Until Element Is Visible    appointment-0-time    2
+    Click Element    appointment-0-time
+    Click Button    update-appointment-btn
+    Location Should Be    ${EDIT_APPOINTMENT_URL}
+    Input Text    client    jamesg
+    Press Submit Button
+    Dialog Shows Message    Error: Cannot change client for an appointment

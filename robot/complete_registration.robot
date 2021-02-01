@@ -70,3 +70,9 @@ Completing Registration Fails If Passwords Do Not Match
     Element Text Should Be    confirm-dialog-msg    Passwords do not match.
     # Confirm we stayed on the complete registration page
     Location Should Be    ${COMPLETE_REGISTRATION_URL}
+
+Completing Registration Fails If User Does Not Have Incomplete Registration Status
+    # bobb is already fully registered
+    Complete Registration    bobb    we-have-no-token    password1    password1
+    Wait Until Element Is Visible    confirm-dialog    2
+    Element Text Should Be    confirm-dialog-msg    Invalid username/password.
