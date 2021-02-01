@@ -12,8 +12,8 @@ def before_all(context):
 
     # Reading the browser type from the configuration file for Selenium Python Tutorial
     helper_func = get_browser(config.get('Environment', 'Browser'))
-    context.helperfunc = helper_func
+    context.driver = helper_func
 
 
 def after_all(context):
-    context.helperfunc.close()
+    context.driver.close()

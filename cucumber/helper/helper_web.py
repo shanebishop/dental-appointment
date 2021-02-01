@@ -2,13 +2,13 @@
 
 import os
 from selenium import webdriver
-from helper.helper_base import HelperFunc
+from helper.webdriver_wrapper import WebdriverWrapper
 
 
 def get_browser(browser):
     if browser == 'chrome':
-        return HelperFunc(webdriver.Chrome(service_log_path=os.devnull))
+        return WebdriverWrapper(webdriver.Chrome(service_log_path=os.devnull))
     elif browser == 'firefox':
-        return HelperFunc(webdriver.Firefox(service_log_path=os.devnull))
+        return WebdriverWrapper(webdriver.Firefox(service_log_path=os.devnull))
     else:
         raise Exception(f'Currently unsupported browser provided: "{browser}"')
