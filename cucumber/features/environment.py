@@ -1,3 +1,5 @@
+# Based on https://www.lambdatest.com/blog/selenium-python-behave-tutorial-bdd/
+
 import os
 from configparser import ConfigParser
 from helper.helper_web import get_browser
@@ -5,7 +7,6 @@ from helper.helper_web import get_browser
 
 def before_all(context):
     config = ConfigParser()
-    print((os.path.join(os.getcwd(), 'setup.cfg')))
     my_file = (os.path.join(os.getcwd(), 'setup.cfg'))
     config.read(my_file)
 
@@ -15,5 +16,4 @@ def before_all(context):
 
 
 def after_all(context):
-    if context and context.helperfunc:
-        context.helperfunc.close()
+    context.helperfunc.close()

@@ -1,3 +1,5 @@
+# Based on https://www.lambdatest.com/blog/selenium-python-behave-tutorial-bdd/
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -30,3 +32,6 @@ class HelperFunc(object):
 
     def find_by_id(self, id):
         return self._driver_wait.until(EC.visibility_of_element_located((By.ID, id)))
+
+    def driver(self):
+        return self._driver
