@@ -20,3 +20,23 @@ Feature: Tests for Sign In page
       | invalid  | admin    |
       | admin    | invalid  |
       | invalid  | whatever |
+
+  Scenario: Sign in button initially disabled
+    Given User is on login page
+    Then Element with name sign-in-btn is disabled
+
+  Scenario: Sign in button should be disabled if password is not set
+    Given User is on login page
+    When User enters username "foo"
+    Then Element with name sign-in-btn is disabled
+
+  Scenario: Sign in button should be disabled if username is not set
+    Given User is on login page
+    When User enters password "foo"
+    Then Element with name sign-in-btn is disabled
+
+  Scenario: Sign in button should be enabled if username and password set
+    Given User is on login page
+    When User enters username "foo"
+    And User enters password "bar"
+    Then Element with name sign-in-btn is enabled
