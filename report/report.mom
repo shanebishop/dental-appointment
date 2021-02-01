@@ -446,7 +446,7 @@ _
 .PDF_IMAGE img/uc6.pdf 335p 63p CAPTION "Figure 6: Activity diagram for UC6"
 .PP
 .\" Placeholder text
-.PDF_IMAGE img/uc7.pdf 531p 539p SCALE 75 CAPTION "Figure 7: Activity diagram for UC7"
+.PDF_IMAGE img/uc7.pdf 530p 531p SCALE 75 CAPTION "Figure 7: Activity diagram for UC7"
 .PP
 .\" Placeholder text
 .NEWPAGE
