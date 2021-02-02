@@ -1,6 +1,7 @@
 # Based on https://www.lambdatest.com/blog/selenium-python-behave-tutorial-bdd/
 
 import time
+from hamcrest import *
 
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.by import By
@@ -34,6 +35,12 @@ class WebdriverWrapper(object):
             f"Location did not become '{expected_uri}' in {timeout} seconds.",
             timeout,
         )
+
+    def location(self):
+        return self._driver.current_url
+
+    def location_should_be(self, expected_uri):
+        assert_that(self._driver.current_url, equal_to(expected_uri))
 
     @staticmethod
     def _wait_until(condition, error, timeout):
