@@ -1,3 +1,4 @@
+import selenium
 from hamcrest import *
 
 
@@ -43,3 +44,27 @@ def login(context, username, password):
 
 def login_as_admin(context):
     login(context, 'admin', 'admin')
+
+
+def element_with_id_should_have_text(context, html_id=None, expected_text=None):
+    actual_text = context.driver.find_by_id(html_id).text
+    assert_that(expected_text, equal_to(actual_text))
+
+
+def element_with_name_should_have_text(context, html_name=None, expected_text=None):
+    actual_text = context.driver.find_by_name(html_name).text
+    assert_that(expected_text, equal_to(actual_text))
+
+
+def element_with_id_not_present(context, html_id):
+    assert_that(
+        calling(context.driver.driver().find_element_by_id).with_args(html_id),
+        raises(selenium.common.exceptions.NoSuchElementException)
+    )
+
+
+def element_with_name_not_present(context, html_name):
+    assert_that(
+        calling(context.driver.driver().find_element_by_name).with_args(html_name),
+        raises(selenium.common.exceptions.NoSuchElementException)
+    )

@@ -52,3 +52,8 @@ def step_impl(context):
         calling(context.driver.driver().find_element_by_id).with_args('appointment-6-time'),
         raises(selenium.common.exceptions.NoSuchElementException)
     )
+
+
+@step("Appointments table has loaded")
+def step_impl(context):
+    context.driver.find_by_id('appointment-0-time')
