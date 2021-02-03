@@ -1,3 +1,7 @@
+"""
+Provides cucumber step implementations that are common across the various cucumber features.
+"""
+
 from time import sleep
 from behave import *
 from helper.common import *
@@ -8,6 +12,11 @@ use_step_matcher("parse")
 @when('Client has logged in with credentials "{username}" "{password}"')
 def step_impl(context, username, password):
     login(context, username, password)
+
+
+@when("Staff member is logged in")
+def step_impl(context):
+    login_as_admin(context)
 
 
 @then('Appointment shows date "{date}", time "{time}", hygienist "{hygienist}", operation "{operation}"')
@@ -54,7 +63,7 @@ def step_impl(context, html_name):
     context.driver.find_by_name(html_name).clear()
 
 
-@when('User clears text for element with id "{html_name}"')
+@when('User clears text for element with id "{html_id}"')
 def step_impl(context, html_id):
     # Note that webElement.clear() does not send any keyboard or mouse events
     context.driver.find_by_id(html_id).clear()
@@ -63,3 +72,21 @@ def step_impl(context, html_id):
 @step("{seconds} seconds have elapsed")
 def step_impl(context, seconds):
     sleep(float(seconds))
+
+
+@when("Client profile has loaded")
+def step_impl(context):
+    context.driver.location_should_be(PROFILE_URL)
+    context.driver.find_by_id('firstName')
+
+
+@step('Element with ID "{html_id}" should have value "{expected_value}"')
+def step_impl(context, html_id, expected_value):
+    actual_value = context.driver.find_by_id(html_id).get_attribute('value')
+    assert_that(actual_value, equal_to(expected_value))
+
+
+@step('Element with name "{html_name}" should have value "{expected_value}"')
+def step_impl(context, html_name, expected_value):
+    actual_value = context.driver.find_by_name(html_name).get_attribute('value')
+    assert_that(actual_value, equal_to(expected_value))

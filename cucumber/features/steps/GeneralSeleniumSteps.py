@@ -1,3 +1,7 @@
+"""
+Provides cucumber step implementations for general selenium assertions and operations.
+"""
+
 import selenium
 from behave import *
 

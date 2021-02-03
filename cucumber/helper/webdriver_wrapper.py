@@ -1,4 +1,7 @@
-# Based on https://www.lambdatest.com/blog/selenium-python-behave-tutorial-bdd/
+"""
+Based on https://www.lambdatest.com/blog/selenium-python-behave-tutorial-bdd/
+Provides a wrapper around selenium.webdriver.WebDriver.
+"""
 
 import time
 from hamcrest import *

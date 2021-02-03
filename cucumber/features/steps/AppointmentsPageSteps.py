@@ -6,11 +6,6 @@ from helper.common import *
 use_step_matcher("parse")
 
 
-@when("Staff member is logged in")
-def step_impl(context):
-    login_as_admin(context)
-
-
 @step("User is on Appointments page")
 def step_impl(context):
     context.driver.open(APPOINTMENTS_URL)
