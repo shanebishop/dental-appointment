@@ -1,12 +1,12 @@
 from behave import *
-from hamcrest import *
+from helper.common import *
 
 use_step_matcher("parse")
 
 
 @given("User is on login page")
 def step_impl(context):
-    context.driver.open('http://localhost/auth/sign-in')
+    context.driver.open(LOGIN_URL)
 
 
 @when('User enters username "{username}"')
@@ -33,3 +33,8 @@ def step_impl(context):
 def step_impl(context, expected_msg):
     actual_msg = context.driver.find_by_name('login-err-msg').text
     assert_that(expected_msg, equal_to(actual_msg))
+
+
+@when('User logs in with username "{username}" and password "{password}"')
+def step_impl(context, username, password):
+    login(context, username, password)
