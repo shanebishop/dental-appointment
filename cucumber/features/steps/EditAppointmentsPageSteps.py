@@ -22,3 +22,18 @@ def step_impl(context, date, time, username, hygienist, operation, extra_notes):
     operation_el = context.driver.find_by_id('operation-dropdown')
     actual_selected = context.driver.get_dropdown_selected(operation_el)
     assert_that({operation}, equal_to(actual_selected))
+
+
+@when(
+    'Staff member enters appointment data "{date}" "{time}" "{username}" "{hygienist}" "{operation}" "{extra_notes}"')
+def step_impl(context, date, time, username, hygienist, operation, extra_notes):
+    context.driver.set_text_of_el_with_name('date', date)
+    context.driver.set_text_of_el_with_name('time', time)
+    context.driver.set_text_of_el_with_name('client', username)
+    context.driver.set_text_of_el_with_name('hygienist', hygienist)
+    context.driver.set_text_of_el_with_name('extra_notes', extra_notes)
+
+    # Make selection on operation dropdown
+    operation_el = context.driver.find_by_id('operation-dropdown')
+    select = Select(operation_el)
+    select.select_by_visible_text(operation)

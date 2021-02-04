@@ -95,3 +95,21 @@ def step_impl(context, html_name, expected_value):
 @then("User is on Edit Appointment page")
 def step_impl(context):
     context.driver.location_should_be(EDIT_APPOINTMENT_URL)
+
+
+@then('Edit appointment dialog shows message "{expected_message}"')
+def step_impl(context, expected_message):
+    context.driver.find_by_name('edit-appointment-dialog')
+    actual_message = context.driver.find_by_name('edit-appointment-dialog-msg').text
+
+    assert_that(actual_message, equal_to(expected_message))
+
+
+@when('User sets text for element with ID "{html_id}" to "{text}"')
+def step_impl(context, html_id, text):
+    context.driver.set_text_of_el_with_id(html_id, text)
+
+
+@when('User sets text for element with name "{html_name}" to "{text}"')
+def step_impl(context, html_name, text):
+    context.driver.set_text_of_el_with_name(html_name, text)

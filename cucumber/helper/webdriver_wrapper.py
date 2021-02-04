@@ -70,6 +70,19 @@ class WebdriverWrapper(object):
         el = self._driver.find_element_by_name(html_name)
         return el.get_attribute('value')
 
+    def set_text_of_el_with_id(self, html_id, text):
+        el = self._driver.find_element_by_id(html_id)
+        WebdriverWrapper.set_text_of_el(el, text)
+
+    def set_text_of_el_with_name(self, html_name, text):
+        el = self._driver.find_element_by_name(html_name)
+        WebdriverWrapper.set_text_of_el(el, text)
+
+    @staticmethod
+    def set_text_of_el(el, text):
+        el.clear()
+        el.send_keys(text)
+
     @staticmethod
     def get_dropdown_selected(dropdown_el):
         """Returns a set of all items selected in a dropdown"""
