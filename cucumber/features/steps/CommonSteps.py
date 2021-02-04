@@ -90,3 +90,8 @@ def step_impl(context, html_id, expected_value):
 def step_impl(context, html_name, expected_value):
     actual_value = context.driver.find_by_name(html_name).get_attribute('value')
     assert_that(actual_value, equal_to(expected_value))
+
+
+@then("User is on Edit Appointment page")
+def step_impl(context):
+    context.driver.location_should_be(EDIT_APPOINTMENT_URL)

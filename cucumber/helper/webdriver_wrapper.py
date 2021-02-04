@@ -10,6 +10,7 @@ from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
 
 
 class WebdriverWrapper(object):
@@ -61,7 +62,21 @@ class WebdriverWrapper(object):
             time.sleep(0.2)
         raise AssertionError(not_found or error)
 
-    # Helper functions that are used to identify the web locators in Selenium Python tutorial
+    def value_of_el_with_id(self, html_id):
+        el = self._driver.find_element_by_id(html_id)
+        return el.get_attribute('value')
+
+    def value_of_el_with_name(self, html_name):
+        el = self._driver.find_element_by_name(html_name)
+        return el.get_attribute('value')
+
+    @staticmethod
+    def get_dropdown_selected(dropdown_el):
+        """Returns a set of all items selected in a dropdown"""
+        el_select = Select(dropdown_el)
+        options = el_select.all_selected_options
+        selected = [opt.text for opt in options] + [opt.get_attribute('value') for opt in options]
+        return set(selected)
 
     def find_by_xpath(self, xpath):
         return self._driver_wait.until(EC.visibility_of_element_located((By.XPATH, xpath)))
