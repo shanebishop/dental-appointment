@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    Tests for creating appointments in the frontend.
+Documentation    Tests for updating appointments in the frontend.
 Library          SeleniumLibrary    run_on_failure=None
 Library          CustomHelpers/Users.py
 Library          CustomHelpers/Appointments.py
