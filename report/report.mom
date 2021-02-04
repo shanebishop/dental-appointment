@@ -683,6 +683,172 @@ test will fail.
 .HEADING 2 NAMED testing_acceptance "Acceptance Testing"
 .PP
 Placeholder text
+.HEADING 1 NAMED robot_cucumber "Comparing and Contrasing Robot Framework and Cucumber"
+.HEADING 2 NAMED robot_cucumber_supported "Supported Languages"
+.PP
+Robot Framework keywords can be written only in Robot Framework,
+Python, and Java. Cucumber supports writing steps in several different programming
+languages. The table below shows which cucumber implementations are
+official (i.e., hosted under the
+.PDF_WWW_LINK https://github.com/cucumber SUFFIX ")," "GitHub Cucumber organization"
+semi-official, unofficial, or unmaintained as of the time of writing.
+.TS BOXED LABEL "Table 12: Languages Supported by Cucumber"
+tab(@);
+lB lB lB lB,
+l l l l.
+_
+Official@Semi-official@Unofficial@Unmaintained
+_
+Java@C#@Rust@Clojure
+JavaScript@F#@D@Gosu
+Ruby/Ruby on Rails@VB@@Groovy
+OCaml@PHP@@JRuby
+C++@Python@@Jython
+Lua@Swift@@Rhino
+Android (Java)@Objective C
+Kotlin@Perl
+Scala
+Tcl
+Go
+_
+.TE
+.PP
+See
+.PDF_WWW_LINK https://cucumber.io/docs/installation/ here
+for an up-to-date list of languages supported by cucumber.
+\#
+.HEADING 2 NAMED robot_advantages "Advantages of Robot Framework"
+.PP
+Robot Framework is actively supported, open source, and free to use and
+extend. Several libraries and tools are available for use with Robot
+Framework. The framework and its official libraries are well-documented.
+.PP
+Tests can be written in plain English (or in other natural languages),
+which allow tests to be both read and written by non-technical members of a
+project. Tests can also be easily read and understood by clients if clients
+are involved in acceptance testing. Tests can be written in plaintext
+without any markup (although Robot Framework is whitespace sensitive,
+which has both advantages and disadvantages). This means tests can be
+read and written by any text editor on any platform, and tests can be
+easily version controlled.
+.PP
+Robot Framework test cases can be written using either Gerkin or regular
+syntax. This allows testers to write their test casees to express how the
+test is conducted as they wish \[en] they are not tied to a particular way
+of expressing test cases.
+.PP
+Robot Framework provides hooks for executing setup and teardown keywords
+before and after each test suite or test case.
+.PP
+Despite some of the disadvantages of Robot Framework being
+whitespace-sensitive (see next section), there are also some advantages. The use of whitespace
+to separate keyword arguments means there is no need to create regular
+expressions to parse the arguments out, as is the case with cucumber.
+.PP
+TODO Describe the advantage of variables
+.PP
+TODO Describe the advantages of libraries and built-in keywords \[en] save on time, save on
+complexity, etc.
+.PP
+Possibly the greatest advantage of Robot Framework is its keywords.
+Robot keywords permit hiding low-level details from the definition of
+higher-level keywords or test cases. This allows for faster writing of
+test cases and also improves the readability of test cases. Lower level
+keywords written in Robot Framework (rather than in Python or Java) also
+continue to be readable to non-programmers. This means every level, from
+test cases, to the highest level keywords, and then all the way down to the
+lowest level keywords not in Python or Java, can all be designed to only
+contain details relevant to how high-level or low-level the keyword or test
+case is.
+\#
+.HEADING 2 NAMED robot_disadvantages "Disadvantages of Robot Framework"
+.PP
+Robot Framework currently only has support for defining keywords in Roboot
+Framework, Python, and Java. This is not necesaarily problematic if Robot Framework
+is being used to write acceptance tests, as is the case for this project,
+but this can be a problem if it is being used for lower-level tests such as
+unit tests. Unit tests should be written using the implementation language,
+and if the implementation language is not Python or Java, then unit tests
+cannot be written using Robot Framework.
+.PP
+Robot Framework is whitespace-sensitive. Arguments to keywords must be
+separated by at least two characters of whitespace. Empty strings must be
+specified with the special \*[cod]${EMPTY}\*[codx] variable. Whitespace
+within arguments must be escaped.
+.PP
+Although relatively popular, Robot Framework is not as popular as cucumber.
+Syntax highlighting and support for Robot Framework in most text editors and
+IDEs requires installing a plugin. Sometimes the plugin is a community
+plugin rather than an official plugin, and/or the plugin may have bugs or
+not correctly apply syntax highlighting to new syntax available in the
+latest Robot Framework release.
+\#
+.HEADING 2 NAMED cucumber_advantages "Advantages of Cucumber"
+.PP
+Cucumber is actively supported, open source, and free to use and
+extend. Cucumber is also a very popular testing framework for acceptance
+and behaviour driven testing.
+.PP
+Tests can be written in plain English (or in other natural languages),
+which allow tests to be both read and written by non-technical members of a
+project. Tests can also be easily read and understood by clients if clients
+are involved in acceptance testing. Tests can be written in plaintext
+without any markup. This means tests can be
+read and written by any text editor on any platform, and tests can be
+easily version controlled.
+.PP
+Cucumber officially supports implementing steps in several mainstream
+programming languages, and unofficially supports implementing steps in some
+other programming languages (see
+.PDF_LINK robot_cucumber_supported SUFFIX ")." "\[sc]*"
+.PP
+Using regex to parse arguments to steps provides an advantages in
+strongly typed languages, as then arguments can automatically be parsed to
+the required types for each step's implementation.
+\#
+.HEADING 2 NAMED cucumber_disadvantages "Disadvantages of Cucumber"
+.PP
+Cucumber offers no official way to have setup and teardown code or steps
+for features. The
+.PDF_WWW_LINK https://github.com/cucumber/cucumber-jvm "cucumber-jvm repository on Github"
+(for the Java
+implementation of cucumber) has an
+.PDF_WWW_LINK https://github.com/cucumber/cucumber-jvm/issues/515 issue
+for adding
+\*[cod]@BeforeAll\*[codx] and \*[cod]@AfterAll\*[codx] hooks, but at the
+time of writing this issue is still open. Behave, the unofficial Python
+implementation of cucumber and the implementation used for this project,
+does have "before all" and "after all" hooks for features, but these are
+shared by all features. Behave provides no way to specify custom "before
+all" or "after all" hooks for individual features, should any particular
+feature need its own custom setup or teardown operations.
+.PP
+With cucumber, state must be managed between individual steps. State management
+can be done using classes (for object-oriented languages) or using contexts
+(for non-object-oriented languages). However, the introduction of state
+makes writing and debugging cucumber steps much more complicated then
+when the steps are stateless. Of course, the person writing the cucumber
+scenarios and steps can try to design them to be stateless, but sometimes
+this is impossible, and then they must resort to managing state. At the
+time of writing, cucumber offers no features to assist with state
+management, so all state management must be done by the person programming
+the steps.
+.PP
+State management can lead to either bugs that need to be fixed
+(increasing the time required to write the scenarios), and may also tempt
+step programmers to resort to global or global-like variables to share the
+state across the various steps. If the programmers resort to using global
+or global-like variables, then this may make the steps less modular and
+less maintainable.
+.PP
+Cucumber has no built-in steps or libraries for common use. This means all
+steps must be written by the project members themselves. If the cucumber
+tests are very extensive and complex, the code for the steps might have
+a great deal of helper code, or perhaps even its own modules and libraries
+custom-developed for the project. In the worst case, then these test
+libraries themselves need their own tests.
+.PP
+TODO Cucumber has no built-in assertions
 \#
 \# This needs to be the very last macro
 .TOC
