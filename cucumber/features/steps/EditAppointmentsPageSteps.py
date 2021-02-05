@@ -1,6 +1,6 @@
 from behave import *
 from hamcrest import *
-from selenium.webdriver.support.ui import Select
+from helper.urls import *
 
 use_step_matcher("parse")
 
@@ -36,3 +36,9 @@ def step_impl(context, date, time, username, hygienist, operation, extra_notes):
     # Make selection on operation dropdown
     operation_el = context.driver.find_by_id('operation-dropdown')
     context.driver.set_dropdown_selection(operation_el, operation)
+
+
+@step("Staff member is on Create Appointment page")
+def step_impl(context):
+    context.driver.open(EDIT_APPOINTMENT_URL)
+    context.driver.location_should_be(EDIT_APPOINTMENT_URL)
