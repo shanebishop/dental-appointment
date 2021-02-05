@@ -39,6 +39,16 @@ Feature: Tests for updating appointments
     And User clicks on element with name "submit-btn"
     Then Edit appointment dialog shows message "Error: Date 'foo' does not match YYYY-MM-DD format"
 
+  Scenario: Updating fails when time is invalid
+    When Staff member is logged in
+    And User is on Appointments page
+    And User clicks on element with ID "appointment-0-time"
+    And User clicks on element with name "update-appointment-btn"
+    Then User is on Edit Appointment page
+    When User sets text for element with name "time" to "foo"
+    And User clicks on element with name "submit-btn"
+    Then Edit appointment dialog shows message "Error: Time 'foo' does not match either HH:MM:SS or HH:MM"
+
   Scenario: Updating fails when username is not registered
     When Staff member is logged in
     And User is on Appointments page
