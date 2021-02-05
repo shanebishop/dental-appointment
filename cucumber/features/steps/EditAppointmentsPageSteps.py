@@ -35,5 +35,4 @@ def step_impl(context, date, time, username, hygienist, operation, extra_notes):
 
     # Make selection on operation dropdown
     operation_el = context.driver.find_by_id('operation-dropdown')
-    select = Select(operation_el)
-    select.select_by_visible_text(operation)
+    context.driver.set_dropdown_selection(operation_el, operation)

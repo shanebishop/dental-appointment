@@ -91,6 +91,11 @@ class WebdriverWrapper(object):
         selected = [opt.text for opt in options] + [opt.get_attribute('value') for opt in options]
         return set(selected)
 
+    @staticmethod
+    def set_dropdown_selection(dropdown_el, to_select):
+        select = Select(dropdown_el)
+        select.select_by_visible_text(to_select)
+
     def find_by_xpath(self, xpath):
         return self._driver_wait.until(EC.visibility_of_element_located((By.XPATH, xpath)))
 

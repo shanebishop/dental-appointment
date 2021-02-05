@@ -113,3 +113,40 @@ def step_impl(context, html_id, text):
 @when('User sets text for element with name "{html_name}" to "{text}"')
 def step_impl(context, html_name, text):
     context.driver.set_text_of_el_with_name(html_name, text)
+
+
+@step(
+    'Staff member enters user registration data "{first_name}" "{surname}" "{username}" "{email}" "{address1}" '
+    '"{address2}" "{city}" "{province}" "{postal_code}"')
+def step_impl(context, first_name, surname, username, email, address1, address2, city, province, postal_code):
+    # Confirm on user registration page
+    context.driver.location_should_be(REGISTER_URL)
+
+    # Fill in form
+    context.driver.set_text_of_el_with_name('first-name', first_name)
+    context.driver.set_text_of_el_with_name('surname', surname)
+    context.driver.set_text_of_el_with_name('username', username)
+    context.driver.set_text_of_el_with_name('email', email)
+    context.driver.set_text_of_el_with_name('address', address1)
+    context.driver.set_text_of_el_with_name('address2', address2)
+    context.driver.set_text_of_el_with_name('city', city)
+    context.driver.set_text_of_el_with_name('postal-code', postal_code)
+
+    # Make selection on province dropdown
+    province_el = context.driver.find_by_name('province')
+    context.driver.set_dropdown_selection(province_el, province)
+
+    # Submit form
+    context.driver.find_by_name('register-btn').click()
+
+
+@step("Staff member is on User Registration page")
+def step_impl(context):
+    context.driver.open(REGISTER_URL)
+    context.driver.location_should_be(REGISTER_URL)
+
+
+@step("Login fields have loaded")
+def step_impl(context):
+    context.driver.location_should_be(LOGIN_URL)
+    context.driver.find_by_name('username')
