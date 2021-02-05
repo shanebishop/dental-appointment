@@ -1,3 +1,4 @@
+@database-reset-required
 Feature: Tests for Appointments page
 
   Scenario: Staff appointments are displayed chronologically
@@ -96,5 +97,19 @@ Feature: Tests for Appointments page
     And Appointments table has loaded
     Then No element should exist with name "filter-input"
 
-  # No scenario for cancel appointments because behave (and cucumber in general)
-  # lacks a way to define setup and teardown code separately for each feature
+  Scenario: Staff members can cancel appointments
+    When Staff member is logged in
+    And User is on Appointments page
+    And Appointments table has loaded
+    # Test canceling an appointment in the middle of the appointments list
+    And User clicks on element with ID "appointment-3-time"
+    And User clicks on element with name "cancel-appointment-btn"
+    Then Appointments page dialog should display message "Appointment cancelled."
+    # Test canceling the first appointment in the appointments list
+    When User clicks on element with ID "appointment-0-time"
+    And User clicks on element with name "cancel-appointment-btn"
+    Then Appointments page dialog should display message "Appointment cancelled."
+    # Test canceling the last appointment in the appointments list
+    When User clicks on element with ID "appointment-3-time"
+    And User clicks on element with name "cancel-appointment-btn"
+    Then Appointments page dialog should display message "Appointment cancelled."

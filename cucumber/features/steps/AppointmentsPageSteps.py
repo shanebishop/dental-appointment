@@ -52,3 +52,13 @@ def step_impl(context):
 @step("Appointments table has loaded")
 def step_impl(context):
     context.driver.find_by_id('appointment-0-time')
+
+
+@then('Appointments page dialog should display message "{expected_message}"')
+def step_impl(context, expected_message):
+    context.driver.find_by_name('appointments-dialog')
+    actual_message = context.driver.find_by_name('appointments-dialog-msg').text
+
+    context.driver.find_by_name('appointments-dialog-btn').click()
+
+    assert_that(actual_message, equal_to(expected_message))
