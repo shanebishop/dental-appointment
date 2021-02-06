@@ -162,6 +162,7 @@ consult its
 \# Also a good read is http://www.snake.net/software/troffcvt/tbl.html,
 \# which for example covers the comma stuff below under 'Alternative notation'
 \#
+.FLOAT FORCE
 .TS BOXED LABEL "Table 1: Use Case 1"
 tab(@);
 lI lB, lI l, lI l, lI l, lI l
@@ -185,8 +186,9 @@ T}@1. System prompts for username and password
 ^@4. User is redirected to homepage
 _
 .TE
+.FLOAT OFF
 \#
-.NEWPAGE
+.FLOAT FORCE
 .TS BOXED LABEL "Table 2: Use Case 2"
 tab(@);
 lI lB, lI l, lI l, lI l, lI l
@@ -209,13 +211,15 @@ T}@1. User clicks Logout button
 ^@3. User is redirected to Logout page
 _
 .TE
+.FLOAT OFF
 \#
+.FLOAT FORCE
 .TS BOXED LABEL "Table 3: Use Case 3"
 tab(@);
 lI lB, lI l, lI l, lI l, lI l
 lIT l, ^.
 _
-Use Case Identifier@UC 3
+Use Case Identifier@UC3
 _
 Title@Add new client
 _
@@ -237,8 +241,9 @@ T}@1. Staff member selects "Register Client"
 ^@registration
 _
 .TE
+.FLOAT OFF
 \#
-.NEWPAGE
+.FLOAT FORCE
 .TS BOXED LABEL "Table 4: Use Case 4"
 tab(@);
 lI lB, lI l, lI l,
@@ -246,7 +251,7 @@ lI l, ^, ^,
 lI l,
 lIT l, ^.
 _
-Use Case Identifier@UC 4
+Use Case Identifier@UC4
 _
 Title@Client registration
 _
@@ -269,13 +274,15 @@ T}@1. Client clicks on the link to complete registration in their
 ^@3. System redirects the client to the Login page
 _
 .TE
+.FLOAT OFF
 \#
+.FLOAT FORCE
 .TS BOXED LABEL "Table 5: Use Case 5"
 tab(@);
 lI lB, lI l, lI l, lI l, lI l
 lIT l, ^.
 _
-Use Case Identifier@UC 5
+Use Case Identifier@UC5
 _
 Title@Client view appointment
 _
@@ -293,14 +300,15 @@ T}@1. Client navigates to Appointments page
 ^@4. System displays appointment details
 _
 .TE
+.FLOAT OFF
 \#
-.NEWPAGE
+.FLOAT FORCE
 .TS BOXED LABEL "Table 6: Use Case 6"
 tab(@);
 lI lB, lI l, lI l, lI l, lI l
 lIT l, ^.
 _
-Use Case Identifier@UC 6
+Use Case Identifier@UC6
 _
 Title@Staff member view appointment
 _
@@ -317,13 +325,15 @@ T}@1. Staff member navigates to Appointments page
 ^@3. System displays appointment details
 _
 .TE
+.FLOAT OFF
 \#
+.FLOAT FORCE
 .TS BOXED LABEL "Table 7: Use Case 7"
 tab(@);
 lI lB, lI l, lI l, lI l, lI l
 lIT l, ^.
 _
-Use Case Identifier@UC 7
+Use Case Identifier@UC7
 _
 Title@Staff member edit appointment
 _
@@ -341,14 +351,15 @@ T}@1. Staff member selects an appointment to edit
 ^@4. System stores the changes in the database
 _
 .TE
+.FLOAT OFF
 \#
-.NEWPAGE
+.FLOAT FORCE
 .TS BOXED LABEL "Table 8: Use Case 8"
 tab(@);
 lI lB, lI l, lI l, lI l, lI l
 lIT l, ^.
 _
-Use Case Identifier@UC 8
+Use Case Identifier@UC8
 _
 Title@Staff member create appointment
 _
@@ -367,13 +378,15 @@ T}@1. Staff member selects "Create Appointment"
 ^@4. System stores the new appointment in the database
 _
 .TE
+.FLOAT OFF
 \#
+.FLOAT FORCE
 .TS BOXED LABEL "Table 9: Use Case 9"
 tab(@);
 lI lB, lI l, lI l, lI l, lI l
 lIT l, ^.
 _
-Use Case Identifier@UC 9
+Use Case Identifier@UC9
 _
 Title@Staff member cancel appointment
 _
@@ -390,14 +403,15 @@ T}@1. Staff member selects an appointment to cancel
 ^@3. System deletes the appointment from the database
 _
 .TE
+.FLOAT OFF
 \#
-.NEWPAGE
+.FLOAT FORCE
 .TS BOXED LABEL "Table 10: Use Case 10"
 tab(@);
 lI lB, lI l, lI l, lI l, lI l
 lIT l, ^.
 _
-Use Case Identifier@UC 10
+Use Case Identifier@UC10
 _
 Title@Client view profile
 _
@@ -413,13 +427,15 @@ T}@1. Client navigates to Profile page
 ^@2. System displays the client's profile
 _
 .TE
+.FLOAT OFF
 \#
+.FLOAT FORCE
 .TS BOXED LABEL "Table 11: Use Case 11"
 tab(@);
 lI lB, lI l, lI l, lI l, lI l
 lIT l, ^.
 _
-Use Case Identifier@UC 11
+Use Case Identifier@UC11
 _
 Title@Staff member view profile
 _
@@ -437,8 +453,7 @@ T}@1. Staff member navigates to Clients page
 ^@4. System displays the client's profile
 _
 .TE
-\#
-.NEWPAGE
+.FLOAT OFF
 \#
 .HEADING 2 "Use Case Activity Diagrams"
 \#
@@ -624,7 +639,7 @@ will not contribute to the number of passing or failing tests.
 .PP
 For each API implemented in the Django backend, there is a corresponding
 API test. Let us look at an example.
-.\" .NEWPAGE
+.FLOAT FORCE
 .QUOTE
 .CODE
 def test_create_user(self):
@@ -648,6 +663,7 @@ def test_create_user(self):
     self.assertEqual(
         user_data.postalCode, data['postalCode'])
 .QUOTE OFF
+.FLOAT OFF
 .PP
 The function above is a test function, as indicated by the fact that its
 name begins with the \*[cod]test\*[codx] prefix. From the name of the
@@ -673,10 +689,53 @@ Finally, all attributes of the data in the database is verified against
 the data sent in the POST request with the remaining
 \*[cod]assertEqual()\*[codx] asserts. If any assertion fails, this
 test will fail.
+\#
 .HEADING 2 NAMED testing_acceptance "Acceptance Testing"
 .PP
-Placeholder text. TODO See "Long term TODOs" for what I was planning to put
-here.
+The acceptance tests were organized into files by webpage rather than by
+use case. The table below shows which Robot Framework test suites and
+cucumber scenarios provide test coverage for which use cases.
+.PP
+Note that all Robot Framework files are under the \*[cod]robot\*[codx]
+directory, and all cucumber feature files are under the
+\*[cod]cucumber/features\*[codx] directory.
+.FLOAT FORCE
+.TS BOXED LABEL "Table 11: Which Robot Framwork and cucumber files correspond to which use cases"
+tab(@);
+lB lB lB,
+l l l.
+_
+Use Case@Robot Framework File@Cucumber File
+_
+UC1@login.robot@login.feature
+_
+UC2@logout.robot@N/A (see below)
+_
+UC3@register_user.robot@register_user.feature
+_
+UC4@complete_registration.robot@complete_registration.feature
+_
+UC5@appointments_list.robot@appointments_list.feature
+_
+UC6@appointments_list.robot@appointments_list.feature
+_
+UC7@update_appointment.robot@update_appointment.feature
+_
+UC8@create_appointment.robot@create_appointment.feature
+_
+UC9@appointments_list.robot@appointments_list.feature
+_
+UC10@profile_page.robot@profile_page.feature
+_
+UC11@clients_page.robot@clients_page.feature
+_
+.TE
+.FLOAT OFF
+.PP
+There is no cucumber feature for UC2 because it would be difficult to
+verify the deletion of browser cookies with native Selenium without the
+Robot Framework Selenium keywords.
+\#
 .HEADING 2 NAMED test_files "Test Files"
 .PP
 This section explains how to find all the test files for each set of tests
@@ -731,7 +790,7 @@ or more "steps". In Robot Framework, each test suite consists of one or
 more "test cases". The Robot Framework documentation does not appear to
 have a particular term for each line in a test case. Each line in a test
 case consists of a keyword and its arguments.
-.HEADING 2 NAMED scenaro_outline_vs_template "Robot Framework's Templates versus cucumber's Scenario Outlines"
+.HEADING 2 NAMED scenaro_outline_vs_template "Robot Framework's Templates versus cucumber's Scenario Outlines
 .PP
 Robot Framework and cucumber have different ways of defining tests that
 run for multiple data values. In Robot Framework these are called
@@ -741,6 +800,7 @@ To illustrate, two examples of an equivalent test are provided below for
 both Robot Framework and cucumber.
 .PP
 Below is an example of a Robot Framework template:
+.FLOAT FORCE
 .QUOTE
 .CODE
 Invalid Login Tests
@@ -750,6 +810,7 @@ Invalid Login Tests
     ${VALID USER}   invalid
     invalid         whatever
 .QUOTE OFF
+.FLOAT OFF
 Here \*[cod]Invalid Login Should Fail\*[codx] is a keyword that takes two
 arguments. The \*[cod][Template]\*[codx] indicates that the
 \*[cod]Invalid Login Tests\*[codx] test case should be interpreted as a
@@ -759,7 +820,7 @@ Framework templates, see the
 .PDF_WWW_LINK http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#test-templates SUFFIX . documentation
 .PP
 Below is an example of a cucumber scenario outline:
-.\" .NEWPAGE
+.FLOAT FORCE
 .QUOTE
 .CODE
 Scenario Outline: Invalid login tests
@@ -776,6 +837,7 @@ Scenario Outline: Invalid login tests
     | admin    | invalid  |
     | invalid  | whatever |
 .QUOTE OFF
+.FLOAT OFF
 Here \*[cod]Scenario Outline\*[codx] indicates that this is a scenario
 outline. The \*[cod]Examples\*[codx] table contains the data to be used to
 be used to execute the scenario outline. The first line of the examples
@@ -795,6 +857,7 @@ languages. The table below shows which cucumber implementations are
 official (i.e., hosted under the
 .PDF_WWW_LINK https://github.com/cucumber SUFFIX ")," "GitHub Cucumber organization"
 semi-official, unofficial, or unmaintained as of the time of writing.
+.FLOAT FORCE
 .TS BOXED LABEL "Table 12: Languages Supported by Cucumber"
 tab(@);
 lB lB lB lB,
@@ -815,6 +878,7 @@ Tcl
 Go
 _
 .TE
+.FLOAT OFF
 .PP
 See
 .PDF_WWW_LINK https://cucumber.io/docs/installation/ here
