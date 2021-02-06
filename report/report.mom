@@ -126,13 +126,26 @@ deployment of a system consisting of several individual Docker containers.
 Acceptance tests are written using the
 .PDF_WWW_LINK https://robotframework.org/ "Robot Framework"
 test automation
-framework. Robot Framework is a test automation framework written in Python.
+framework. Robot Framework is a test automation framework.
 The acceptance tests also use
 .PDF_WWW_LINK https://www.selenium.dev/ SUFFIX , "Selenium"
 an open source framework for automated testing with a real web browser.
 .HEADING 3 NAMED technologies_robot "Robot Framework Overview"
 .PP
-Placeholder text
+Robot Framework can be used for test automation and also for generic
+automation. The project and its libraries are open source and free for use.
+Robot Framework allows use of built-in, library-provided, or user-defined
+"keywords". Keywords are high level operations or assertions that can be
+used to define test cases or higher level keywords. The lowest level
+keywords are written in either Python or Java. Higher level keywords are
+written directly in Robot Framework syntax using a syntax very close to
+natural language.
+.PP
+This is only a high level overview of Robot Framework. More details will
+be discussed later in this report. This report does not attempt to cover
+Robot Framework in full detail. To learn more about Robot Framework,
+consult its
+.PDF_WWW_LINK https://robotframework.org/#documentation SUFFIX . "documentation"
 \#
 .NEWPAGE
 .HEADING 1 NAMED use_cases "Use Cases"
@@ -745,10 +758,22 @@ whitespace-sensitive (see next section), there are also some advantages. The use
 to separate keyword arguments means there is no need to create regular
 expressions to parse the arguments out, as is the case with cucumber.
 .PP
-TODO Describe the advantage of variables
+Robot Framework also allows for using variables and control flow structures.
 .PP
-TODO Describe the advantages of libraries and built-in keywords \[en] save on time, save on
-complexity, etc.
+Variables can be created in Robot Framework in the global
+scope, test suite scope (visible only within a single \*[cod].robot\*[codx]
+file), or local scope (visible only within a single test case or keyword).
+Global variables can be provided to the \*[cod]robot\*[codx] driver either
+via the command line or via variable files. Variables allow for state to be
+managed within test cases, which can allow keywords to be stateless.
+For more details on variables, see the
+.PDF_WWW_LINK http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#variables SUFFIX . "Variables section of the Robot Framework user guide"
+.PP
+Robot Framework supports the for loop control structure. This allows test authors to write looping code in a nearly
+natural language syntax, as the conditional expressions and bodies of the
+control structures are written in a natural language such as English. For
+details on using for loops in Robot Framework, see the
+.PDF_WWW_LINK http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#for-loops SUFFIX . "corresponding secction of the Robot Framework user guide"
 .PP
 Possibly the greatest advantage of Robot Framework is its keywords.
 Robot keywords permit hiding low-level details from the definition of
@@ -760,6 +785,16 @@ test cases, to the highest level keywords, and then all the way down to the
 lowest level keywords not in Python or Java, can all be designed to only
 contain details relevant to how high-level or low-level the keyword or test
 case is.
+.PP
+Beyond any user-defined keywords, Robot Framework also has built-in
+keywords, and several official Robot Framework libraries that provide
+additional keywords. The built-in keywords and library keywords, as with
+any other Robot Framework keywords, can be used to create higher-level
+user-defined keywords. The rich set of keywords available for use allows
+testers to be very productive, as they do not need to spend any time
+reinventing the wheel. The testers also don't need to be considered with
+the added complexity and issues of maintaining their own custom helper
+implementations for driving tests.
 \#
 .HEADING 2 NAMED robot_disadvantages "Disadvantages of Robot Framework"
 .PP
@@ -848,7 +883,15 @@ a great deal of helper code, or perhaps even its own modules and libraries
 custom-developed for the project. In the worst case, then these test
 libraries themselves need their own tests.
 .PP
-TODO Cucumber has no built-in assertions
+Cucumber has no built-in assertions. Assertions are necessary for testing,
+as they provide a way to verify that the system under test behaves as
+expected. If an assertion fails, then a test case can be marked as failed,
+which indicates to the project members that there is a fault in their code
+that requires their attention. Regardless of the language in use for
+cucumber, since cucumber does not provide any built-in assertions, the
+implementers of cucumber steps must use an assertion library available for
+the implementation language, which increases the number of dependencies for
+the project.
 \#
 \# This needs to be the very last macro
 .TOC
