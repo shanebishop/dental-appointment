@@ -125,8 +125,12 @@ deployment of a system consisting of several individual Docker containers.
 .PP
 Acceptance tests are written using the
 .PDF_WWW_LINK https://robotframework.org/ "Robot Framework"
-test automation
-framework. Robot Framework is a test automation framework.
+and
+.PDF_WWW_LINK https://cucumber.io/ "cucumber"
+testing frameworks. Robot Framework is a framework for generic test
+automation. Cucumber is a framework for BDD (behaviour-driven development)
+testing. Both frameworks are open source.
+.PP
 The acceptance tests also use
 .PDF_WWW_LINK https://www.selenium.dev/ SUFFIX , "Selenium"
 an open source framework for automated testing with a real web browser.
@@ -439,44 +443,20 @@ _
 .HEADING 2 "Use Case Activity Diagrams"
 \#
 .PDF_IMAGE img/uc1.pdf 657p 152p SCALE 70 CAPTION "Figure 1: Activity diagram for UC1"
-.PP
-.\" Placeholder text
 .PDF_IMAGE img/uc2.pdf 345p 61p CAPTION "Figure 2: Activity diagram for UC2"
-.PP
-.\" Placeholder text
 .NEWPAGE
 .PDF_IMAGE img/uc3.pdf 517p 301p SCALE 75 CAPTION "Figure 3: Activity diagram for UC3"
-\# .ALD 301p
-.PP
-.\" Placeholder text
 .NEWPAGE
 .PDF_IMAGE img/uc4.pdf 536p 459p SCALE 75 CAPTION "Figure 4: Activity diagram for UC4"
-.PP
-.\" Placeholder text
 .PDF_IMAGE img/uc5.pdf 431p 54p CAPTION "Figure 5: Activity diagram for UC5"
-.PP
-.\" Placeholder text
 .PDF_IMAGE img/uc6.pdf 335p 63p CAPTION "Figure 6: Activity diagram for UC6"
-.PP
-.\" Placeholder text
 .PDF_IMAGE img/uc7.pdf 530p 531p SCALE 75 CAPTION "Figure 7: Activity diagram for UC7"
-.PP
-.\" Placeholder text
 .NEWPAGE
 .PDF_IMAGE img/uc8.pdf 533p 456p SCALE 75 CAPTION "Figure 8: Activity diagram for UC8"
-.PP
-.\" Placeholder text
 .PDF_IMAGE img/uc9.pdf 323p 54p CAPTION "Figure 9: Activity diagram for UC9"
-.PP
-.\" Placeholder text
 .PDF_IMAGE img/uc10.pdf 243p 65p CAPTION "Figure 10: Activity diagram for UC10"
-.PP
-.\" Placeholder text
 .PDF_IMAGE img/uc11.pdf 423p 63p CAPTION "Figure 11: Activity diagram for UC11"
-.PP
-.\" Placeholder text
 \#
-.NEWPAGE
 .HEADING 1 NAMED testing "Testing"
 .HEADING 2 NAMED testing_frontend "Frontend Testing"
 .PP
@@ -644,7 +624,7 @@ will not contribute to the number of passing or failing tests.
 .PP
 For each API implemented in the Django backend, there is a corresponding
 API test. Let us look at an example.
-.NEWPAGE
+.\" .NEWPAGE
 .QUOTE
 .CODE
 def test_create_user(self):
@@ -695,8 +675,118 @@ the data sent in the POST request with the remaining
 test will fail.
 .HEADING 2 NAMED testing_acceptance "Acceptance Testing"
 .PP
-Placeholder text
+Placeholder text. TODO See "Long term TODOs" for what I was planning to put
+here.
+.HEADING 2 NAMED test_files "Test Files"
+.PP
+This section explains how to find all the test files for each set of tests
+for this project. All commands must be run in a UNIX shell. All commands,
+except for the \*[cod]git clone\*[codx] command, must be in the project's
+root directory.
+.PP
+To clone the Git repository, run
+.QUOTE
+.CODE
+git clone https://github.com/shanebishop/dental-appointment.git
+.QUOTE OFF
+.PP
+To get all frontend tests, run
+.QUOTE
+.CODE
+find frontend/src -type f -name '*.test.js'
+.QUOTE OFF
+.PP
+To get all backend tests, run
+.QUOTE
+.CODE
+find backend -type f -name tests.py
+.QUOTE OFF
+.PP
+To get all Robot Framework acceptance tests, run
+.QUOTE
+.CODE
+find robot -type f -name '*.robot'
+.QUOTE OFF
+.PP
+To get all cucumber acceptance tests, run
+.QUOTE
+.CODE
+find cucumber/features -type f -name '*.feature'
+.QUOTE OFF
+.PP
+Helper files with helper functions and code for the Robot Framework and cucumber
+tests can be found in the \*[cod]robot\*[codx] and \*[cod]cucumber\*[codx]
+directories, respectively.
+\#
 .HEADING 1 NAMED robot_cucumber "Comparing and Contrasing Robot Framework and Cucumber"
+.HEADING 2 NAMED terminology_differences "Differences in Terminology"
+.PP
+There are some differences in the terminology used by Robot Framework and
+cucumber in their documentation. In Robot Framework, each
+\*[cod]\.robot\*[codx] file is refered to as a "test suite", whereas
+cucumber refers to each \*[cod]\.feature\*[codx] file (the equivalent
+of a \*[cod]\.robot\*[codx] file in cucumber) as a "feature". In cucumber,
+each feature is broken into "scenarios", where each scenario consists of one
+or more "steps". In Robot Framework, each test suite consists of one or
+more "test cases". The Robot Framework documentation does not appear to
+have a particular term for each line in a test case. Each line in a test
+case consists of a keyword and its arguments.
+.HEADING 2 NAMED scenaro_outline_vs_template "Robot Framework's Templates versus cucumber's Scenario Outlines"
+.PP
+Robot Framework and cucumber have different ways of defining tests that
+run for multiple data values. In Robot Framework these are called
+"templates", and in cucumber these are called "scenario outlines".
+.PP
+To illustrate, two examples of an equivalent test are provided below for
+both Robot Framework and cucumber.
+.PP
+Below is an example of a Robot Framework template:
+.QUOTE
+.CODE
+Invalid Login Tests
+    [Template]  Invalid Login Should Fail
+    invalid         invalid
+    invalid         ${VALID PASSWORD}
+    ${VALID USER}   invalid
+    invalid         whatever
+.QUOTE OFF
+Here \*[cod]Invalid Login Should Fail\*[codx] is a keyword that takes two
+arguments. The \*[cod][Template]\*[codx] indicates that the
+\*[cod]Invalid Login Tests\*[codx] test case should be interpreted as a
+template test case. The \*[cod]Invalid Login Should Fail\*[codx] keyword is
+executed once for each line of arguments. For more details on Robot
+Framework templates, see the
+.PDF_WWW_LINK http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#test-templates SUFFIX . documentation
+.PP
+Below is an example of a cucumber scenario outline:
+.\" .NEWPAGE
+.QUOTE
+.CODE
+Scenario Outline: Invalid login tests
+  Given User is on login page
+  When User enters username "<username>"
+  And User enters password "<password>"
+  And User submits credentials
+  Then Failed login dialog contains message "expected message"
+
+  Examples:
+    | username | password |
+    | invalid  | invalid  |
+    | invalid  | admin    |
+    | admin    | invalid  |
+    | invalid  | whatever |
+.QUOTE OFF
+Here \*[cod]Scenario Outline\*[codx] indicates that this is a scenario
+outline. The \*[cod]Examples\*[codx] table contains the data to be used to
+be used to execute the scenario outline. The first line of the examples
+is the names of each column of data. These names correspond to strings in
+the scenario outline's steps within angle brackets. In the case of this
+example, entries in the \*[cod]username\*[codx] column will be substituted for
+the string \*[cod]<username>\*[codx] in the steps above, and the same will
+be done for the \*[cod]password\*[codx] column. For more details about
+cucumber scenario outlines, see the
+.PDF_WWW_LINK https://cucumber.io/docs/gherkin/reference/#scenario-outline SUFFIX . documentation
+\#
 .HEADING 2 NAMED robot_cucumber_supported "Supported Languages"
 .PP
 Robot Framework keywords can be written only in Robot Framework,
