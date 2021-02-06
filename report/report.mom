@@ -699,8 +699,8 @@ cucumber scenarios provide test coverage for which use cases.
 Note that all Robot Framework files are under the \*[cod]robot\*[codx]
 directory, and all cucumber feature files are under the
 \*[cod]cucumber/features\*[codx] directory.
-.FLOAT FORCE
-.TS BOXED LABEL "Table 11: Which Robot Framwork and cucumber files correspond to which use cases"
+.FLOAT
+.TS BOXED LABEL "Table 11: Which Robot Framework and cucumber files correspond to which use cases"
 tab(@);
 lB lB lB,
 l l l.
@@ -811,6 +811,7 @@ Invalid Login Tests
     invalid         whatever
 .QUOTE OFF
 .FLOAT OFF
+.PP
 Here \*[cod]Invalid Login Should Fail\*[codx] is a keyword that takes two
 arguments. The \*[cod][Template]\*[codx] indicates that the
 \*[cod]Invalid Login Tests\*[codx] test case should be interpreted as a
@@ -857,7 +858,7 @@ languages. The table below shows which cucumber implementations are
 official (i.e., hosted under the
 .PDF_WWW_LINK https://github.com/cucumber SUFFIX ")," "GitHub Cucumber organization"
 semi-official, unofficial, or unmaintained as of the time of writing.
-.FLOAT FORCE
+.FLOAT
 .TS BOXED LABEL "Table 12: Languages Supported by Cucumber"
 tab(@);
 lB lB lB lB,
