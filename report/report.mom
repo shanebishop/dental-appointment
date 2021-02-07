@@ -5,17 +5,17 @@
 \#
 \# Metadata
 \#
-.TITLE "TODO Determine Title"
-.AUTHOR "Shane Bishop"
+.\" .TITLE "Implementing and Testing a Dentistry Appointment System"
+.\" .AUTHOR "Shane Bishop"
 .ATTRIBUTE_STRING ""
 .PRINTSTYLE TYPESET
 \#
 \# This determines what goes on the the cover page
-.DOC_COVER TITLE AUTHOR
+.\" .DOC_COVER TITLE AUTHOR
 \#
 \# Set up Table of Contents
 \#
-.AUTO_RELOCATE_TOC
+.\" .AUTO_RELOCATE_TOC AFTER_DOCCOVER
 .SPACE_TOC_ITEMS
 \#
 \# Have captions after labels
@@ -65,13 +65,96 @@
 \#
 .START
 \#
-.HEADING 1 NAMED abstract "Abstract"
-.PP
-Placeholder text
+.DOC_COVERTEXT
+.ALD 0.5i
+.CENTER
+.FT B
+.PT_SIZE 18
+Implementing and Testing a Dentistry Appointment System
+.FT R
+.PT_SIZE 12
+.ALD 1i
+Shane Bishop
+.SP
+Supervisor: Jean-Pierre Corriveau
+.SP 4
+School of Computer Science
+Carleton University
+Ottawa, Ontario, Canada
+.ALD 2.5i
+.FT BI
+.PT_SIZE 14
+.LS 14
+.CENTER
+Abstract
+.SP .5v
+.FT R
+.PT_SIZE 12
+.\" .IB 6P
+.JUSTIFY
+In this project a client-server dentistry appointment system was built.
+This system served as a software system to be tested on every level of its
+"stack" using automated tests. The system was tested with unit tests,
+REST API tests, and acceptance tests. Two competing frameworks for
+acceptance testing, Robot Framework and cucumber, were compared and
+contrasted.
+.DOC_COVERTEXT OFF
+.TOC_AFTER_HERE
+.NEWPAGE
 \#
 .HEADING 1 NAMED intro "Introduction"
 .PP
-Placeholder text
+This report was written as part of the requirements for the Honours Project
+completed by Shane Bishop, under the supervision of Professor Jean-Pierre
+Corriveau, as part of the requirements for the Honours Bachelor of
+Computer Science degree at Carleton University. This Honours Project was
+completed during the Winter 2021 academic term.
+.PP
+This is a technical academic report. This report is written for readers with
+a programming background with a working knowledge of software testing and
+software quality assurance. Readers should be familiar with the Python and
+JavaScript programming languages.
+.PP
+All source code developed to complete this projected is hosted in a Git
+repository on GitHub. To request access to the repository,
+email Shane Bishop at shanebishop@cmail.carleton.ca.
+.HEADING 2 NAMED system_description "System Description"
+.PP
+The system developed for this project is a dentistry appointment system.
+The system has a client-server architecture.
+.PP
+The client is a webapp. The webapp provides a graphical user interface for
+the end users, which can be accessed by the users using a web browser.
+.PP
+The client communicates with the server via REST requests. The server
+exposes a REST API to the client, which the client usses to send requests
+to the server. The server supports multiple clients and was designed to
+handle concurrent requests.
+.PP
+In the user interface, dental staff can edit and view appointments. Dental
+clients can only view their own appointments and cannot edit their
+appointments. Dental staff can edit and view appointments for all clients,
+but clients can only view their own appointments. Only dental staff can
+cancel appointments.
+.HEADING 2 NAMED goals "Project Objectives"
+.PP
+This project has the following objectives:
+.LIST
+.SHIFT_LIST 2P+2p
+.ITEM
+Build a complete dental appointment system that satisfies the above system
+description
+.ITEM
+Implement automated tests for testing the REST API endpoints exposed by the
+server
+.ITEM
+Implement automated unit tests for the client
+.ITEM
+Implement automated acceptance tests for the client
+.ITEM
+Compare and contrast Robot Framework and cucumber as two competing
+solutions for automated acceptance testing
+.LIST OFF
 \#
 .HEADING 1 NAMED techologies "Tools and Technologies"
 .PP
@@ -121,6 +204,12 @@ and any Docker "image" can be rebuilt from the same specification.
 .CODE OFF
 is a Docker tool that uses declarative code to define the
 deployment of a system consisting of several individual Docker containers.
+.PP
+This project also uses
+.PDF_WWW_LINK https://www.nginx.com/ "Nginx"
+to connect the different components of the system over the Docker virtual
+network. Nginx is a free, open source networking tool with many uses, including serving as a
+web server, load balancer, reverse proxy, or API gateway.
 .HEADING 2 NAMED technologies_acceptance "Acceptance Testing"
 .PP
 Acceptance tests are written using the
@@ -151,6 +240,21 @@ Robot Framework in full detail. To learn more about Robot Framework,
 consult its
 .PDF_WWW_LINK https://robotframework.org/#documentation SUFFIX . "documentation"
 \#
+.HEADING 3 NAMED behave "Python Behave and PyHamcrest Libraries"
+.PP
+For this project, all cucumber steps were implemented in Python using the
+.PDF_WWW_LINK https://behave.readthedocs.io/en/stable/ "behave"
+Python implementation of cucumber. It may be useful to read the
+.PDF_WWW_LINK https://behave.readthedocs.io/en/stable/tutorial.html "behave tutorial"
+before reading the step definitions for this project. All step definitions
+can be found in the \*[cod]cucumber/features/steps\*[codx] directory of
+this project's source code.
+.PP
+Since cucumber does not provide assertions natively (in any implementation
+language), the
+.PDF_WWW_LINK https://pyhamcrest.readthedocs.io/en/latest/ "PyHamcrest"
+Python assertion library was used to make assertions in the step
+definitions.
 .NEWPAGE
 .HEADING 1 NAMED use_cases "Use Cases"
 .HEADING 2 NAMED use_case_diagrams "Use Case Diagrams"
@@ -967,11 +1071,18 @@ specified with the special \*[cod]${EMPTY}\*[codx] variable. Whitespace
 within arguments must be escaped.
 .PP
 Although relatively popular, Robot Framework is not as popular as cucumber.
-Syntax highlighting and support for Robot Framework in most text editors and
-IDEs requires installing a plugin. Sometimes the plugin is a community
+Syntax highlighting and support for Robot Framework in most text editors
+and IDEs requires installing a plugin. Sometimes the plugin is a community
 plugin rather than an official plugin, and/or the plugin may have bugs or
 not correctly apply syntax highlighting to new syntax available in the
 latest Robot Framework release.
+.PP
+In the default log level, the line number of the keyword a test case
+fails on is not displayed in the console output. Instead, only the error
+message for the failing keyword is printed, without any context other
+than knowing which test case failed. Knowing the line number of the
+keyword that caused the test case to fail would
+considerably speed up the time required to debug a failing test case.
 \#
 .HEADING 2 NAMED cucumber_advantages "Advantages of Cucumber"
 .PP
