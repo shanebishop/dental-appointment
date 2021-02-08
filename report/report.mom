@@ -15,7 +15,7 @@
 \#
 \# Set up Table of Contents
 \#
-.\" .AUTO_RELOCATE_TOC AFTER_DOCCOVER
+.AUTO_RELOCATE_TOC AFTER_DOCCOVER
 .SPACE_TOC_ITEMS
 \#
 \# Have captions after labels
@@ -63,10 +63,14 @@
 \#.FAMILY P
 \#.FALLBACK_FONT TR
 \#
-.START
+\# Header stuff
+\#
+.HEADER_LEFT "Shane Bishop"
+.HEADER_RIGHT "Implementing and Testing a Dentistry Appointment System"
+.HEADER_RIGHT_CAPS OFF
 \#
 .DOC_COVERTEXT
-.ALD 0.5i
+.ALD 1.5i
 .CENTER
 .FT B
 .PT_SIZE 18
@@ -77,11 +81,15 @@ Implementing and Testing a Dentistry Appointment System
 Shane Bishop
 .SP
 Supervisor: Jean-Pierre Corriveau
+.SP 3
+April 23, 2021
+.SP 3
+COMP 4905 \[en] Honours Project
 .SP 4
 School of Computer Science
 Carleton University
 Ottawa, Ontario, Canada
-.ALD 2.5i
+.ALD 1.6i
 .FT BI
 .PT_SIZE 14
 .LS 14
@@ -90,7 +98,6 @@ Abstract
 .SP .5v
 .FT R
 .PT_SIZE 12
-.\" .IB 6P
 .JUSTIFY
 In this project a client-server dentistry appointment system was built.
 This system served as a software system to be tested on every level of its
@@ -99,7 +106,20 @@ REST API tests, and acceptance tests. Two competing frameworks for
 acceptance testing, Robot Framework and cucumber, were compared and
 contrasted.
 .DOC_COVERTEXT OFF
-.TOC_AFTER_HERE
+.DOC_COVER DOC_COVERTEXT
+\#
+.START
+\#
+.HEADING 1 NAMED acknowledgments "Acknowledgments"
+.PP
+Thanks to my supervisor, Professor Jean-Pierre Corriveau, for answering my
+questions related to this report and for his helpful feedback and
+discussion with me throughout the process of completing this project.
+.PP
+Thanks to Peter Schaffter for his help working with the mom groff macros.
+Mr. Schaffter was an excellent resource for help with building and
+typesetting this report document. Thanks for taking time out of your day to
+help me.
 .NEWPAGE
 \#
 .HEADING 1 NAMED intro "Introduction"
@@ -127,7 +147,7 @@ The client is a webapp. The webapp provides a graphical user interface for
 the end users, which can be accessed by the users using a web browser.
 .PP
 The client communicates with the server via REST requests. The server
-exposes a REST API to the client, which the client usses to send requests
+exposes a REST API to the client, which the client uses to send requests
 to the server. The server supports multiple clients and was designed to
 handle concurrent requests.
 .PP
@@ -156,12 +176,12 @@ Compare and contrast Robot Framework and cucumber as two competing
 solutions for automated acceptance testing
 .LIST OFF
 \#
-.HEADING 1 NAMED techologies "Tools and Technologies"
+.HEADING 1 NAMED technologies "Tools and Technologies"
 .PP
 The Dental Appointments system is a full-stack webapp, consisting of a
 frontend, backend server, and database. Each layer of the application has
 its own tests as appropriate for the language or framework being used for
-that layer. This section will describe all of the tools and techologies
+that layer. This section will describe all of the tools and technologies
 employed by this system in terms of both implementation and testing.
 .HEADING 2 NAMED technologies_frontend "Frontend"
 .PP
@@ -259,7 +279,7 @@ definitions.
 .HEADING 1 NAMED use_cases "Use Cases"
 .HEADING 2 NAMED use_case_diagrams "Use Case Diagrams"
 \#
-\# Tables are really complicated, and use difficult to read stuf...
+\# Tables are really complicated, and use difficult to read stuff...
 \# To really understand how this works, read chapter 5 of "Unix Text Processing"
 \# in detail up to at least page 177 (inclusive).
 \# Unix Text Processing: https://drive.google.com/file/d/128T-HMKbnDeYnLFzi714fZwytYsswS1z/view?usp=sharing
@@ -881,12 +901,12 @@ Helper files with helper functions and code for the Robot Framework and cucumber
 tests can be found in the \*[cod]robot\*[codx] and \*[cod]cucumber\*[codx]
 directories, respectively.
 \#
-.HEADING 1 NAMED robot_cucumber "Comparing and Contrasing Robot Framework and Cucumber"
+.HEADING 1 NAMED robot_cucumber "Comparing and Contrasting Robot Framework and Cucumber"
 .HEADING 2 NAMED terminology_differences "Differences in Terminology"
 .PP
 There are some differences in the terminology used by Robot Framework and
 cucumber in their documentation. In Robot Framework, each
-\*[cod]\.robot\*[codx] file is refered to as a "test suite", whereas
+\*[cod]\.robot\*[codx] file is referred to as a "test suite", whereas
 cucumber refers to each \*[cod]\.feature\*[codx] file (the equivalent
 of a \*[cod]\.robot\*[codx] file in cucumber) as a "feature". In cucumber,
 each feature is broken into "scenarios", where each scenario consists of one
@@ -894,7 +914,7 @@ or more "steps". In Robot Framework, each test suite consists of one or
 more "test cases". The Robot Framework documentation does not appear to
 have a particular term for each line in a test case. Each line in a test
 case consists of a keyword and its arguments.
-.HEADING 2 NAMED scenaro_outline_vs_template "Robot Framework's Templates versus cucumber's Scenario Outlines
+.HEADING 2 NAMED scenario_outline_vs_template "Robot Framework's Templates versus cucumber's Scenario Outlines
 .PP
 Robot Framework and cucumber have different ways of defining tests that
 run for multiple data values. In Robot Framework these are called
@@ -1004,8 +1024,8 @@ which has both advantages and disadvantages). This means tests can be
 read and written by any text editor on any platform, and tests can be
 easily version controlled.
 .PP
-Robot Framework test cases can be written using either Gerkin or regular
-syntax. This allows testers to write their test casees to express how the
+Robot Framework test cases can be written using either Gherkin or regular
+syntax. This allows testers to write their test cases to express how the
 test is conducted as they wish \[en] they are not tied to a particular way
 of expressing test cases.
 .PP
@@ -1032,7 +1052,7 @@ Robot Framework supports the for loop control structure. This allows test author
 natural language syntax, as the conditional expressions and bodies of the
 control structures are written in a natural language such as English. For
 details on using for loops in Robot Framework, see the
-.PDF_WWW_LINK http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#for-loops SUFFIX . "corresponding secction of the Robot Framework user guide"
+.PDF_WWW_LINK http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#for-loops SUFFIX . "corresponding section of the Robot Framework user guide"
 .PP
 Possibly the greatest advantage of Robot Framework is its keywords.
 Robot keywords permit hiding low-level details from the definition of
@@ -1057,8 +1077,8 @@ implementations for driving tests.
 \#
 .HEADING 2 NAMED robot_disadvantages "Disadvantages of Robot Framework"
 .PP
-Robot Framework currently only has support for defining keywords in Roboot
-Framework, Python, and Java. This is not necesaarily problematic if Robot Framework
+Robot Framework currently only has support for defining keywords in Robot
+Framework, Python, and Java. This is not necessarily problematic if Robot Framework
 is being used to write acceptance tests, as is the case for this project,
 but this can be a problem if it is being used for lower-level tests such as
 unit tests. Unit tests should be written using the implementation language,
@@ -1111,7 +1131,7 @@ the required types for each step's implementation.
 .PP
 Cucumber offers no official way to have setup and teardown code or steps
 for features. The
-.PDF_WWW_LINK https://github.com/cucumber/cucumber-jvm "cucumber-jvm repository on Github"
+.PDF_WWW_LINK https://github.com/cucumber/cucumber-jvm "cucumber-jvm repository on GitHub"
 (for the Java
 implementation of cucumber) has an
 .PDF_WWW_LINK https://github.com/cucumber/cucumber-jvm/issues/515 issue
