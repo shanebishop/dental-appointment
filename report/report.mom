@@ -10,9 +10,6 @@
 .ATTRIBUTE_STRING ""
 .PRINTSTYLE TYPESET
 \#
-\# This determines what goes on the the cover page
-.\" .DOC_COVER TITLE AUTHOR
-\#
 \# Set up Table of Contents
 \#
 .AUTO_RELOCATE_TOC AFTER_DOCCOVER
@@ -40,14 +37,6 @@
 .mso pdf-link.tmac
 \# Set indent for quoting
 .QUOTE_INDENT 1
-.\" Make QUOTE look like CODE
-.\" .QUOTE_STYLE \
-.\"   FAMILY C \
-.\"   FONT   B \
-.\"   SIZE   +1.5 \
-.\"   COLOR  dark-grey \
-.\"   INDENT 9p
-.\"
 .\" Color for code snippets
 .CODE_STYLE \
   FONT  B \
@@ -56,12 +45,6 @@
 .\" Strings for inline code
 .ds cod  \E*[CODE]\&\E*[COND]
 .ds codx \E*[CONDX]\E*[CODE off]\&
-\#
-\# Use Palatino instead of default Times Roman font
-\# If Palatino is unavailable, use Times Roman font
-\# TODO Currently doesn't work, but have a question for this: https://unix.stackexchange.com/questions/630457/using-palatino-font-with-groff-mom-macros
-\#.FAMILY P
-\#.FALLBACK_FONT TR
 \#
 \# Header stuff
 \#
