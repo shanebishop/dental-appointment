@@ -13,6 +13,12 @@ but be converted to PDFs. To do this, run
 convert <image> <desired pdf name>
 ```
 
+To batch convert all PNGs to PDFs, run
+
+```bash
+for i in {1..11}; do convert "uc$i.png" "uc$i.pdf"; done
+```
+
 Then run
 
 ```bash

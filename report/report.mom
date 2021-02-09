@@ -101,8 +101,20 @@ discussion with me throughout the process of completing this project.
 .PP
 Thanks to Peter Schaffter for his help working with the mom groff macros.
 Mr. Schaffter was an excellent resource for help with building and
-typesetting this report document. Thanks for taking time out of your day to
-help me.
+typesetting this report document. Thank you very much for your time.
+.PP
+I would like to thank and give credit to Himanshu Sheth.
+Thank you for your informative and helpful article,
+.PDF_WWW_LINK https://www.lambdatest.com/blog/selenium-python-behave-tutorial-bdd/ SUFFIX . "Selenium Python Tutorial: Getting Started With BDD In Behave"
+This article was helpful for setting up boilerplate code for my cucumber
+tests. Where code was based on code from this article, it is indicated by
+a comment at the start of the file.
+.PP
+Thank you to James Chychota for exposing me to Django,
+\*[cod]docker-compose\*[codx], and Nginx during my work at Nokia in 2020.
+My initial exposure to these technologies greatly facilitated my ability to
+learn more about and develop with these technologies while working on this
+project.
 .NEWPAGE
 \#
 .HEADING 1 NAMED intro "Introduction"
@@ -166,6 +178,12 @@ frontend, backend server, and database. Each layer of the application has
 its own tests as appropriate for the language or framework being used for
 that layer. This section will describe all of the tools and technologies
 employed by this system in terms of both implementation and testing.
+.PP
+None of the descriptions of the technologies given here should be treated
+as substitutes for the official documentation for each technology. The
+descriptions given here are only brief introductions for the reader. To
+learn more about each technology, please consult the official
+documentation.
 .HEADING 2 NAMED technologies_frontend "Frontend"
 .PP
 The frontend is written in JavaScript using the
@@ -201,9 +219,8 @@ is a JavaScript UI library of comparable
 power and maturity, but React was preferred because the author had
 experience with React, and no experience yet in Angular.
 .PDF_WWW_LINK https://vuejs.org/ "Vue.js"
-is another
-component JavaScript UI library, but this framework is very new and not yet
-as powerful as React.
+is another JavaScript UI library, but this framework is very new and not
+yet as powerful as React.
 .PP
 To learn more about React, a good starting point is the
 .PDF_WWW_LINK https://reactjs.org/tutorial/tutorial.html SUFFIX , "online tutorial"
@@ -634,6 +651,11 @@ _
 .FLOAT OFF
 \#
 .HEADING 2 "Use Case Activity Diagrams"
+.PP
+This section has the activity diagrams for each use case. Each activity
+diagram has a one-to-one mapping to a use case. Each arrow in each
+activity diagram is labeled so that paths through each use case can be
+uniquely identified.
 \#
 .PDF_IMAGE img/uc1.pdf 657p 152p SCALE 70 CAPTION "Figure 1: Activity diagram for UC1"
 .PDF_IMAGE img/uc2.pdf 345p 61p CAPTION "Figure 2: Activity diagram for UC2"
