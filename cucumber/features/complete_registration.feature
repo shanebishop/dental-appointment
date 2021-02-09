@@ -1,6 +1,7 @@
 @database-reset-required
 Feature: Tests for Complete Registration page
 
+  # UC4 path 1,2,3,4,5a,6a,7a,8a,9,10
   Scenario: Client can be fully registered
     When Staff member is logged in
     And Staff member is on User Registration page
@@ -15,6 +16,7 @@ Feature: Tests for Complete Registration page
     And Login fields have loaded
     And Client can login with credentials "user1" "password1"
 
+  # UC4 path 1,2,3,4,5a,6b
   Scenario: Completing registration fails if username is invalid
     When Staff member is logged in
     And Staff member is on User Registration page
@@ -28,6 +30,7 @@ Feature: Tests for Complete Registration page
     And User clicks on element with name "submit-btn"
     Then Complete registration dialog should display message "Invalid username/password."
 
+  # UC4 path 1,2,3,4,5a,6a,7a,8b
   Scenario: Completing registration fails if registration token is invalid
     # Initial registration completed for user2 in previous scenario
     When Client goes to Complete Registration page
@@ -38,6 +41,7 @@ Feature: Tests for Complete Registration page
     And User clicks on element with name "submit-btn"
     Then Complete registration dialog should display message "Error: provided registration token is invalid"
 
+  # UC4 path 1,2,3,4,5b
   Scenario: Completing registration fails if passwords do not match
     # Initial registration completed for user2 in a previous scenario
     When Client goes to Complete Registration page
@@ -48,6 +52,7 @@ Feature: Tests for Complete Registration page
     And User clicks on element with name "submit-btn"
     Then Complete registration dialog should display message "Passwords do not match."
 
+  # UC4 path 1,2,3,4,5a,6a,7b
   Scenario: Completing registration fails if user does not have incomplete registration status
     # bobb is already fully registered
     When Client goes to Complete Registration page

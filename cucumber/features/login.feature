@@ -1,5 +1,6 @@
 Feature: Tests for Sign In page
 
+  # UC1 path 1,2,3,4a,5,6
   Scenario: Valid login should succeed
     Given User is on login page
     When User enters username "admin"
@@ -7,6 +8,7 @@ Feature: Tests for Sign In page
     And User submits credentials
     Then Home page should open
 
+  # UC1 path 1,2,3,4b
   Scenario Outline: Invalid login tests
     Given User is on login page
     When User enters username "<username>"

@@ -32,6 +32,7 @@ Feature: Tests for Appointments page
     And User is on Appointments page
     Then Element with ID "no-appointments-paragraph" should have text "No appointments"
 
+  # UC5 (only one possible path)
   Scenario: Clients can view appointment details
     When Client has logged in with credentials "bobb" "bobb"
     And User is on Appointments page
@@ -56,6 +57,7 @@ Feature: Tests for Appointments page
     Then Appointment shows date "2021-06-03", time "11:15:00", hygienist "Tonya Combs", operation "Fillings"
     And Appointment details does not show extra notes
 
+  # UC6 (only one possible path)
   Scenario: Staff members can view appointment details
     When Staff member is logged in
     And User is on Appointments page
@@ -97,6 +99,7 @@ Feature: Tests for Appointments page
     And Appointments table has loaded
     Then No element should exist with name "filter-input"
 
+  # UC9 (only one path)
   Scenario: Staff members can cancel appointments
     When Staff member is logged in
     And User is on Appointments page

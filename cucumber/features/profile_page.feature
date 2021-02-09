@@ -7,6 +7,7 @@ Feature: Tests for Profile page
     And Element with ID "display-name-lbl" should have text "Display name: admin"
     And No element should exist with ID "contact-info-card"
 
+  # UC10 (only one possible path)
   Scenario: Client information is displayed for client
     When Client has logged in with credentials "bobb" "bobb"
     And User is on Profile page

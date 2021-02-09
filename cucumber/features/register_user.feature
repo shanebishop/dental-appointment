@@ -1,6 +1,7 @@
 @database-reset-required
 Feature: Tests for staff User Registration page
 
+  # UC3 path 1,2,3,4,5a,6a,7,8,9*
   Scenario: Staff members can register new client users
     When Staff member is logged in
     And Staff member is on User Registration page
@@ -11,30 +12,35 @@ Feature: Tests for staff User Registration page
     And 7 seconds have elapsed
     Then Registration dialog should display message "Registered john.doe."
 
+  # UC3 path 1,2,3,4,5b
   Scenario: Username cannot be reused
     When Staff member is logged in
     And Staff member is on User Registration page
     And Staff member enters user registration data "John" "Doe" "john.doe" "john@company.com" "1234 Main St." "22" "Toronto" "Ontario" "A1A 1A1"
     Then Registration dialog should display message "Error: username john.doe taken"
 
+  # UC3 path 1,2,3,4,5a,6b
   Scenario: Staff members are prevented from entering an invalid postal code
     When Staff member is logged in
     And Staff member is on User Registration page
     And Staff member enters user registration data "John" "Smith" "john.smith" "john@company.com" "1234 Main St." "22" "Toronto" "Ontario" "A1A 1A12"
     Then Registration dialog should display message "Error: postalCode exceeds max length"
 
+  # UC3 path 1,2,3,4,5a,6b
   Scenario: Address 1 value cannot be too long
     When Staff member is logged in
     And Staff member is on User Registration page
     And Staff member enters user registration data "John" "Smith" "john.smith" "john@company.com" "ierigkyrcrzyvsvbwdhpdfgvbexwswicimgtsdoqwntggqrsmgrhjsjkhnfvoqwhtbpjxpkrzrpythdbtqeluworputyilowgusxgpmslmefokboppqbkksthybyiwgwmxvsfnmncglkiyxcrhglzmwomkkcqnwujdsnzpfudpyskanubofuqpfwmqrdjjjdzmkjofdvi" "22" "Toronto" "Ontario" "A1A 1A1"
     Then Registration dialog should display message "Error: address1 exceeds max length"
 
+  # UC3 path 1,2,3,4,5a,6b
   Scenario: Address 2 value cannot be too long
     When Staff member is logged in
     And Staff member is on User Registration page
     And Staff member enters user registration data "John" "Smith" "john.smith" "john@company.com" "1234 Main St." "ierigkyrcrzyvsvbwdhpdfgvbexwswicimgtsdoqwntggqrsmgrhjsjkhnfvoqwhtbpjxpkrzrpythdbtqeluworputyilowgusxgpmslmefokboppqbkksthybyiwgwmxvsfnmncglkiyxcrhglzmwomkkcqnwujdsnzpfudpyskanubofuqpfwmqrdjjjdzmkjofdvi" "Toronto" "Ontario" "A1A 1A1"
     Then Registration dialog should display message "Error: address2 exceeds max length"
 
+  # UC3 path 1,2,3,4,5a,6b
   Scenario: City value cannot be too long
     When Staff member is logged in
     And Staff member is on User Registration page

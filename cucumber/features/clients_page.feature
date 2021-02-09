@@ -1,5 +1,5 @@
 Feature: Tests for Clients page
-  
+
   Scenario: Data on Clients page is displayed correctly
     When Staff member is logged in
     And Staff member is on Clients page
@@ -23,7 +23,8 @@ Feature: Tests for Clients page
     And Element with ID "client|key=ruthm|name=username" should have text "ruthm"
     And Element with ID "client|key=ruthm|name=first_name" should have text "Ruth"
     And Element with ID "client|key=ruthm|name=last_name" should have text "Murray"
-    
+
+  # UC11 (only one possible path)
   Scenario: Staff members can view client profiles
     When Staff member is logged in
     And Staff member is on Clients page
