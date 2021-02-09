@@ -173,6 +173,42 @@ The frontend is written in JavaScript using the
 library. Unit tests for the react code were written using the
 .PDF_WWW_LINK https://jestjs.io/ "Jest"
 JavaScript testing framework.
+.PP
+React is a free, open source JavaScript library initially developed by
+Facebook, and now maintained by Facebook and the React community. React
+is centered around rendering to the browser's
+.PDF_WWW_LINK https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model "DOM (Document Object Model)"
+using React components.
+.PP
+React components are reusable UI components that
+can be reused on multiple different pages of a webapp. Rendering is based
+on the state of a component. Components are re-rendered on every state
+change. For performance, React intelligently only re-renders parts of the
+DOM that were affected by a state change. With this automatic re-rendering,
+a page can be responsive to user interaction without a full page reload.
+React webapps can "react" to users, hence where the library's name came
+from.
+.PP
+A notable feature of React is JSX. JSX is an extension of the JavaScript
+language syntax that permits developers to write psuedo-HTML for how each
+React component will render. For more information, see
+.PDF_WWW_LINK https://reactjs.org/docs/introducing-jsx.html SUFFIX . "the documentation"
+.PP
+React was chosen for this project because it is a powerful and mature
+JavaScript UI library.
+.PDF_WWW_LINK https://angular.io/ "Angular"
+is a JavaScript UI library of comparable
+power and maturity, but React was preferred because the author had
+experience with React, and no experience yet in Angular.
+.PDF_WWW_LINK https://vuejs.org/ "Vue.js"
+is another
+component JavaScript UI library, but this framework is very new and not yet
+as powerful as React.
+.PP
+To learn more about React, a good starting point is the
+.PDF_WWW_LINK https://reactjs.org/tutorial/tutorial.html SUFFIX , "online tutorial"
+followed by the
+.PDF_WWW_LINK https://reactjs.org/docs/hello-world.html SUFFIX . "main concepts guide"
 .HEADING 2 NAMED technologies_backend "Backend"
 .PP
 The backend server is written in Python using the
@@ -184,6 +220,41 @@ was used to simplify the code for writing the REST APIs.
 .PP
 The Django framework includes its own built-in testing framework. The API
 tests for the backend are written using this built-in testing framework.
+.PP
+The Django framework was written by web developers, for web developers. It
+is a free and open source framework. Django was designed to be fast,
+secure, and scalable. Much of the nitty-gritty low level details of a
+web backend are handled behind the scenes by Django. Django allows for, and
+encourages, writing clean, pythonic, high level code.
+.PP
+Another great strength of Django is that it handles all database details
+for the developer. The developer is not required to write any database
+queries by hand. All database details are abstracted away by Django's
+.PDF_WWW_LINK https://docs.djangoproject.com/en/3.1/topics/db/models/ SUFFIX . models
+All interactions with models are expressed directly in Python, and then
+Django handles constructing and executing the equivalent database queries.
+One huge benefit of this approach is that the database management system
+(DBMS) used in a project can be swapped out without requiring any change to the
+python code \[en] Django will automatically construct appropriate queries
+for the new DBMS at runtime.
+.PP
+The Django REST framework is a natural extension to native Django, with the
+same strengths as native Django. With the concept of
+.PDF_WWW_LINK https://www.django-rest-framework.org/api-guide/views/ SUFFIX , views
+the Django REST framework permits developers to write very little code to
+produce APIs for various data models.
+.PP
+The Django framework was chosen for this project because it is free,
+it is a mature web framework, and because of the ease of development
+using this framework.
+.PP
+To learn more about Django and the Django REST framework, the best initial
+starting points are the
+.PDF_WWW_LINK https://docs.djangoproject.com/en/3.1/intro/tutorial01/ "Django tutorial"
+and the
+.PDF_WWW_LINK https://www.django-rest-framework.org/tutorial/quickstart/ SUFFIX . "Django REST Framework tutorial"
+The full online Django documentation can be found
+.PDF_WWW_LINK https://docs.djangoproject.com SUFFIX . "here"
 .HEADING 2 NAMED technologies_database "Database"
 .PP
 The database uses the
