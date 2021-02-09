@@ -35,6 +35,7 @@ Dialog Shows Success
     Dialog Shows Message    Appointment created.
 
 *** Test Cases ***
+# UC8 path 1,2,3,4,5a,6a,7a,8a,9
 Staff Can Create Appointment
     Go To Create Appointment Page
     Enter Appointment Data    2021-05-13    11:15    bobb    Tonya Combs    Fillings    2 fillings
@@ -43,24 +44,28 @@ Staff Can Create Appointment
     Appointment Exists    ${AUTH TOKEN}    2021-05-13    11:15    bobb    ${APPOINTMENTS_LIST_API_URL}
     Test Teardown
 
+# UC8 path 1,2,3,4,5a,6b
 Error Message Is Displayed If Date Is Invalid
     Go To Create Appointment Page
     Enter Appointment Data    foo    11:15    bobb    Tonya Combs    Fillings    2 fillings
     Press Submit Button
     Dialog Shows Message    Error: Date 'foo' does not match YYYY-MM-DD format
 
+# UC8 path 1,2,3,4,5a,6a,7b
 Error Message Is Displayed If Time Is Invalid
     Go To Create Appointment Page
     Enter Appointment Data    2021-05-13    foo    bobb    Tonya Combs    Fillings    2 fillings
     Press Submit Button
     Dialog Shows Message    Error: Time 'foo' does not match either HH:MM:SS or HH:MM
 
+# UC8 path 1,2,3,4,5b
 Error Message Is Displayed If Username Is Not Registered
     Go To Create Appointment Page
     Enter Appointment Data    2021-05-13    11:15    notindb    Tonya Combs    Fillings    2 fillings
     Press Submit Button
     Dialog Shows Message    Error: No user found with username "notindb"
 
+# UC8 path 1,2,3,4,5a,6a,7a,8b
 Appointment Cannot Be Created If It Would Conflict With Another Appointment
     Go To Create Appointment Page
     Enter Appointment Data    2021-05-23    14:30    bobb    Tonya Combs    Fillings    2 fillings

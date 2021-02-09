@@ -78,6 +78,7 @@ Server Message Is Displayed If No Appointments
     Wait Until Element Is Visible    no-appointments-paragraph    1
     Element Text Should Be    no-appointments-paragraph    No appointments
 
+# UC5 (only one possible path)
 Client View Appointment Details
     Login As Client    bobb    bobb
     Go To Appointments Page
@@ -102,6 +103,7 @@ Client View Appointment Details
     Appointment Shows Details    2021-06-03    11:15:00    Tonya Combs    Fillings
     Appointment Details Does Not Show Extra Notes
 
+# UC6 (only one possible path)
 Staff View Appointment Details
     [Documentation]    Test that staff can view appointment details. Test with two arbirtrary appointments.
     Login As Admin
@@ -146,6 +148,7 @@ Filter Is Not Displayed For Clients
     Wait Until Element Is Visible    appointment-0-time    2
     Element Should Not Be Visible    filter-input
 
+# UC9 (only one path)
 Staff Can Cancel Appointments
     Login As Admin
     Go To Appointments Page

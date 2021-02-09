@@ -61,6 +61,7 @@ Edit Appointment Fields Are Populated Correctly
     Location Should Be    ${EDIT_APPOINTMENT_URL}
     Check Appointment Data Fields    2021-06-03    10:00:00    bobb    Tonya Combs    Fillings    ${EMPTY}
 
+# UC7 path 1,2,3,4,5a,6a,7a,8a,9a,10
 Staff Can Update Appointments
     Go To Appointments Page
     Wait Until Element Is Visible    appointment-0-time    2
@@ -80,6 +81,7 @@ Staff Can Update Appointments
     Appointment Details Shows Extra Notes    Test notes
     Appointment Shows Client    Bob Buchanan
 
+# UC7 path 1,2,3,4,5a,6b
 Updating Fails When Date Is Invalid
     Go To Appointments Page
     Wait Until Element Is Visible    appointment-0-time    2
@@ -90,6 +92,7 @@ Updating Fails When Date Is Invalid
     Press Submit Button
     Dialog Shows Message    Error: Date 'foo' does not match YYYY-MM-DD format
 
+# UC7 path 1,2,3,4,5a,6a,7b
 Updating Fails When Time Is Invalid
     Go To Appointments Page
     Wait Until Element Is Visible    appointment-0-time    2
@@ -100,6 +103,7 @@ Updating Fails When Time Is Invalid
     Press Submit Button
     Dialog Shows Message    Error: Time 'foo' does not match either HH:MM:SS or HH:MM
 
+# UC7 path 1,2,3,4,5b
 Updating Fails When Username Is Not Registered
     Go To Appointments Page
     Wait Until Element Is Visible    appointment-0-time    2
@@ -110,6 +114,7 @@ Updating Fails When Username Is Not Registered
     Press Submit Button
     Dialog Shows Message    Error: No user found with username "notindb"
 
+# UC7 path 1,2,3,4,5a,6a,7a,8a,9b
 Updating Fails When New Time Would Conflict With Another Appointment
     Go To Appointments Page
     Wait Until Element Is Visible    appointment-0-time    2
@@ -121,6 +126,7 @@ Updating Fails When New Time Would Conflict With Another Appointment
     Press Submit Button
     Dialog Shows Message    Error: Time and date conflict with an existing appointment for this client
 
+# UC7 path 1,2,3,4,5a,6a,7a,8b
 Updating Fails When Client Is Changed
     Go To Appointments Page
     Wait Until Element Is Visible    appointment-0-time    2

@@ -42,6 +42,7 @@ Staff Completes Initial Registration For Client
     Element Text Should Be    register-dialog-msg    Registered ${username}.
 
 *** Test Cases ***
+# UC4 path 1,2,3,4,5a,6a,7a,8a,9,10
 Client Can Be Fully Registered
     Staff Completes Initial Registration For Client    user1
     ${token}=    Get Register Token    user1
@@ -49,6 +50,7 @@ Client Can Be Fully Registered
     Wait Until Location Is    ${LOGIN_URL}    4
     Login    user1    password1
 
+# UC4 path 1,2,3,4,5a,6b
 Completing Registration Fails If Username Is Invalid
     Staff Completes Initial Registration For Client    user2
     ${token}=    Get Register Token    user2
@@ -56,12 +58,14 @@ Completing Registration Fails If Username Is Invalid
     Wait Until Element Is Visible    confirm-dialog    2
     Element Text Should Be    confirm-dialog-msg    Invalid username/password.
 
+# UC4 path 1,2,3,4,5a,6a,7a,8b
 Completing Registration Fails If Registration Token Is Invalid
     # Initial registration completed for user2 in previous test case
     Complete Registration    user2    invalid-token    password1    password1
     Wait Until Element Is Visible    confirm-dialog    2
     Element Text Should Be    confirm-dialog-msg    Error: provided registration token is invalid
 
+# UC4 path 1,2,3,4,5b
 Completing Registration Fails If Passwords Do Not Match
     # Initial registration completed for user2 in a previous test case
     ${token}=    Get Register Token    user2
@@ -71,6 +75,7 @@ Completing Registration Fails If Passwords Do Not Match
     # Confirm we stayed on the complete registration page
     Location Should Be    ${COMPLETE_REGISTRATION_URL}
 
+# UC4 path 1,2,3,4,5a,6a,7b
 Completing Registration Fails If User Does Not Have Incomplete Registration Status
     # bobb is already fully registered
     Complete Registration    bobb    we-have-no-token    password1    password1

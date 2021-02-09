@@ -14,6 +14,7 @@ Suite Setup
     Open Browser    ${LOGIN_URL}    ${BROWSER}    service_log_path=${{os.path.devnull}}
 
 *** Test Cases ***
+# UC2 (only one possible path)
 Logout
     # Log in
     Login As Admin

@@ -48,6 +48,7 @@ Invalid Login Should Fail
     Element Text Should Be  login-err-msg   Username or password is incorrect.
 
 *** Test Cases ***
+# UC1 path 1,2,3,4a,5,6
 Valid Login Should Succeed
     Go To Login Page
     Input Username    ${VALID USER}
@@ -55,6 +56,7 @@ Valid Login Should Succeed
     Submit Credentials
     Home Page Should Be Open
 
+# UC1 path 1,2,3,4b
 Invalid Login Tests
     [Template]  Invalid Login Should Fail
     invalid         invalid

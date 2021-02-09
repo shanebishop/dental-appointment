@@ -43,6 +43,7 @@ Data On Clients Page Is Displayed Correctly
     Element Text Should Be    client|key=ruthm|name=first_name    Ruth
     Element Text Should Be    client|key=ruthm|name=last_name    Murray
 
+# UC11 (only one possible path)
 Staff Can View Client Profile
     Go To Clients Page
     Wait Until Element Is Visible    client|key=bobb|name=username    2
@@ -59,4 +60,3 @@ Staff Can View Client Profile
     Element Attribute Value Should Be    city   value    Ottawa
     Element Attribute Value Should Be    province    value    Ontario
     Element Attribute Value Should Be    postalCode    value    K1P 5G8
-

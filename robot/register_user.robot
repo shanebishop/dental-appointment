@@ -25,6 +25,7 @@ Setup
 Register User Page Can Be Accessed
     Go To Register User Page
 
+# UC3 path 1,2,3,4,5a,6a,7,8,9
 Staff Can Register A New Client User
     Go To Register User Page
     Enter User Registration Data    John    Doe    john.doe    john@company.com    1234 Main St.    22    Toronto    Ontario    A1A 1A1
@@ -35,6 +36,7 @@ Staff Can Register A New Client User
     Wait Until Element Is Visible    register-dialog    40
     Element Text Should Be    register-dialog-msg    Registered john.doe.
 
+# UC3 path 1,2,3,4,5b
 Username Cannot Be Reused
     Go To Register User Page
     Enter User Registration Data    John    Doe    john.doe    john@company.com    1234 Main St.    22    Toronto    Ontario    A1A 1A1
@@ -42,6 +44,7 @@ Username Cannot Be Reused
     Wait Until Element Is Visible    register-dialog    1
     Element Text Should Be    register-dialog-msg    Error: username john.doe taken
 
+# UC3 path 1,2,3,4,5a,6b
 Staff Are Prevented From Entering An Invalid Postal Code
     Go To Register User Page
     Enter User Registration Data    John    Smith    john.smith    johns@company.com    1234 Main St.    22    Toronto    Ontario    A1A 1A12
@@ -49,6 +52,7 @@ Staff Are Prevented From Entering An Invalid Postal Code
     Wait Until Element Is Visible    register-dialog    1
     Element Text Should Be    register-dialog-msg    Error: postalCode exceeds max length
 
+# UC3 path 1,2,3,4,5a,6b
 Address 1 Value Cannot Be Too Long
     Go To Register User Page
     Enter User Registration Data    John    Smith    john.smith    johns@company.com    ogzsgqbgenhwhyezrquwiokvcnkcihmuiombdwzyqcherqrgolthiazuiutzhkzcalgeqbjuopfglfuvweajfsnyqyjqgflazonqlsvpfidytlpawyrrinmoekivkmpjvnzfcljmdzkenakevzckdotrbyeopddautcvspdnvuhciemhmguddfqejbjdzfbbjpnkvmmog    22    Toronto    Ontario    A1A 1A1
@@ -56,6 +60,7 @@ Address 1 Value Cannot Be Too Long
     Wait Until Element Is Visible    register-dialog    1
     Element Text Should Be    register-dialog-msg    Error: address1 exceeds max length
 
+# UC3 path 1,2,3,4,5a,6b
 Address 2 Value Cannot Be Too Long
     Go To Register User Page
     Enter User Registration Data    John    Smith    john.smith    johns@company.com    1234 Main St.    ierigkyrcrzyvsvbwdhpdfgvbexwswicimgtsdoqwntggqrsmgrhjsjkhnfvoqwhtbpjxpkrzrpythdbtqeluworputyilowgusxgpmslmefokboppqbkksthybyiwgwmxvsfnmncglkiyxcrhglzmwomkkcqnwujdsnzpfudpyskanubofuqpfwmqrdjjjdzmkjofdvi    Toronto    Ontario    A1A 1A1
@@ -63,6 +68,7 @@ Address 2 Value Cannot Be Too Long
     Wait Until Element Is Visible    register-dialog    1
     Element Text Should Be    register-dialog-msg    Error: address2 exceeds max length
 
+# UC3 path 1,2,3,4,5a,6b
 City Value Cannot Be Too Long
     Go To Register User Page
     Enter User Registration Data    John    Smith    john.smith    johns@company.com    1234 Main St.    22    yeifdcopytmkwxnivbhqijbczmtawynsgihhhkxwfdifiihzajicngdgytkdwsgtewairlonljduhusfo    Ontario    A1A 1A1

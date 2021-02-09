@@ -26,6 +26,7 @@ Contact Information Is Not Displayed For Admin User
     Element Text Should Be    display-name-lbl    Display name: admin
     Element Should Not Be Visible    contact-info-card
 
+# UC10 (only one possible path)
 Contact Information Is Displayed For Client
     Login As Client    bobb    bobb
     Go To Profile Page
