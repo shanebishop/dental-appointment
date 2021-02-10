@@ -191,8 +191,9 @@ be uniquely identified.
 .PP
 Section 5 provides details on testing. Sections 5.1 and 5.2 give a deep
 drive on the frontend testing and backend testing, respectively. Section
-5.3 explains how acceptance test files were organized, and which
-acceptance test files provide tests for which use cases. Section 5.4
+5.3 explains how acceptance test files were organized, which
+acceptance test files provide tests for which use cases, and provides
+details on the concurrent test in Robot Framework. Section 5.4
 provides commands for locating all test files based on testing type.
 .PP
 Section 6 gives an in-depth discussion and comparison of Robot Framework
@@ -967,6 +968,44 @@ _
 There is no cucumber feature for UC2 because it would be difficult to
 verify the deletion of browser cookies with native Selenium without the
 Robot Framework Selenium keywords.
+\#
+.HEADING 3 NAMED concurrent_tests "Concurrent Acceptance Test"
+.PP
+There is one acceptance test for a concurrent operation. The test was written
+only in Robot Framework for simplicity. The file with this test is
+.PDF_WWW_LINK https://github.com/shanebishop/dental-appointment/blob/master/robot/concurrent_create_appointment.robot SUFFIX . "concurrent_create_appointment.robot"
+The \*[cod]Create Appointments Concurrently\*[codx] Robot Framework keyword is
+implemented in
+.PDF_WWW_LINK https://github.com/shanebishop/dental-appointment/blob/master/robot/CustomHelpers/Appointments.py "Appointments.py"
+Python file with the \*[cod]create_appointments_concurrently()\*[codx] function.
+.PP
+The purpose of this test is to ensure that, even with concurrent create
+appointment requests, only one appointment will be created if the appointments
+are for the same date, time, and client. If two appointment requests are sent
+with the same date, time, and client, one request should be successful, and the
+other request should be unsuccessful. For the unsuccessful request, the response
+should have the appropriate error message.
+.PP
+Since, with concurrent operations, the execution order is non-deterministic, the
+Robot Framework test case executes the
+\*[cod]Create Appointments Concurrently\*[codx] keyword multiple times to
+hopefully cause both possible orderings to occur.
+.PP
+The \*[cod]create_appointments_concurrently()\*[codx] function creates a
+\*[cod]ThreadPoolExecutor\*[codx] for multithreading. Then the helper
+\*[cod]_create_appointment()\*[codx] function is executed in two threads. The
+helper function makes the actual request to the backend server.
+.PP
+Once both requests have completed and responses have been received, there are
+assertions to verify correctness. Firstly, there is a check that there are
+exactly two responses. Next, there is a check that one request had a success
+status code response, and that the other request has an error status code. These
+two assertions are performed with Python's \*[cod]in\*[codx] operator to avoid being
+concerned which of the two requests succeeded or failed. Next, again using the
+\*[cod]in\*[codx] operator, there are assertions to check there is one success
+response message and one error message. The assertion for the error message
+specifically checks that the error message indicates a time and date conflict
+for the client.
 \#
 .HEADING 2 NAMED test_files "Test Files"
 .PP
