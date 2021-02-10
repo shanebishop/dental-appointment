@@ -1,4 +1,8 @@
 #!/usr/bin/env sh
+#
+# Runs cucumber acceptance tests.
+# To only run a specific feature file, provide the path to the feature file
+# as the first argument to this script.
 
 # First, cd to cucumber so the setup.cfg and evironment.py are in
 # the working directory

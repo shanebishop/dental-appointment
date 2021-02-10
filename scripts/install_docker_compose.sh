@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
+#
+# A script to install Docker and docker-compose on an Ubuntu system.
 set -ex
 
 DOCKER_COMPOSE_VERSION='1.27.4'

@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
+#
+# Shell script to reset database.
 set -e
 
 RESET_PY_SCRIPT="${1:-scripts/reset_database.py}"

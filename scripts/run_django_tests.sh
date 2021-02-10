@@ -1,4 +1,8 @@
 #!/usr/bin/env sh
+#
+# Runs Django/API tests.
+# To only run a file's tests, provide the path to the feature file
+# as the first argument to this script.
 set -x
 
 if [ -n "$1" ]; then

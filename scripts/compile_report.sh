@@ -1,4 +1,7 @@
 #!/usr/bin/env sh
+#
+# Compiles report using groff (specifically the pdfmom wrapper around groff.)
+# For more details, see report/README.md.
 
 [ -f "$HOME/pdf-link.tmac" ] || cp pdf-link.tmac "$HOME"
 
