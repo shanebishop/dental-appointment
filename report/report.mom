@@ -216,7 +216,7 @@ provides commands for locating all test files based on testing type.
 .PP
 .PDF_LINK robot_cucumber "Section *"
 gives an in-depth discussion and comparison of Robot Framework
-and Cucumber as two competing testing tools.
+and cucumber as two competing testing tools.
 \#
 .HEADING 1 NAMED technologies "Tools and Technologies"
 .PP
@@ -241,7 +241,7 @@ JavaScript testing framework.
 .PP
 React is a free, open source JavaScript library initially developed by
 Facebook, and now maintained by Facebook and the React community. React
-is centered around rendering to the browser's
+is centered around rendering to the browser\[cq]s
 .PDF_WWW_LINK https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model "DOM (Document Object Model)"
 using React components.
 .PP
@@ -251,7 +251,7 @@ on the state of a component. Components are re-rendered on every state
 change. For performance, React intelligently only re-renders parts of the
 DOM that were affected by a state change. With this automatic re-rendering,
 a page can be responsive to user interaction without a full page reload.
-React webapps can "react" to users, hence where the library's name came
+React webapps can "react" to users, hence where the library\[cq]s name came
 from.
 .PP
 A notable feature of React is JSX. JSX is an extension of the JavaScript
@@ -287,13 +287,13 @@ tests for the backend are written using this built-in testing framework.
 .PP
 The Django framework was written by web developers, for web developers. It
 is a free and open source framework. Django was designed to be fast,
-secure, and scalable. Much of the nitty-gritty low level details of a
+secure, and scalable. Much of the nitty-gritty low-level details of a
 web backend are handled behind the scenes by Django. Django allows for, and
 encourages, writing clean, pythonic, high level code.
 .PP
 Another great strength of Django is that it handles all database details
 for the developer. The developer is not required to write any database
-queries by hand. All database details are abstracted away by Django's
+queries by hand. All database details are abstracted away by Django\[cq]s
 .PDF_WWW_LINK https://docs.djangoproject.com/en/3.1/topics/db/models/ SUFFIX . models
 All interactions with models are expressed directly in Python, and then
 Django handles constructing and executing the equivalent database queries.
@@ -386,7 +386,7 @@ Python implementation of cucumber. It may be useful to read the
 .PDF_WWW_LINK https://behave.readthedocs.io/en/stable/tutorial.html "behave tutorial"
 before reading the step definitions for this project. All step definitions
 can be found in the \*[cod]cucumber/features/steps\*[codx] directory of
-this project's source code.
+this project\[cq]s source code.
 .PP
 Since cucumber does not provide assertions natively (in any implementation
 language), the
@@ -475,10 +475,10 @@ T{
 Flow of events
 T}@1. Staff member selects "Register Client"
 ^@2. System displays page for adding a new client
-^@3. Staff member enters the new client's information, including
+^@3. Staff member enters the new client\[cq]s information, including
 ^@name, address, email, and phone number
 ^@4. Staff member submits the client information
-^@5. System adds the client's information to the database
+^@5. System adds the client\[cq]s information to the database
 ^@6. System sends an email to the new client to complete their
 ^@registration
 _
@@ -501,7 +501,7 @@ Participating actor(s)@Dental client
 _
 T{
 Precondition(s)
-T}@The dental client's information has been added to the system by
+T}@The dental client\[cq]s information has been added to the system by
 ^@a dental staff member; the client received an email to complete
 ^@registration
 _
@@ -666,7 +666,7 @@ _
 T{
 Flow of events
 T}@1. Client navigates to Profile page
-^@2. System displays the client's profile
+^@2. System displays the client\[cq]s profile
 _
 .TE
 .FLOAT OFF
@@ -692,7 +692,7 @@ Flow of events
 T}@1. Staff member navigates to Clients page
 ^@2. System displays all clients
 ^@3. Staff member selects a client
-^@4. System displays the client's profile
+^@4. System displays the client\[cq]s profile
 _
 .TE
 .FLOAT OFF
@@ -829,7 +829,7 @@ documentation pages:
 As stated in
 .PDF_LINK technologies_backend SUFFIX , "\[sc]*"
 the API tests for the backend were written using
-Django's built-in testing framework. This built-in framework is further
+Django\[cq]s built-in testing framework. This built-in framework is further
 augmented by the Django REST framework library, which includes Python
 classes that allows for tests to be more expressed more clearly and
 concisely.
@@ -844,15 +844,15 @@ and
 .CODE OFF
 \*[cod]APIClient\*[codx] is simply an HTTP client for making HTTP
 requests. Responses can be analyzed for correctness. The
-\*[cod]APITestCase\*[codx] class is a subclass of Django's
+\*[cod]APITestCase\*[codx] class is a subclass of Django\[cq]s
 .CODE
 .PDF_WWW_LINK https://docs.djangoproject.com/en/3.1/topics/testing/tools/#testcase TestCase
 .CODE OFF
 class where each instance of the class has a
 \*[cod]APIClient\*[codx] instance.
 .PP
-Django's \*[cod]TestCase\*[codx] class is itself a subclass of
-Python's built-in
+Django\[cq]s \*[cod]TestCase\*[codx] class is itself a subclass of
+Python\[cq]s built-in
 .CODE
 .PDF_WWW_LINK https://docs.python.org/3/library/unittest.html#unittest.TestCase unittest.TestCase
 .CODE OFF
@@ -925,7 +925,7 @@ the helper function is omitted here for simplicity). Then the valid data
 is sent to the URL for registering users using an HTTP POST request. The
 HTTP response is stored in the \*[cod]response\*[codx] variable.
 .PP
-Next, there is an assert to test that the response's status code is the
+Next, there is an assert to test that the response\[cq]s status code is the
 HTTP 200 status code. If the assert fails, this test function would be
 marked as failed, and no further assertions in the body of this function
 would be executed.
@@ -1019,7 +1019,7 @@ Once both requests have completed and responses have been received, there are
 assertions to verify correctness. Firstly, there is a check that there are
 exactly two responses. Next, there is a check that one request had a success
 status code response, and that the other request has an error status code. These
-two assertions are performed with Python's \*[cod]in\*[codx] operator to avoid being
+two assertions are performed with Python\[cq]s \*[cod]in\*[codx] operator to avoid being
 concerned which of the two requests succeeded or failed. Next, again using the
 \*[cod]in\*[codx] operator, there are assertions to check there is one success
 response message and one error message. The assertion for the error message
@@ -1030,7 +1030,7 @@ for the client.
 .PP
 This section explains how to find all the test files for each set of tests
 for this project. All commands must be run in a UNIX shell. All commands,
-except for the \*[cod]git clone\*[codx] command, must be in the project's
+except for the \*[cod]git clone\*[codx] command, must be in the project\[cq]s
 root directory.
 .PP
 To clone the Git repository, run
@@ -1133,7 +1133,7 @@ Here \*[cod]Scenario Outline\*[codx] indicates that this is a scenario
 outline. The \*[cod]Examples\*[codx] table contains the data to be used to
 be used to execute the scenario outline. The first line of the examples
 is the names of each column of data. These names correspond to strings in
-the scenario outline's steps within angle brackets. In the case of this
+the scenario outline\[cq]s steps within angle brackets. In the case of this
 example, entries in the \*[cod]username\*[codx] column will be substituted for
 the string \*[cod]<username>\*[codx] in the steps above, and the same will
 be done for the \*[cod]password\*[codx] column. For more details about
@@ -1291,7 +1291,7 @@ other programming languages (see
 .PP
 Using regex to parse arguments to steps provides an advantages in
 strongly typed languages, as then arguments can automatically be parsed to
-the required types for each step's implementation.
+the required types for each step\[cq]s implementation.
 \#
 .HEADING 2 NAMED cucumber_disadvantages "Disadvantages of Cucumber"
 .PP
