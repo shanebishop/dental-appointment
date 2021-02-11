@@ -174,29 +174,48 @@ solutions for automated acceptance testing
 .HEADING 2 NAMED sections_intro "Report Sections"
 .PP
 Following this introduction, this report has the following sections:
-Section 3 Tools and Technologies, Section 4 Use Cases, Section 5 Testing,
-and Section 6 Comparing and Contrasting Robot Framework and Cucumber.
+.PDF_LINK technologies "Section *"
+Tools and Technologies,
+.PDF_LINK use_cases "Section *"
+Use Cases,
+.PDF_LINK testing "Section *"
+Testing,
+and
+.PDF_LINK robot_cucumber "Section *"
+Comparing and Contrasting Robot Framework and Cucumber.
 .PP
-Section 3 introduces all of the software tools, technologies, and languages
+.PDF_LINK technologies "Section *"
+introduces all of the software tools, technologies, and languages
 used for both testing and development. Each subsection gives an overview of
 the technologies used for the corresponding aspect of the project. These
 overviews are very brief, with the exception of some further detail on
 Django and React, since these technologies play a larger role in the
 project.
 .PP
-Section 4 details the use cases. Section 4.2 uses UML activity diagrams to
+.PDF_LINK use_cases "Section *"
+details the use cases.
+.PDF_LINK use_case_activity_diagrams "Section *"
+uses UML activity diagrams to
 model all possible "paths" through each use case. The arrows in each
 activity diagram are labeled so that all "paths" through each use case can
 be uniquely identified.
 .PP
-Section 5 provides details on testing. Sections 5.1 and 5.2 give a deep
-drive on the frontend testing and backend testing, respectively. Section
-5.3 explains how acceptance test files were organized, which
+.PDF_LINK testing "Section *"
+provides details on testing.
+.PDF_LINK testing_frontend "Section *"
+and
+.PDF_LINK testing_backend "Section *"
+give a deep
+drive on the frontend testing and backend testing, respectively.
+.PDF_LINK testing_acceptance "Section *"
+explains how acceptance test files were organized, which
 acceptance test files provide tests for which use cases, and provides
-details on the concurrent test in Robot Framework. Section 5.4
+details on the concurrent test in Robot Framework.
+.PDF_LINK test_files "Section *"
 provides commands for locating all test files based on testing type.
 .PP
-Section 6 gives an in-depth discussion and comparison of Robot Framework
+.PDF_LINK robot_cucumber "Section *"
+gives an in-depth discussion and comparison of Robot Framework
 and Cucumber as two competing testing tools.
 \#
 .HEADING 1 NAMED technologies "Tools and Technologies"
@@ -678,7 +697,7 @@ _
 .TE
 .FLOAT OFF
 \#
-.HEADING 2 "Use Case Activity Diagrams"
+.HEADING 2 NAMED use_case_activity_diagrams "Use Case Activity Diagrams"
 .PP
 This section has the activity diagrams for each use case. Each activity
 diagram has a one-to-one mapping to a use case. Each arrow in each
