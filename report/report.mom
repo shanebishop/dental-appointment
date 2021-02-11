@@ -324,7 +324,7 @@ The full online Django documentation can be found
 The database uses the
 .PDF_WWW_LINK https://www.postgresql.org/ "PostgreSQL"
 relational database management system.
-However, the Django framework used in the backend abstracts away all of the
+However, as described above, the Django framework used in the backend abstracts away all of the
 details of PostgreSQL (or any alternative database management system), which
 means no actual PostgreSQL code was written "by hand" for this project.
 .HEADING 2 NAMED technologies_deployment "Deployment"
@@ -373,7 +373,12 @@ written directly in Robot Framework syntax using a syntax very close to
 natural language.
 .PP
 This is only a high level overview of Robot Framework. More details will
-be discussed later in this report. This report does not attempt to cover
+be discussed later in this report
+(see
+.PDF_LINK testing_acceptance "\[sc]*"
+and
+.PDF_LINK robot_cucumber SUFFIX ")." "\[sc]*"
+This report does not attempt to cover
 Robot Framework in full detail. To learn more about Robot Framework,
 consult its
 .PDF_WWW_LINK https://robotframework.org/#documentation SUFFIX . "documentation"
@@ -752,7 +757,7 @@ functions.
 The \*[cod]describe()\*[codx] function simply provides a short
 description of all of the tests inside it. Each \*[cod]it()\*[codx] and
 \*[cod]test()\*[codx] constitutes a single test case. Test cases usually
-have one or more assertion. Assertions are provided using
+have one or more assertions. Assertions are provided using
 \*[cod]expect\*[codx]s. The full set of assertions provided by Jest can be
 found
 .PDF_WWW_LINK https://jestjs.io/docs/en/expect SUFFIX . "here"
@@ -813,7 +818,7 @@ For full-fledged examples of mocking with Jest, see
 .PDF_WWW_LINK https://github.com/shanebishop/dental-appointment/blob/master/frontend/src/pages/pages/Appointments.test.js Appointments.test.js
 and
 .PDF_WWW_LINK https://github.com/shanebishop/dental-appointment/blob/master/frontend/src/routes/index.test.js index.test.js
-in the GitHub repository for this project. See also following Jest
+in the GitHub repository for this project. See also the following Jest
 documentation pages:
 .LIST
 .SHIFT_LIST 2P+2p
@@ -831,7 +836,7 @@ As stated in
 the API tests for the backend were written using
 Django\[cq]s built-in testing framework. This built-in framework is further
 augmented by the Django REST framework library, which includes Python
-classes that allows for tests to be more expressed more clearly and
+classes that allows for tests to be expressed more clearly and
 concisely.
 .PP
 The two Django REST framework classes used in the API tests are
@@ -951,7 +956,7 @@ cucumber scenarios provide test coverage for which use cases.
 Note that all Robot Framework files are under the \*[cod]robot\*[codx]
 directory, and all cucumber feature files are under the
 \*[cod]cucumber/features\*[codx] directory.
-.FLOAT
+.FLOAT FORCE
 .TS BOXED LABEL "Table 11: Which Robot Framework and cucumber files correspond to which use cases"
 tab(@);
 lB lB lB,
@@ -994,7 +999,7 @@ There is one acceptance test for a concurrent operation. The test was written
 only in Robot Framework for simplicity. The file with this test is
 .PDF_WWW_LINK https://github.com/shanebishop/dental-appointment/blob/master/robot/concurrent_create_appointment.robot SUFFIX . "concurrent_create_appointment.robot"
 The \*[cod]Create Appointments Concurrently\*[codx] Robot Framework keyword is
-implemented in
+implemented in the
 .PDF_WWW_LINK https://github.com/shanebishop/dental-appointment/blob/master/robot/CustomHelpers/Appointments.py "Appointments.py"
 Python file with the \*[cod]create_appointments_concurrently()\*[codx] function.
 .PP
@@ -1080,7 +1085,7 @@ or more "steps". In Robot Framework, each test suite consists of one or
 more "test cases". The Robot Framework documentation does not appear to
 have a particular term for each line in a test case. Each line in a test
 case consists of a keyword and its arguments.
-.HEADING 2 NAMED scenario_outline_vs_template "Robot Framework's Templates versus cucumber's Scenario Outlines
+.HEADING 2 NAMED scenario_outline_vs_template "Robot Framework\[cq]s Templates versus cucumber\[cq]s Scenario Outlines
 .PP
 Robot Framework and cucumber have different ways of defining tests that
 run for multiple data values. In Robot Framework these are called
@@ -1148,7 +1153,7 @@ languages. The table below shows which cucumber implementations are
 official (i.e., hosted under the
 .PDF_WWW_LINK https://github.com/cucumber SUFFIX ")," "GitHub Cucumber organization"
 semi-official, unofficial, or unmaintained as of the time of writing.
-.FLOAT
+.FLOAT FORCE
 .TS BOXED LABEL "Table 12: Languages Supported by Cucumber"
 tab(@);
 lB lB lB lB,
@@ -1214,7 +1219,7 @@ managed within test cases, which can allow keywords to be stateless.
 For more details on variables, see the
 .PDF_WWW_LINK http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#variables SUFFIX . "Variables section of the Robot Framework user guide"
 .PP
-Robot Framework supports the for loop control structure. This allows test authors to write looping code in a nearly
+Robot Framework supports the for loop control flow structure. This allows test authors to write looping code in a nearly
 natural language syntax, as the conditional expressions and bodies of the
 control structures are written in a natural language such as English. For
 details on using for loops in Robot Framework, see the
@@ -1237,7 +1242,7 @@ additional keywords. The built-in keywords and library keywords, as with
 any other Robot Framework keywords, can be used to create higher-level
 user-defined keywords. The rich set of keywords available for use allows
 testers to be very productive, as they do not need to spend any time
-reinventing the wheel. The testers also don't need to be considered with
+reinventing the wheel. The testers also do not need to be considered with
 the added complexity and issues of maintaining their own custom helper
 implementations for driving tests.
 \#
@@ -1263,18 +1268,17 @@ plugin rather than an official plugin, and/or the plugin may have bugs or
 not correctly apply syntax highlighting to new syntax available in the
 latest Robot Framework release.
 .PP
-In the default log level, the line number of the keyword a test case
+With the default log level, the line number of the keyword a test case
 fails on is not displayed in the console output. Instead, only the error
 message for the failing keyword is printed, without any context other
 than knowing which test case failed. Knowing the line number of the
 keyword that caused the test case to fail would
-considerably speed up the time required to debug a failing test case.
+considerably speed up the process of debugging a failing test case.
 \#
 .HEADING 2 NAMED cucumber_advantages "Advantages of Cucumber"
 .PP
-Cucumber is actively supported, open source, and free to use and
-extend. Cucumber is also a very popular testing framework for acceptance
-and behaviour driven testing.
+Cucumber is actively supported, open source, and free to use. Cucumber is also a very popular testing framework for acceptance
+and behaviour-driven testing and development.
 .PP
 Tests can be written in plain English (or in other natural languages),
 which allow tests to be both read and written by non-technical members of a
@@ -1313,7 +1317,7 @@ feature need its own custom setup or teardown operations.
 With cucumber, state must be managed between individual steps. State management
 can be done using classes (for object-oriented languages) or using contexts
 (for non-object-oriented languages). However, the introduction of state
-makes writing and debugging cucumber steps much more complicated then
+makes writing and debugging cucumber steps much more complicated than
 when the steps are stateless. Of course, the person writing the cucumber
 scenarios and steps can try to design them to be stateless, but sometimes
 this is impossible, and then they must resort to managing state. At the
@@ -1325,15 +1329,15 @@ State management can lead to either bugs that need to be fixed
 (increasing the time required to write the scenarios), and may also tempt
 step programmers to resort to global or global-like variables to share the
 state across the various steps. If the programmers resort to using global
-or global-like variables, then this may make the steps less modular and
-less maintainable.
+or global-like variables, then this may make the steps less modular, less
+reusable, and less maintainable.
 .PP
 Cucumber has no built-in steps or libraries for common use. This means all
 steps must be written by the project members themselves. If the cucumber
 tests are very extensive and complex, the code for the steps might have
 a great deal of helper code, or perhaps even its own modules and libraries
 custom-developed for the project. In the worst case, then these test
-libraries themselves need their own tests.
+libraries themselves are large and complex enough to merit their own tests.
 .PP
 Cucumber has no built-in assertions. Assertions are necessary for testing,
 as they provide a way to verify that the system under test behaves as
