@@ -74,13 +74,26 @@ def create_appointments_concurrently(auth_token, appointments_list_api_url):
         results = executor.map(fn, [data, data], timeout=30)
         results = list(results)
 
-        assert len(results) == 2
-        status_codes = [r.status_code for r in results]
-        messages = [r.json()['message'] for r in results]
-        assert 201 in status_codes
-        assert 400 in status_codes
-        assert 'Appointment created' in messages
-        assert 'Error: Time and date conflict with an existing appointment for this client' in messages
+    # Assert there are only two responses
+    assert len(results) == 2
+
+    # Get list of status codes and response messages
+    status_codes = [r.status_code for r in results]
+    messages = [r.json()['message'] for r in results]
+
+    # Assert there are expected status codes
+    assert 201 in status_codes
+    assert 400 in status_codes
+
+    # Get message corresponding to each status code
+    message_for_201_response = messages[status_codes.index(201)]
+    message_for_400_response = messages[status_codes.index(400)]
+
+    # Assert messages are correct
+    assert 'Appointment created' in message_for_201_response
+    assert ('Error: Time and date conflict with '
+            'an existing appointment '
+            'for this client') in message_for_400_response
 
 
 def _create_appointment(auth_token, appointments_list_api_url, data):

@@ -1015,21 +1015,135 @@ Robot Framework test case executes the
 \*[cod]Create Appointments Concurrently\*[codx] keyword multiple times to
 hopefully cause both possible orderings to occur.
 .PP
-The \*[cod]create_appointments_concurrently()\*[codx] function creates a
-\*[cod]ThreadPoolExecutor\*[codx] for multithreading. Then the helper
-\*[cod]_create_appointment()\*[codx] function is executed in two threads. The
-helper function makes the actual request to the backend server.
+Below is the code for \*[cod]create_appointments_concurrently()\*[codx], with
+comments removed to save space.
+.FLOAT FORCE
+.QUOTE
+.CODE
+def create_appointments_concurrently(
+    auth_token, appointments_list_api_url
+):
+    from concurrent.futures.thread import ThreadPoolExecutor
+    from functools import partial
+
+    data = {
+        'date': '2021-07-03',
+        'time': '12:00:00',
+        'client': 'bobb',
+        'hygienist': 'Sabrina Hess',
+        'operation': 'Filling',
+        'extra_notes': ''
+    }
+
+    with ThreadPoolExecutor() as executor:
+        fn = partial(_create_appointment, auth_token,
+                     appointments_list_api_url)
+        results = executor.map(fn, [data, data], timeout=30)
+        results = list(results)
+
+    assert len(results) == 2
+    status_codes = [r.status_code for r in results]
+    messages = [r.json()['message'] for r in results]
+
+    assert 201 in status_codes
+    assert 400 in status_codes
+
+    message_for_201_response = messages[status_codes.index(201)]
+    message_for_400_response = messages[status_codes.index(400)]
+
+    assert 'Appointment created' in message_for_201_response
+    assert ('Error: Time and date conflict with '
+            'an existing appointment '
+            'for this client') in message_for_400_response
+.QUOTE OFF
+.FLOAT OFF
 .PP
-Once both requests have completed and responses have been received, there are
-assertions to verify correctness. Firstly, there is a check that there are
-exactly two responses. Next, there is a check that one request had a success
-status code response, and that the other request has an error status code. These
-two assertions are performed with Python\[cq]s \*[cod]in\*[codx] operator to avoid being
-concerned which of the two requests succeeded or failed. Next, again using the
-\*[cod]in\*[codx] operator, there are assertions to check there is one success
-response message and one error message. The assertion for the error message
-specifically checks that the error message indicates a time and date conflict
-for the client.
+Now the code for the \*[cod]create_appointments_concurrently()\*[codx] function
+will be broken down and explained.
+.PP
+First, the data for the requests is initialized, and local imports are made, as
+below:
+.FLOAT FORCE
+.QUOTE
+.CODE
+from concurrent.futures.thread import ThreadPoolExecutor
+from functools import partial
+
+data = {
+    'date': '2021-07-03',
+    'time': '12:00:00',
+    'client': 'bobb',
+    'hygienist': 'Sabrina Hess',
+    'operation': 'Filling',
+    'extra_notes': ''
+}
+.QUOTE OFF
+.FLOAT OFF
+.PP
+Next, a \*[cod]ThreadPoolExecutor\*[codx] is created for multithreading. Then
+the helper \*[cod]_create_appointment()\*[codx] function is executed in two
+threads. The helper function makes the actual request to the backend server.
+This is done in the lines below:
+.FLOAT FORCE
+.QUOTE
+.CODE
+with ThreadPoolExecutor() as executor:
+    fn = partial(_create_appointment, auth_token,
+                 appointments_list_api_url)
+    results = executor.map(fn, [data, data], timeout=30)
+    results = list(results)
+.QUOTE OFF
+.FLOAT OFF
+.PP
+Once the code above has executed, both requests have completed and responses
+have been received. The responses are in the \*[cod]results\*[codx] list. Now
+assertions can be made to verify correctness.
+.PP
+First, there is a check that there are exactly two responses:
+.QUOTE
+.CODE
+assert len(results) == 2
+.QUOTE OFF
+.PP
+Next the HTTP status codes and messages from the backend are extracted from
+the responses:
+.QUOTE
+.CODE
+status_codes = [r.status_code for r in results]
+messages = [r.json()['message'] for r in results]
+.QUOTE OFF
+.PP
+There are two assertions to verify that there is one success status code and
+one error status code. These two assertions are performed with Python\[cq]s
+\*[cod]in\*[codx] operator to avoid being concerned with whether it was the
+first or second request that succeeded or failed, as below:
+.QUOTE
+.CODE
+assert 201 in status_codes
+assert 400 in status_codes
+.QUOTE OFF
+.PP
+Next the message corresponding to each response is retrieved:
+.QUOTE
+.CODE
+message_for_201_response = messages[status_codes.index(201)]
+message_for_400_response = messages[status_codes.index(400)]
+.QUOTE OFF
+.PP
+Finally, there are assertions to verify the messages match the expected messages
+for each response, based on the status codes:
+.FLOAT FORCE
+.QUOTE
+.CODE
+assert 'Appointment created' in message_for_201_response
+assert ('Error: Time and date conflict with '
+        'an existing appointment '
+        'for this client') in message_for_400_response
+.QUOTE OFF
+.FLOAT OFF
+.PP
+If any assertion fails, the \*[cod]Create Appointments Concurrently\*[codx]
+keyword would fail.
 \#
 .HEADING 2 NAMED test_files "Test Files"
 .PP
