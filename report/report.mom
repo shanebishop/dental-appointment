@@ -206,7 +206,7 @@ provides details on testing.
 and
 .PDF_LINK testing_backend "Section *"
 give a deep
-drive on the frontend testing and backend testing, respectively.
+dive on the frontend testing and backend testing, respectively.
 .PDF_LINK testing_acceptance "Section *"
 explains how acceptance test files were organized, which
 acceptance test files provide tests for which use cases, and provides
