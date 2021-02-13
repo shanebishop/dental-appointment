@@ -151,6 +151,22 @@ clients can only view their own appointments and cannot edit their
 appointments. Dental staff can edit and view appointments for all clients,
 but clients can only view their own appointments. Only dental staff can
 cancel appointments.
+.PP
+New dental clients are registered by dental staff. Dental clients are initially
+registered by a dental staff member with their contact information. Once the
+dental staff member has been registered, the dental client is in a partially
+registered state. An email is automatically sent to the new dental client with
+details on how to
+complete their registration. To complete their registration, the dental client
+must access the dental appointments website and choose a password. Once this is
+done, the dental client is fully registered. Dental clients will be unable to
+login to the dental appointments website until they have completed registration,
+however, they can still make appointments with the dental clinic as an only
+partially registered user. The only requirement to make appointments is to be
+partially registered by a dental staff member.
+.PP
+For more details on system use cases, see
+.PDF_LINK use_cases SUFFIX . "\[sc]*"
 .HEADING 2 NAMED goals "Project Objectives"
 .PP
 This project has the following objectives:
@@ -235,7 +251,7 @@ documentation.
 .PP
 The frontend is written in JavaScript using the
 .PDF_WWW_LINK https://reactjs.org/ "React"
-library. Unit tests for the react code were written using the
+library. Unit tests for the React code were written using the
 .PDF_WWW_LINK https://jestjs.io/ "Jest"
 JavaScript testing framework.
 .PP
@@ -254,7 +270,7 @@ a page can be responsive to user interaction without a full page reload.
 React webapps can "react" to users, hence where the library\[cq]s name came
 from.
 .PP
-A notable feature of React is JSX. JSX is an extension of the JavaScript
+A notable feature of React is JSX (JavaScript XML). JSX is an extension of the JavaScript
 language syntax that permits developers to write psuedo-HTML for how each
 React component will render. For more information, see
 .PDF_WWW_LINK https://reactjs.org/docs/introducing-jsx.html SUFFIX . "the documentation"
@@ -299,7 +315,7 @@ All interactions with models are expressed directly in Python, and then
 Django handles constructing and executing the equivalent database queries.
 One huge benefit of this approach is that the database management system
 (DBMS) used in a project can be swapped out without requiring any change to the
-python code \[en] Django will automatically construct appropriate queries
+Python code \[en] Django will automatically construct appropriate queries
 for the new DBMS at runtime.
 .PP
 The Django REST framework is a natural extension to native Django, with the
@@ -329,7 +345,7 @@ details of PostgreSQL (or any alternative database management system), which
 means no actual PostgreSQL code was written "by hand" for this project.
 .HEADING 2 NAMED technologies_deployment "Deployment"
 .PP
-The system is spun up using Docker and \*[cod]docker-compose\*[codx].
+The system is launched using Docker and \*[cod]docker-compose\*[codx].
 .PP
 .PDF_WWW_LINK https://www.docker.com/ "Docker"
 is a container technology that allows for running an application
@@ -1302,7 +1318,7 @@ Framework. The framework and its official libraries are well-documented.
 .PP
 Tests can be written in plain English (or in other natural languages),
 which allow tests to be both read and written by non-technical members of a
-project. Tests can also be easily read and understood by clients if clients
+project. Tests can also be easily read and understood by clients, if clients
 are involved in acceptance testing. Tests can be written in plaintext
 without any markup (although Robot Framework is whitespace sensitive,
 which has both advantages and disadvantages). This means tests can be
@@ -1354,7 +1370,7 @@ Beyond any user-defined keywords, Robot Framework also has built-in
 keywords, and several official Robot Framework libraries that provide
 additional keywords. The built-in keywords and library keywords, as with
 any other Robot Framework keywords, can be used to create higher-level
-user-defined keywords. The rich set of keywords available for use allows
+user-defined keywords. The rich set of keywords allows
 testers to be very productive, as they do not need to spend any time
 reinventing the wheel. The testers also do not need to be considered with
 the added complexity and issues of maintaining their own custom helper
@@ -1373,7 +1389,7 @@ cannot be written using Robot Framework.
 Robot Framework is whitespace-sensitive. Arguments to keywords must be
 separated by at least two characters of whitespace. Empty strings must be
 specified with the special \*[cod]${EMPTY}\*[codx] variable. Whitespace
-within arguments must be escaped.
+within arguments must be escaped, if the whitespace is more than one space.
 .PP
 Although relatively popular, Robot Framework is not as popular as cucumber.
 Syntax highlighting and support for Robot Framework in most text editors
@@ -1396,7 +1412,7 @@ and behaviour-driven testing and development.
 .PP
 Tests can be written in plain English (or in other natural languages),
 which allow tests to be both read and written by non-technical members of a
-project. Tests can also be easily read and understood by clients if clients
+project. Tests can also be easily read and understood by clients, if clients
 are involved in acceptance testing. Tests can be written in plaintext
 without any markup. This means tests can be
 read and written by any text editor on any platform, and tests can be
