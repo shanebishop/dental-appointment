@@ -115,6 +115,9 @@ Thank you to James Chychota for exposing me to Django,
 My initial exposure to these technologies greatly facilitated my ability to
 learn more about and develop with these technologies while working on this
 project.
+.PP
+Thanks to my mother, Letitia Neave, and my sister, Kayla Bishop, for
+proofreading this report.
 .NEWPAGE
 \#
 .HEADING 1 NAMED intro "Introduction"
@@ -130,7 +133,7 @@ a programming background with a working knowledge of software testing and
 software quality assurance. Readers should be familiar with the Python and
 JavaScript programming languages.
 .PP
-All source code developed to complete this projected is hosted in a Git
+All source code developed to complete this project is hosted in a Git
 repository on GitHub. To request access to the repository,
 email Shane Bishop at shanebishop@cmail.carleton.ca.
 .HEADING 2 NAMED system_description "System Description"
@@ -780,7 +783,8 @@ found
 .PP
 Jest provides multiple ways to provide mocks. Mocks can be provided for
 both JavaScript functions and classes. Full documentation for mocking
-JavaScript ES6 classes can be accessed
+.PDF_WWW_LINK https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes "JavaScript ES6 classes"
+can be accessed
 .PDF_WWW_LINK https://jestjs.io/docs/en/es6-class-mocks SUFFIX . "here"
 In this project, only some of these mocking methods were employed.
 .PP
@@ -1266,7 +1270,7 @@ Scenario Outline: Invalid login tests
 .FLOAT OFF
 Here \*[cod]Scenario Outline\*[codx] indicates that this is a scenario
 outline. The \*[cod]Examples\*[codx] table contains the data to be used to
-be used to execute the scenario outline. The first line of the examples
+execute the scenario outline. The first line of the examples
 is the names of each column of data. These names correspond to strings in
 the scenario outline\[cq]s steps within angle brackets. In the case of this
 example, entries in the \*[cod]username\*[codx] column will be substituted for
@@ -1423,7 +1427,7 @@ programming languages, and unofficially supports implementing steps in some
 other programming languages (see
 .PDF_LINK robot_cucumber_supported SUFFIX ")." "\[sc]*"
 .PP
-Using regex to parse arguments to steps provides an advantages in
+Using regex to parse arguments to steps provides an advantage in
 strongly typed languages, as then arguments can automatically be parsed to
 the required types for each step\[cq]s implementation.
 \#
