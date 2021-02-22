@@ -856,7 +856,7 @@ As stated in
 the API tests for the backend were written using
 Django\[cq]s built-in testing framework. This built-in framework is further
 augmented by the Django REST framework library, which includes Python
-classes that allows for tests to be expressed more clearly and
+classes that allow for tests to be expressed more clearly and
 concisely.
 .PP
 The two Django REST framework classes used in the API tests are
@@ -1376,7 +1376,7 @@ additional keywords. The built-in keywords and library keywords, as with
 any other Robot Framework keywords, can be used to create higher-level
 user-defined keywords. The rich set of keywords allows
 testers to be very productive, as they do not need to spend any time
-reinventing the wheel. The testers also do not need to be considered with
+reinventing the wheel. The testers also do not need to be concerned with
 the added complexity and issues of maintaining their own custom helper
 implementations for driving tests.
 \#
@@ -1459,7 +1459,7 @@ time of writing, cucumber offers no features to assist with state
 management, so all state management must be done by the person programming
 the steps.
 .PP
-State management can lead to either bugs that need to be fixed
+State management can lead to bugs that need to be fixed
 (increasing the time required to write the scenarios), and may also tempt
 step programmers to resort to global or global-like variables to share the
 state across the various steps. If the programmers resort to using global
