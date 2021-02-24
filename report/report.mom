@@ -157,7 +157,7 @@ cancel appointments.
 .PP
 New dental clients are registered by dental staff. Dental clients are initially
 registered by a dental staff member with their contact information. Once the
-dental staff member has been registered, the dental client is in a partially
+dental client has been registered, the dental client is in a partially
 registered state. An email is automatically sent to the new dental client with
 details on how to
 complete their registration. To complete their registration, the dental client
@@ -224,8 +224,7 @@ provides details on testing.
 .PDF_LINK testing_frontend "Section *"
 and
 .PDF_LINK testing_backend "Section *"
-give a deep
-dive on the frontend testing and backend testing, respectively.
+give in-depth discussions on the frontend testing and backend testing, respectively.
 .PDF_LINK testing_acceptance "Section *"
 explains how acceptance test files were organized, which
 acceptance test files provide tests for which use cases, and provides
@@ -239,7 +238,7 @@ and cucumber as two competing testing tools.
 \#
 .HEADING 1 NAMED technologies "Tools and Technologies"
 .PP
-The Dental Appointments system is a full-stack webapp, consisting of a
+The Dental Appointment system is a full-stack webapp, consisting of a
 frontend, backend server, and database. Each layer of the application has
 its own tests as appropriate for the language or framework being used for
 that layer. This section will describe all of the tools and technologies
@@ -274,7 +273,7 @@ React webapps can "react" to users, hence where the library\[cq]s name came
 from.
 .PP
 A notable feature of React is JSX (JavaScript XML). JSX is an extension of the JavaScript
-language syntax that permits developers to write psuedo-HTML for how each
+language syntax that allows developers to write psuedo-HTML for how each
 React component will render. For more information, see
 .PDF_WWW_LINK https://reactjs.org/docs/introducing-jsx.html SUFFIX . "the documentation"
 .PP
@@ -324,7 +323,7 @@ for the new DBMS at runtime.
 The Django REST framework is a natural extension to native Django, with the
 same strengths as native Django. With the concept of
 .PDF_WWW_LINK https://www.django-rest-framework.org/api-guide/views/ SUFFIX , views
-the Django REST framework permits developers to write very little code to
+the Django REST framework allows developers to write very little code to
 produce APIs for various data models.
 .PP
 The Django framework was chosen for this project because it is free,
@@ -436,7 +435,7 @@ lIT l, ^.
 _
 Use Case Identifier@UC1
 _
-Title@Login
+Title@User logs in
 _
 Participating actor(s)@Dental staff member or client
 _
@@ -446,7 +445,7 @@ Parameters@Username, password
 _
 T{
 Flow of events
-T}@1. System prompts for username and password
+T}@1. System prompts the user for their username and password
 ^@2. User submits their username and password
 ^@3. System logs the user in
 ^@4. User is redirected to homepage
@@ -462,7 +461,7 @@ lIT l, ^.
 _
 Use Case Identifier@UC2
 _
-Title@Logout
+Title@User logs out
 _
 Participating actor(s)@Dental staff member or client
 _
@@ -487,7 +486,7 @@ lIT l, ^.
 _
 Use Case Identifier@UC3
 _
-Title@Add new client
+Title@Staff member adds new client
 _
 Participating actor(s)@Dental staff member
 _
@@ -519,7 +518,7 @@ lIT l, ^.
 _
 Use Case Identifier@UC4
 _
-Title@Client registration
+Title@Client completes registration
 _
 Participating actor(s)@Dental client
 _
@@ -536,7 +535,7 @@ Flow of events
 T}@1. Client clicks on the link to complete registration in their
 ^@email
 ^@2. Client enters their username, desired password, and the
-^@regisration token they were provided in the email
+^@registration token they were provided in the email
 ^@3. System redirects the client to the Login page
 _
 .TE
@@ -550,7 +549,7 @@ lIT l, ^.
 _
 Use Case Identifier@UC5
 _
-Title@Client view appointment
+Title@Client views appointment
 _
 Participating actor(s)@Dental client
 _
@@ -576,7 +575,7 @@ lIT l, ^.
 _
 Use Case Identifier@UC6
 _
-Title@Staff member view appointment
+Title@Staff member views appointment
 _
 Participating actor(s)@Dental staff member
 _
@@ -601,7 +600,7 @@ lIT l, ^.
 _
 Use Case Identifier@UC7
 _
-Title@Staff member edit appointment
+Title@Staff member edits appointment
 _
 Participating actor(s)@Dental staff member
 _
@@ -627,7 +626,7 @@ lIT l, ^.
 _
 Use Case Identifier@UC8
 _
-Title@Staff member create appointment
+Title@Staff member creates appointment
 _
 Participating actor(s)@Dental staff member
 _
@@ -654,7 +653,7 @@ lIT l, ^.
 _
 Use Case Identifier@UC9
 _
-Title@Staff member cancel appointment
+Title@Staff member cancels appointment
 _
 Participating actor(s)@Dental staff member
 _
@@ -679,7 +678,7 @@ lIT l, ^.
 _
 Use Case Identifier@UC10
 _
-Title@Client view profile
+Title@Client views profile
 _
 Participating actor(s)@Dental client
 _
@@ -703,7 +702,7 @@ lIT l, ^.
 _
 Use Case Identifier@UC11
 _
-Title@Staff member view profile
+Title@Staff member views profile
 _
 Participating actor(s)@Dental staff member
 _
