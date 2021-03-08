@@ -46,7 +46,7 @@ set -e
 
 if [ $curl_rc -ne 0 ]; then
     echo 'The frontend cannot be accessed.'
-    echo 'Have you started the portal with "docker-compose -f docker-compose.dev.yml up -d"?'
+    echo 'Have you started the system with "docker-compose up -d"?'
     exit 1
 fi
 
