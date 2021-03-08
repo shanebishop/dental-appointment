@@ -56,3 +56,10 @@ To run the JavaScript unit tests, run:
 ```
 scripts/run_js_tests.sh
 ```
+
+## Demo videos
+
+I have created a set of demo videos that demonstrate how to install and run the
+testing tools used by this project. All of the demo videos have been uploaded
+to YouTube. The YouTube playlist can be accessed here:
+https://www.youtube.com/watch?v=RXVGOk78Gks&list=PLqUxa5zwzzMkxRA0b32BNfCoZTKU3wgYR

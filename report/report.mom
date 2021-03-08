@@ -52,6 +52,23 @@
 .HEADER_RIGHT "Implementing and Testing a Dentistry Appointment System"
 .HEADER_RIGHT_CAPS OFF
 \#
+\# Setup dates
+\# Usage: \*[DY]
+.ds MONTH1 January
+.ds MONTH2 February
+.ds MONTH3 March
+.ds MONTH4 April
+.ds MONTH5 May
+.ds MONTH6 June
+.ds MONTH7 July
+.ds MONTH8 August
+.ds MONTH9 September
+.ds MONTH10 October
+.ds MONTH11 November
+.ds MONTH12 December
+.ds MO \E*[MONTH\n[mo]]
+.ds DY \*[MO] \n[dy], \n[year]
+\#
 .DOC_COVERTEXT
 .ALD 1.5i
 .CENTER
@@ -65,7 +82,7 @@ Shane Bishop
 .SP
 Supervisor: Jean-Pierre Corriveau
 .SP 3
-April 23, 2021
+\*[DY]
 .SP 3
 COMP 4905 \[en] Honours Project
 .SP 4
