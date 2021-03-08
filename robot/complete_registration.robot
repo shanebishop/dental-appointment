@@ -21,7 +21,7 @@ Complete Registration
     [Arguments]    ${username}    ${token}    ${password}    ${confirm_password}
     Go To    ${COMPLETE_REGISTRATION_URL}
     Location Should Be    ${COMPLETE_REGISTRATION_URL}
-    Wait Until Element Is Visible    username    2
+    Wait Until Element Is Visible    username    3
     Input Text    username    ${username}
     Input Text    register-token       ${token}
     Input Text    password    ${password}
