@@ -1,4 +1,4 @@
-Django==3.0.8
+Django==3.2.24
 psycopg2-binary==2.8.5
 flake8==3.8.3
 pytest==5.4.3
